@@ -1,2 +1,2 @@
 # TFG
-Grupo de Olga y Edward
+Grupo de Olga, Antonio y Edward.
