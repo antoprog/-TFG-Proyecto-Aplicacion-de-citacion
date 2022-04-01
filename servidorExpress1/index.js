@@ -4,6 +4,7 @@ const connectBBDD = require('./db');
 var bodyParser = require('body-parser');
 const DatoSchema = require('./DatoSchema');
 const NombreSchema = require('./Nombres');
+var cors = require('cors')
 
 app.listen(4343, () => {
   console.log("Servidor online.")
@@ -11,6 +12,8 @@ app.listen(4343, () => {
 
 
 connectBBDD();
+
+app.use(cors());
 
 // create application/json parser
 var jsonParser = bodyParser.json()
@@ -38,7 +41,6 @@ app.get('/todos', async (req, res) => {
   }
 })
 
-
 app.get('/uno/:nr', async (req, res) => {
   try {
     const dat = await DatoSchema.findOne({ "nombre": req.params.nr });
@@ -55,9 +57,9 @@ app.get('/uno/:nr', async (req, res) => {
 // Parametro: AR // Resultado -> Alvaro, Carlos, Oscar, Eduardo...
 app.get('/unos/:nombre', async (req, res) => {
   try {
-    const dat = await NombreSchema.find({"name": new RegExp(req.params.nombre.toUpperCase())});
-    console.log(dat)
-    res.send(dat)
+   const dat = await NombreSchema.find({"name": new RegExp(req.params.nombre.toUpperCase())});
+    res.send(JSON.stringify(dat))
+    console.log(JSON.stringify(dat))
   } catch (error) {
     console.log(error)
   }

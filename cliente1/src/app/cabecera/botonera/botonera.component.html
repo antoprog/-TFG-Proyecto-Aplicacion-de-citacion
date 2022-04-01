@@ -25,9 +25,14 @@
         </li>
       </ul>
       <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Buscar paciente" aria-label="Search">
+        <input id="inputValor" class="form-control me-2" type="search" placeholder="Buscar paciente" aria-label="Search" (keydown)="buscarCliente()">
         <button class="btn btn-outline-success" type="submit">Buscar</button>
       </form>
     </div>
   </div>
 </nav>
+<table>
+  <tr *ngFor="let item of listaNombres">
+    <td></td>
+  </tr>
+</table>
