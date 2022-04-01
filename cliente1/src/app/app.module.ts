@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BotoneraComponent } from './cabecera/botonera/botonera.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BotoneraComponent
   ],
   imports: [
     BrowserModule,
