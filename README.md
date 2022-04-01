@@ -1,2 +1,2 @@
 # TFG
-Grupo de Olga, Antonio y Edward
+Rama de Eduard
