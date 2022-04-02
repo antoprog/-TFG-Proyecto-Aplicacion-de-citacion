@@ -24,14 +24,14 @@
           </ul>
         </li>
       </ul>
-      <input class="form-control me-2 awesomplete" type="search"  aria-label="Search" (input)="buscarCliente()" [(ngModel)]="nombreCliente"
-      autocomplete="on">
+      <input class="form-control me-2 awesomplete" type="search"  aria-label="Search" (input)="buscarCliente()" [(ngModel)]="nombreCliente">
     </div>
   </div>
 </nav>
-
+<br>
 <table>
   <tr *ngFor="let item of nombres">
     <td>{{ item }}</td>
   </tr>
 </table>
+
