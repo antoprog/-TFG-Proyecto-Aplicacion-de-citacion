@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NavbarClientesService} from "../../servicios/navbar-clientes.service";
 
 @Component({
@@ -6,21 +6,23 @@ import {NavbarClientesService} from "../../servicios/navbar-clientes.service";
   templateUrl: './botonera.component.html',
   styleUrls: ['./botonera.component.css']
 })
-export class BotoneraComponent implements OnInit {
-
-  nombreCliente = "Fernando Perez Martinez";
-
+export class BotoneraComponent {
   constructor(private servicio: NavbarClientesService) {
   }
 
-  ngOnInit(): void {
-  }
-
-  listaNombres:string[] = [];
+  nombreCliente = "";
+  nombres: any = [];
 
   buscarCliente() {
-    this.servicio.getNombreClientes().subscribe(nombre => {
-      console.log(nombre.toString())
-    })
+    if (this.nombreCliente != '' && this.nombreCliente.length > 2) {
+      this.servicio.getDatos(this.nombreCliente).subscribe(nombre => {
+        this.nombres = [];
+        nombre.forEach((element: any) => {
+          this.nombres.push(element.name);
+        });
+      })
+    } else {
+      this.nombres = [];
+    }
   }
 }

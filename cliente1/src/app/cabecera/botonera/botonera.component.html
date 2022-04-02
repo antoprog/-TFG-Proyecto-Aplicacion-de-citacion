@@ -24,15 +24,14 @@
           </ul>
         </li>
       </ul>
-      <form class="d-flex">
-        <input id="inputValor" class="form-control me-2" type="search" placeholder="Buscar paciente" aria-label="Search" (keydown)="buscarCliente()">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
-      </form>
+      <input class="form-control me-2 awesomplete" type="search"  aria-label="Search" (input)="buscarCliente()" [(ngModel)]="nombreCliente"
+      autocomplete="on">
     </div>
   </div>
 </nav>
+
 <table>
-  <tr *ngFor="let item of listaNombres">
-    <td></td>
+  <tr *ngFor="let item of nombres">
+    <td>{{ item }}</td>
   </tr>
 </table>

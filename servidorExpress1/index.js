@@ -56,10 +56,10 @@ app.get('/uno/:nr', async (req, res) => {
 // Ejemplo:
 // Parametro: AR // Resultado -> Alvaro, Carlos, Oscar, Eduardo...
 app.get('/unos/:nombre', async (req, res) => {
+  console.log(req.params.nombre)
   try {
    const dat = await NombreSchema.find({"name": new RegExp(req.params.nombre.toUpperCase())});
-    res.send(JSON.stringify(dat))
-    console.log(JSON.stringify(dat))
+    res.send(dat)
   } catch (error) {
     console.log(error)
   }
