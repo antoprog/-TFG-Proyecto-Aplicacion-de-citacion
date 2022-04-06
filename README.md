@@ -1,2 +1,2 @@
 # TFG
-Rama de Eduard
+Rama principal
