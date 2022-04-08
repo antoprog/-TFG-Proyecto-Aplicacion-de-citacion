@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {NavbarClientesService} from "../../../servicios/navbar-clientes.service";
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 @Component({
   selector: 'app-botonera',
@@ -7,22 +8,34 @@ import {NavbarClientesService} from "../../../servicios/navbar-clientes.service"
   styleUrls: ['./botonera.component.css']
 })
 export class BotoneraComponent {
-  constructor(private servicio: NavbarClientesService) {
-  }
+  constructor(private servicio: NavbarClientesService) {}
 
   nombreCliente = "";
-  nombres: any = [];
+  data :any;
 
-  buscarCliente() {
-    if (this.nombreCliente != '' && this.nombreCliente.length > 2) {
-      this.servicio.getDatos(this.nombreCliente).subscribe(nombre => {
-        this.nombres = [];
+  buscarCliente(val:any) {
+    if (val.length > 2) {
+      this.servicio.getDatos(val).subscribe((nombre) => {
+        this.data = [];
         nombre.forEach((element: any) => {
-          this.nombres.push(element.name);
+          this.data.push(element.name);
         });
       })
     } else {
-      this.nombres = [];
+      this.data = [];
     }
   }
+
+  selectEvent(item:any) {
+    // do something with selected item
+  }
+
+  onChangeSearch(val: string) {
+    this.buscarCliente(val);
+  }
+
+  onFocused(e:any){
+    // do something when input is focused
+  }
+
 }

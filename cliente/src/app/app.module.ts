@@ -8,6 +8,7 @@ import { BotoneraComponent } from './componentes/cabecera/botonera/botonera.comp
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { PieComponent } from './componentes/pie/pie.component';
 import { MenuConsultaComponent } from './componentes/cuerpo/menu/menu-consulta/menu-consulta.component';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MenuConsultaComponent } from './componentes/cuerpo/menu/menu-consulta/m
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AutocompleteLibModule
   ],
   providers: [],
   bootstrap: [AppComponent]

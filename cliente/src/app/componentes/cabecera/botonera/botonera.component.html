@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-  <!--  <a class="navbar-brand" href="#">{{ nombreCliente }}</a> -->
+    <a class="navbar-brand" href="#">Nombre</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -24,14 +24,25 @@
           </ul>
         </li>
       </ul>
-      <input class="form-control me-2 awesomplete" type="search"  aria-label="Search" (input)="buscarCliente()" [(ngModel)]="nombreCliente">
+      <div class="ng-autocomplete">
+        <ng-autocomplete
+          [data]="data"
+          placeholder="Buscar cliente"
+          (selected)='selectEvent($event)'
+          (inputChanged)='onChangeSearch($event)'
+          (inputFocused)='onFocused($event)'
+          [itemTemplate]="itemTemplate"
+          [notFoundTemplate]="notFoundTemplate">
+        </ng-autocomplete>
+
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item"></a>
+        </ng-template>
+
+        <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+        </ng-template>
+      </div>
     </div>
   </div>
 </nav>
-<br>
-<table>
-  <tr *ngFor="let item of nombres">
-    <td>{{ item }}</td>
-  </tr>
-</table>
-
