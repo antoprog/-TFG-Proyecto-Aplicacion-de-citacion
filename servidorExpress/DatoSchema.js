@@ -61,7 +61,6 @@ const DatosSchema = mongoose.Schema({
                         procedencia:{type: String},
                         fecha_inicio:{type: Date},
                         fecha_alta:{type: Date},
-                        procedencia:{type: String},
                         psicologo:{type:String},
                         motivo_consulta:{type:String},
                         sintomas:{type:String},
