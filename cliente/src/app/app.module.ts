@@ -4,30 +4,24 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BotoneraComponent } from './cabecera/botonera/botonera.component';
+import { BotoneraComponent } from './componentes/cabecera/botonera/botonera.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { ClienteAutocompletarComponent } from './cabecera/cliente-autocompletar/cliente-autocompletar.component';
-import {MatNativeDateModule} from '@angular/material/core';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import {MatInputModule} from "@angular/material/input";
+import { PieComponent } from './componentes/pie/pie.component';
+import { MenuConsultaComponent } from './componentes/cuerpo/menu/menu-consulta/menu-consulta.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BotoneraComponent,
-    ClienteAutocompletarComponent,
+    PieComponent,
+    MenuConsultaComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MatAutocompleteModule,
-    MatInputModule
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

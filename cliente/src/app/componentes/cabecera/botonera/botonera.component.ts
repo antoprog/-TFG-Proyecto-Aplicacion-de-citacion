@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavbarClientesService} from "../../servicios/navbar-clientes.service";
+import {NavbarClientesService} from "../../../servicios/navbar-clientes.service";
 
 @Component({
   selector: 'app-botonera',
