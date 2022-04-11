@@ -11,13 +11,7 @@ const DatosSchema = mongoose.Schema({
         email: {type: String},
         direccion: [
             {
-                tipo_calle:{type: String},
                 calle:{type: String},
-                numero:{type: Number},
-                bloque:{type: String},
-                escalera:{type: String},
-                piso:{type: String},
-                letra:{type: String},
                 cod_postal:{type: String},
                 ciudad:{ type: String},
                 provincia:{ type: String},
@@ -28,7 +22,8 @@ const DatosSchema = mongoose.Schema({
             }
         ],
         aseguradora: [{type: String}],
-        numeroHistoria:{type: String},
+        company:{type: String},
+        numero_historia:{type: String},
         contacto:[
             {
                 nombre: {type: String},
@@ -38,8 +33,8 @@ const DatosSchema = mongoose.Schema({
                 acion_usu:{type: String}
             }
         ],
-        permisoGrabacion:{type:Boolean},
-        firmaProteccionDatos:{type:Boolean},
+        permiso_grabacion:{type:Boolean},
+        firma_proteccion_datos:{type:Boolean},
         historial:[
             {
                 antecendentes:[{
@@ -56,7 +51,7 @@ const DatosSchema = mongoose.Schema({
                         acion_usu:{type: String}
                     }]
                 }],
-                consulta:[
+                valoracion:[
                     {
                         procedencia:{type: String},
                         fecha_inicio:{type: Date},
@@ -67,20 +62,11 @@ const DatosSchema = mongoose.Schema({
                         usu:{type: String},
                         f_usu:{type: Date},
                         acion_usu:{type: String},
-                        diagnostico_psicologico:[
-                            {
-                                diagnostico:{type: String},
-                                fechaDiagnostico:{type:Date},
-                                observaciones_personales:{type: String},
-                                usu:{type: String},
-                                f_usu:{type: Date},
-                                acion_usu:{type: String}
-                            }
-                        ],          
+                               
                         diagnostico_medico:[
                             {
-                                patologiaMedica:{type:String} ,
-                                fechaDiagnostico:{type:Date},
+                                patologia_medica:{type:String} ,
+                                fecha_diagnostico:{type:Date},
                                 tratamiento:[{
                                     medicamento:{type:String} ,
                                     fechaInicio:{type:Date},
@@ -99,7 +85,7 @@ const DatosSchema = mongoose.Schema({
                             },
                         ],
                         
-                        valoraciones: [
+                        test_diagnosticos: [
                             {   
                                 cognitiva:[{
                                     fecha_valoracion:{type:Date},
@@ -126,6 +112,16 @@ const DatosSchema = mongoose.Schema({
                             }
                     
                         ],
+                        diagnostico_psicologico:[
+                            {
+                                diagnostico:{type: String},
+                                fecha_diagnostico:{type:Date},
+                                observaciones_personales:{type: String},
+                                usu:{type: String},
+                                f_usu:{type: Date},
+                                acion_usu:{type: String}
+                            }
+                        ],   
                         seguimiento: [
                             {   
                                 fecha_cita:{type:Date},
