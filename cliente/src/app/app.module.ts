@@ -8,6 +8,8 @@ import { BotoneraComponent } from './componentes/cabecera/botonera/botonera.comp
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { PieComponent } from './componentes/pie/pie.component';
 import { MenuConsultaComponent } from './componentes/cuerpo/menu/menu-consulta/menu-consulta.component';
+import { AltaPacienteComponent } from './componentes/cuerpo/contenido/alta-paciente/alta-paciente.component';
+import { DatoVacioDirective } from './compartido/datoNoPermitido..directive';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { MenuConsultaComponent } from './componentes/cuerpo/menu/menu-consulta/m
     BotoneraComponent,
     PieComponent,
     MenuConsultaComponent,
+    AltaPacienteComponent,
+    DatoVacioDirective,
   ],
   imports: [
     BrowserModule,
