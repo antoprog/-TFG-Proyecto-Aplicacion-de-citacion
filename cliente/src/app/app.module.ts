@@ -15,7 +15,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     AppComponent,
     BotoneraComponent,
     PieComponent,
-    MenuConsultaComponent,
+    MenuConsultaComponent
   ],
   imports: [
     BrowserModule,
