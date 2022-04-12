@@ -18,47 +18,37 @@ export class AltaPacienteComponent implements OnInit {
     {tipo:"PIVADO"},
     {tipo:"COMPAÑIA"},
     {tipo:"JUDICIAL"},
-  ];
-  insClienteForm = this.fb.group({
-    nombre:['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-Z ]*')]],
+  ]; 
+  insClienteForm=this.fb.group({
+    nombre:['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-Z ]*')]],//agregar ñ y acentos
     apellido1:['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-Z ]*')]],
     apellido2:['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-Z ]*')]],
     tipo_doc:[[Validators.required]],
-    documentoDni:['',[Validators.required, Validators.pattern(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
-    documentoNie:['',[Validators.required, Validators.pattern(/^[XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
+    documentoDni:['',[Validators.pattern(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
+    documentoNie:['',[Validators.pattern(/^[XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
     fecha_nacimiento:['',[Validators.required]],
     telefono:['',[Validators.required,Validators.pattern('^((\\+91-?)|0)?[0-9]{9}$')]],
     email:['',[Validators.required,Validators.email]],
-    domicilio: new FormArray([],[Validators.required]),
+    calle: ['', [Validators.required],Validators.pattern('/^[0-9]{5}$/')],
+    cod_postal:['', [Validators.required]],
+    ciudad: ['', [Validators.required]],
+    provincia:['', [Validators.required]],
+    pais: ['España'],
     aseguradora:[[Validators.required]],
-    company:['',[Validators.required]]
-  }); 
- 
-  //TODO: Iniciar el formulario hijo 
-  initFormDomicilio(): FormGroup {
-    return new FormGroup({
-      calle: new FormControl('', [Validators.required]),
-      cod_postal: new FormControl('', [Validators.required]),
-      ciudad: new FormControl('', [Validators.required]),
-      provincia: new FormControl('', [Validators.required]),
-      pais: new FormControl('', [Validators.required]),
-    });
-  }
-  //TODO: Agregar nuevo domicilio en form 
-  adddomicilio(): void {
-    let refDireccion = this.insClienteForm.get('domicilio') as FormArray;
-    refDireccion.push(this.initFormDomicilio());
-  }
-  //TODO: Obtener referencia a un formControl
-  getCtrl(key: string, form: FormGroup): any {
-    return form.get(key);
-  }
-  
+    company:[''],
+    nombreContacto:['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-Z ]*')]],
+    telefonoContacto:['',[Validators.required,Validators.pattern('^((\\+91-?)|0)?[0-9]{9}$')]],
+    permisoGrabacion:[false],
+    firmaProteccionDatos:[false,[Validators.required]]
+  })  
+
   //constructor
-  constructor(private fb: FormBuilder) { 
-    this.adddomicilio()
+  constructor(private fb: FormBuilder) {
   }
 
+  ngOnInit(): void {
+    
+  }
   //funcion de envio
   onSubmit() {
     console.log(this.insClienteForm.value);
@@ -91,33 +81,6 @@ export class AltaPacienteComponent implements OnInit {
     return 'invalid'
   }
 
-  
-  ngOnInit(): void {
-    this.loadData()
-  }
-  loadData(): void {
-    const data = {
-     
-      domicilio: [
-        {
-          calle: '',
-          cod_postal: '',
-          ciudad: '',
-          provincia: '',
-          pais: '', 
-        },
-       
-      ],
-    };
-
-    //TODO: Primero creamos el esqueleto del formulario vacio y luego lo llenamos!
-    for (const _ of data.domicilio) {
-      this.adddomicilio();
-    }
-
-    //TODO: Puedes comentar la siguiente funcion y se debe armar el numero de skill vacio
-    this.insClienteForm.patchValue(data);
-  }
   //funcion de paginacion
 /**   sumar(){
     if (!this.insClienteForm.invalid){
