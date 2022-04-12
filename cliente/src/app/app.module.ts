@@ -9,13 +9,15 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { PieComponent } from './componentes/pie/pie.component';
 import { MenuConsultaComponent } from './componentes/cuerpo/menu/menu-consulta/menu-consulta.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { MenuPacienteComponent } from './componentes/cuerpo/menu-paciente/menu-paciente.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BotoneraComponent,
     PieComponent,
-    MenuConsultaComponent
+    MenuConsultaComponent,
+    MenuPacienteComponent
   ],
   imports: [
     BrowserModule,
