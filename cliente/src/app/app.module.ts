@@ -8,14 +8,17 @@ import { BotoneraComponent } from './componentes/cabecera/botonera/botonera.comp
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { PieComponent } from './componentes/pie/pie.component';
 import { MenuConsultaComponent } from './componentes/cuerpo/menu/menu-consulta/menu-consulta.component';
-import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { AltaPacienteComponent } from './componentes/cuerpo/contenido/alta-paciente/alta-paciente.component';
+import { DatoVacioDirective } from './compartido/datoNoPermitido..directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     BotoneraComponent,
     PieComponent,
-    MenuConsultaComponent
+    MenuConsultaComponent,
+    AltaPacienteComponent,
+    DatoVacioDirective,
   ],
   imports: [
     BrowserModule,
