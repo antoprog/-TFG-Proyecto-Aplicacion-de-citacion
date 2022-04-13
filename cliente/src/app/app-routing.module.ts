@@ -4,9 +4,9 @@ import { AltaPacienteComponent } from './componentes/cuerpo/contenido/alta-pacie
 
 const routes: Routes = [
   {
-    path:"/administracion/altaPaciente",
+    path:"administracion/altaPaciente",
     component:AltaPacienteComponent
-    
+
   }
 ];
 

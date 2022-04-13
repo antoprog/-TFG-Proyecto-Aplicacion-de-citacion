@@ -48,8 +48,8 @@
     </span>
     <fieldset>
         <legend>DOMICILIO:</legend>
-        <label for="calle">CALLE</label><input type="text" formControlName="this.insClienteForm.controls['calle']">
-        <span *ngIf="getError('direccion.calle') as message">
+        <label for="calle">CALLE</label><input type="text" formControlName="calle">
+        <span *ngIf="getError('calle') as message">
             <strong>{{message}}</strong>
         </span>
         <label for="cod_postal">CODIGO POSTAL</label><input type="text" formControlName="cod_postal">
