@@ -8,10 +8,12 @@ import { BotoneraComponent } from './componentes/cabecera/botonera/botonera.comp
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { PieComponent } from './componentes/pie/pie.component';
 import { MenuConsultaComponent } from './componentes/cuerpo/menu/menu-consulta/menu-consulta.component';
-import { AltaPacienteComponent } from './componentes/cuerpo/contenido/alta-paciente/alta-paciente.component';
-import { DatoVacioDirective } from './compartido/datoNoPermitido.directive';
-import {AutocompleteLibModule} from "angular-ng-autocomplete";
-import { AltaPaciente2Component } from './componentes/cuerpo/contenido/alta-paciente2/alta-paciente2.component';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { MenuPacienteComponent } from './componentes/cuerpo/menu-paciente/menu-paciente.component';
+import { AntecedentesComponent } from './componentes/cuerpo/menu-paciente/antecedentes/antecedentes.component';
+import { ConsultaComponent } from './componentes/cuerpo/menu-paciente/consulta/consulta.component';
+import { PruebasComponent } from './componentes/cuerpo/menu-paciente/pruebas/pruebas.component';
+import { InformesComponent } from './componentes/cuerpo/menu-paciente/informes/informes.component';
 
 @NgModule({
   declarations: [
@@ -19,9 +21,11 @@ import { AltaPaciente2Component } from './componentes/cuerpo/contenido/alta-paci
     BotoneraComponent,
     PieComponent,
     MenuConsultaComponent,
-    AltaPacienteComponent,
-    DatoVacioDirective,
-    AltaPaciente2Component,
+    MenuPacienteComponent,
+    AntecedentesComponent,
+    ConsultaComponent,
+    PruebasComponent,
+    InformesComponent
   ],
   imports: [
     BrowserModule,

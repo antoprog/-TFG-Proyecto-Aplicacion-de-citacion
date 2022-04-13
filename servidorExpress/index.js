@@ -9,7 +9,7 @@ const UsuarioRegistro = require('./usuario.js')
 const btoa = require('btoa');
 
 app.listen(4343, () => {
-    console.log("Servidor online.")
+    console.log("Servidor online.", 4343)
 })
 
 connectBBDD();
