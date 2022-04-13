@@ -16,9 +16,17 @@ export class AltaPaciente2Component implements OnInit {
   ngOnInit(): void {
   }
 
+  devolverDoc(){
+    if (this.miFormulario.controls['documento'].value !== ''){
+      return this.miFormulario.controls['nombre'].value;
+    }else{
+      return this.miFormulario.controls['apellido1'].value
+    }
+  }
+
   miFormulario = this.fb.group({
-    nombre: ['', [Validators.required, Validators.minLength(3)]],
-    apellido1: ['', [Validators.required, Validators.minLength(3)]],
+    nombre: [''],
+    apellido1: [''],
     calle: ['', [Validators.required]],
     cod_postal: ['', [Validators.required, Validators.min(2)]],
     psicologo: ['', [Validators.required, Validators.min(2)]],
@@ -36,7 +44,8 @@ export class AltaPaciente2Component implements OnInit {
       },
       datosMedicos: {
         valoracion: [{
-          psicologo: this.miFormulario.controls['psicologo'].value,
+          //psicologo: this.miFormulario.controls['psicologo'].value,
+          psicologo: this.devolverDoc(),
           procedencia: this.miFormulario.controls['procedencia'].value
         }]
       }

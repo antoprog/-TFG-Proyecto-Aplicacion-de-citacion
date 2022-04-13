@@ -14,6 +14,7 @@ import { AntecedentesComponent } from './componentes/cuerpo/menu-paciente/antece
 import { ConsultaComponent } from './componentes/cuerpo/menu-paciente/consulta/consulta.component';
 import { PruebasComponent } from './componentes/cuerpo/menu-paciente/pruebas/pruebas.component';
 import { InformesComponent } from './componentes/cuerpo/menu-paciente/informes/informes.component';
+import {AltaPaciente2Component} from "./componentes/cuerpo/contenido/alta-paciente2/alta-paciente2.component";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { InformesComponent } from './componentes/cuerpo/menu-paciente/informes/i
     AntecedentesComponent,
     ConsultaComponent,
     PruebasComponent,
-    InformesComponent
+    InformesComponent,
+    AltaPaciente2Component
   ],
   imports: [
     BrowserModule,
