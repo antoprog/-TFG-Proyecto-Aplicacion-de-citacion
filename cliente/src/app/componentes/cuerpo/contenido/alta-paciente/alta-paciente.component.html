@@ -1,5 +1,5 @@
 <section>
-  <form [formGroup]="insClienteForm" (ngsubmit)="onSubmit()">
+  <form [formGroup]="insClienteForm" (submit)="onSubmit()">
     <!-- <div *ngIf="pagina == 0">-->
     <label for="nombre">NOMBRE</label><input class="form-control" type="text" formControlName="nombre">
     <span *ngIf="getError('nombre') as message">
@@ -48,8 +48,8 @@
     </span>
     <fieldset>
         <legend>DOMICILIO:</legend>
-        <label for="calle">CALLE</label><input type="text" formControlName="calle">
-        <span *ngIf="getError('calle') as message">
+        <label for="calle">CALLE</label><input type="text" formControlName="this.insClienteForm.controls['calle']">
+        <span *ngIf="getError('direccion.calle') as message">
             <strong>{{message}}</strong>
         </span>
         <label for="cod_postal">CODIGO POSTAL</label><input type="text" formControlName="cod_postal">
@@ -91,7 +91,7 @@
       formControlName="firmaProteccionDatos">
 
     <!--  </div>-->
-    <button class="button" type="submit" [disabled]="!insClienteForm.valid">Guardar</button>
+    <button class="button" type="submit">Guardar</button>
   </form>
   <!--<button (click)="sumar()">Siguiente pagina</button>-->
   <div class="wrapper">
