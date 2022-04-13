@@ -1,32 +1,32 @@
 <div class="card ">
 
-    <section class="row ">
+    <section class="row " >
+        <div class="col-sm-4" >
+            <label class="may" name="paciente">Paciente: {{data.nombre}}  {{data.apellido1}} {{data.apellido2}}</label>
+            
+        </div>
         <div class="col-sm-4">
-            <label name="nombre">Nombre: {{data.nombre}}</label>
+            <label class="may" name="tipoSesion">Tipo de sesión: </label>
+            
             
         </div>
-        <div class="col-sm-3">
-            <label name="apellido1">Primer Apellido: {{data.apellido1}}</label>
-            
-        </div>
-        <div class="col-sm-3">
-            <label name="apellido2">Segundo Apellido: {{data.apellido2}}</label>
-            
-        </div>
+      
 
     </section>
     <section class="row ">
         <div class="col-sm-4">
-            <label name="edad">Edad: {{data.edad}}</label>
+            <label name="ultimaSesion">Nº Hitorial: </label>
+            
             
         </div>
         <div class="col-sm-3">
-            <label name="consentimientoGrabacion">Cons. Grabación: </label>
+            
+            Cons. Grabación: <input type="checkbox" name="consentimientoGrabacion" value="boolean" disabled>
             
         </div>
 
         <div class="col-sm-3">
-            <label name="ultimaSesion">Última sesión: </label>
+            <label name="edad">Edad: {{data.edad}}</label>
             
         </div>
         

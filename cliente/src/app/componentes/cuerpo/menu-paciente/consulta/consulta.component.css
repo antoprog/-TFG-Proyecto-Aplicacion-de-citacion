@@ -1,0 +1,84 @@
+
+/* --------Menu de consulta---------*/
+
+.form-label{
+    padding: 1%;
+}
+
+.procedencia{
+
+    margin: 1%;
+   
+
+} 
+/* controlo que el textarea estén paralelos*/
+#motivos{
+
+    display: flex;
+    width: 100% !important;
+    align-content: space-between;
+    
+
+}
+
+/* controlo los márgenes para espaciar los texarea motivos de consulta*/
+
+#motivo1{
+    margin-right: 1%;
+}
+
+#motivo2{
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+/* color y posicion del botón de enviar*/
+
+.button{
+    margin: 2%;
+    float: right;
+    color: aliceblue;
+    background-color: rgb(11, 59, 194);
+    
+    
+ }
+
+ /* control de espacio entre botones para que no queden muy pegados*/
+
+ #fecha_diagnostico{
+
+    margin-right: 2%;
+    margin-top: 3%;
+
+ }
+
+ #patología_medica{
+
+    margin-right: 2%;
+    margin-top: 3%;
+
+ }
+
+
+ #dco_medico{
+
+    display: flex;
+    width: 100% !important;
+    align-content: space-between;
+    margin-top: 3%;
+    
+
+}
+
+/* controlo los márgenes para espaciar los texarea dco_medico*/
+
+#dco_medico1{
+    margin-right: 1%;
+}
+
+#dco_medico2{
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+    

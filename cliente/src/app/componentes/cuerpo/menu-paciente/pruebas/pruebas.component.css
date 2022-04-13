@@ -1,0 +1,48 @@
+
+.enfermedad_actual{
+  margin: 1%;
+    
+
+}
+
+/* controlo que el textarea estén paralelos*/
+#prueba{
+    margin: 1%;
+    display: flex;
+    width: 100% !important;
+    align-content: space-between;
+    
+
+}
+
+/* controlo los márgenes para espaciar los texarea motivos de pruebas*/
+
+#prueba1{
+    margin-right: 1%;
+}
+
+#prueba2{
+    margin-left: 1%;
+    margin-right: 2%;
+}
+
+
+
+#prueba3 {
+    margin: 1%;
+    display: flex;
+    width: 75% !important;
+    align-content: center;
+}
+
+
+/* color y posicion del botón de enviar*/
+
+.button{
+    margin: 2%;
+    float: right;
+    color: aliceblue;
+    background-color: rgb(11, 59, 194);
+    
+    
+}

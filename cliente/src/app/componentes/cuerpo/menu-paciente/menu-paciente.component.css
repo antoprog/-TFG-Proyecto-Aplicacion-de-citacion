@@ -9,4 +9,8 @@
     line-height: 205%;
    
 }
+/* clase creada para poner la primera letra en mayuscula*/
+.may{
+    text-transform: capitalize;
+}
 
