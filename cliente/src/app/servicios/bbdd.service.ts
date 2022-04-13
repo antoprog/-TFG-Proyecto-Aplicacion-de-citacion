@@ -9,7 +9,7 @@ export class BbddService {
 
   constructor(private http:HttpClient) { }
 
-  guardar(datos:Paciente){
+  guardar(datos:any){
     console.log(datos);
     return this.http.post<Paciente>('http://localhost:4343/alta', datos);
   }

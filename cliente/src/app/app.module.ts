@@ -11,6 +11,7 @@ import { MenuConsultaComponent } from './componentes/cuerpo/menu/menu-consulta/m
 import { AltaPacienteComponent } from './componentes/cuerpo/contenido/alta-paciente/alta-paciente.component';
 import { DatoVacioDirective } from './compartido/datoNoPermitido.directive';
 import {AutocompleteLibModule} from "angular-ng-autocomplete";
+import { AltaPaciente2Component } from './componentes/cuerpo/contenido/alta-paciente2/alta-paciente2.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {AutocompleteLibModule} from "angular-ng-autocomplete";
     MenuConsultaComponent,
     AltaPacienteComponent,
     DatoVacioDirective,
+    AltaPaciente2Component,
   ],
   imports: [
     BrowserModule,
