@@ -89,7 +89,10 @@
     <label for="permisoGrabacion">PERMISO DE GRABACION</label><input type="checkbox" formControlName="permisoGrabacion">
     <label for="firmaProteccionDatos">PROTECCION DE DATOS FIRMADO</label><input type="checkbox"
       formControlName="firmaProteccionDatos">
-
+    <label for="psicologo">ASIGNAR PSCOLOGO</label>
+    <select formControlName="psicologo">
+      <option *ngFor="let p of t_psicologo" [value]="p.nombre">{{p.nombre}}</option>
+    </select>
     <!--  </div>-->
     <button class="button" type="submit">Guardar</button>
   </form>
