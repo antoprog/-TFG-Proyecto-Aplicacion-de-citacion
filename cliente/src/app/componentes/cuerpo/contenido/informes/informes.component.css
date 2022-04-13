@@ -1,0 +1,37 @@
+/* controlo que el textarea estén paralelos*/
+#informe{
+    margin: 1%;
+    display: flex;
+    width: 100% !important;
+    align-content: space-between;
+    
+
+}
+
+/* controlo los márgenes para espaciar los texarea motivos de pruebas*/
+
+#informe1{
+    margin-right: 1%;
+}
+
+#informe2{
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.proteccion_datos{
+
+    float:inline-end;
+    margin-right: 3%;
+    
+}
+
+.button{
+    margin: 2%;
+    margin-top: 5%;
+    float: right;
+    color: aliceblue;
+    background-color: rgb(11, 59, 194);
+    
+    
+ }
