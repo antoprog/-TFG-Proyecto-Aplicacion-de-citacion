@@ -4,11 +4,16 @@ import {AltaPacienteComponent} from './componentes/cuerpo/contenido/administrati
 import {MenuConsultaComponent} from "./componentes/cuerpo/menu/menu-consulta.component";
 import {AntecedentesComponent} from "./componentes/cuerpo/contenido/antecedentes/antecedentes.component";
 import {InformesComponent} from "./componentes/cuerpo/contenido/informes/informes.component";
+import { AltaPsicologoComponent } from './componentes/cuerpo/contenido/administrativo/alta-psicologo/alta-psicologo.component';
 
 const routes: Routes = [
   {
     path: "altaPaciente",
     component: AltaPacienteComponent
+  },
+  {
+    path: "altaPsicologo",
+    component: AltaPsicologoComponent
   },
   {
 

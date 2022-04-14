@@ -29,9 +29,9 @@ export class AltaPacienteComponent implements OnInit {
   ngOnInit(): void {}
 
   insClienteForm = this.fb.group({
-    nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-Z ]*')]],//agregar ñ y acentos
-    apellido1: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-Z ]*')]],
-    apellido2: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-Z ]*')]],
+    nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],//agregar ñ y acentos
+    apellido1: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
+    apellido2: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
     tipo_doc: [[Validators.required]],
     documentoDni: ['', [Validators.pattern(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
     documentoNie: ['', [Validators.pattern(/^[XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
@@ -53,10 +53,10 @@ export class AltaPacienteComponent implements OnInit {
   })
 
   devolverDoc(){
-    if (this.insClienteForm.controls['documento'].value !== ''){
-      return this.insClienteForm.controls['nombre'].value;
+    if (this.insClienteForm.controls['documentoDni'].value !== ''){
+      return this.insClienteForm.controls['documentoNie'].value;
     }else{
-      return this.insClienteForm.controls['apellido1'].value
+      return this.insClienteForm.controls['documentoDni'].value
     }
   }
 

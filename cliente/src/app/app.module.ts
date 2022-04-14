@@ -14,6 +14,7 @@ import {InformesComponent} from "./componentes/cuerpo/contenido/informes/informe
 import {ConsultaComponent} from "./componentes/cuerpo/contenido/consulta/consulta.component";
 import {AltaPacienteComponent} from "./componentes/cuerpo/contenido/administrativo/alta-paciente/alta-paciente.component";
 import {AppComponent} from "./app.component";
+import { AltaPsicologoComponent } from './componentes/cuerpo/contenido/administrativo/alta-psicologo/alta-psicologo.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {AppComponent} from "./app.component";
     ConsultaComponent,
     PruebasComponent,
     InformesComponent,
-    AltaPacienteComponent
+    AltaPacienteComponent,
+    AltaPsicologoComponent
   ],
   imports: [
     BrowserModule,

@@ -10,4 +10,5 @@ router.post('/', [authJwt.verifyToken], productCtrl.createProduct)
 router.put('/:productId', [authJwt.verifyToken], productCtrl.updateProductById)
 router.delete('/:productId', [authJwt.verifyToken] ,productCtrl.deleteProductById)
 
+
 export default router;
