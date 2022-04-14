@@ -20,6 +20,36 @@ const routes: Routes = [
         outlet: 'prueba',
         component: AntecedentesComponent
       },
+      {
+        path: 'consulta',
+        outlet: 'prueba',
+        component: ConsultaComponent
+      },
+      {
+        path: 'pruebas',
+        outlet: 'prueba',
+        component: PruebasComponent
+      },
+      {
+        path: 'seguimiento',
+        outlet: 'prueba',
+        component: SeguimientoComponent
+      },
+      {
+        path: 'informes',
+        outlet: 'prueba',
+        component: InformesComponent
+      },
+      /* {
+        path: 'facturas',
+        outlet: 'prueba',
+        component: AntecedentesComponent
+      },
+      {
+        path: 'videollamada',
+        outlet: 'prueba',
+        component: AntecedentesComponent
+      }, */
     ]
   },
 ];
