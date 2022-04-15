@@ -9,8 +9,12 @@ export class BbddService {
 
   constructor(private http:HttpClient) { }
 
-  guardar(datos:any){
+  altaPsicologo(datos:any){
     console.log(datos);
-    return this.http.post<Paciente>('http://localhost:4343/alta', datos);
+    return this.http.post('http://localhost:4001/psicologo/', datos);
+  }
+  altaPaciente(datos:any){
+    console.log(datos);
+    return this.http.post('http://localhost:4001/paciente/', datos);
   }
 }

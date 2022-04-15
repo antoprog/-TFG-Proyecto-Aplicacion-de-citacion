@@ -66,7 +66,7 @@ export class AltaPsicologoComponent implements OnInit {
         pais: this.psicologoForm.controls['pais'].value,
       },
     };
-    this.serv.guardar(datos).subscribe({
+    this.serv.altaPsicologo(datos).subscribe({
       next: value => {
         console.log(value);
       },

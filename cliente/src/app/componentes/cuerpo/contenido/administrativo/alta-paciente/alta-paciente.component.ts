@@ -92,7 +92,7 @@ export class AltaPacienteComponent implements OnInit {
         }]
       }
     };
-    this.serv.guardar(datos).subscribe({
+    this.serv.altaPaciente(datos).subscribe({
       next: value => {
         console.log(value);
       },

@@ -74,7 +74,7 @@
         </span>
         <input type="hidden" formControlName="pais" value="España">
     </fieldset>
-    <button class="button" type="submit">Guardar</button>
+    <button class="button" type="submit" [disabled]="psicologoForm.invalid">Guardar</button>
     </form>
     <div class="wrapper">
         <div><b>Es valido el fomulario?: </b>

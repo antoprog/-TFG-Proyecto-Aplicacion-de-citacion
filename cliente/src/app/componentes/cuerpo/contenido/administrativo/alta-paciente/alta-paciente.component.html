@@ -94,7 +94,7 @@
       <option *ngFor="let p of t_psicologo" [value]="p.nombre">{{p.nombre}}</option>
     </select>
     <!--  </div>-->
-    <button class="button" type="submit">Guardar</button>
+    <button class="button" type="submit" [disabled]="insClienteForm.invalid">Guardar</button>
   </form>
   <!--<button (click)="sumar()">Siguiente pagina</button>-->
   <div class="wrapper">
