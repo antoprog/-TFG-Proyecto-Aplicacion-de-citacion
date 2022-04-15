@@ -9,6 +9,6 @@ export class NavbarClientesService {
   constructor(private http: HttpClient) {}
 
   getDatos(nombre:string){
-      return this.http.get<any[]>('http://localhost:4343/unos/'+nombre);
+      return this.http.get<any[]>('http://localhost:4001/paciente/nombreNav/'+nombre);
   }
 }
