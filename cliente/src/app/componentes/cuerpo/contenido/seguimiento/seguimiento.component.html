@@ -1,0 +1,34 @@
+<form>
+    <div class="seguimiento1 mt-3 mb-3">
+        Fecha cita: <input id="fecha_cita" name="fecha_cita" type="date">
+        Hora inicio cita: <input id="inicio_cita" name="inicio_cita" type="time">
+        Hora fin cita: <input id="fin_cita" name="fin_cita" type="time"> 
+    </div>
+    <div class="form-outline mb-12" id="observaciones_cita">
+      <div class="form-outline1 w-100 mb-3" id="observaciones_cita">
+        <label class="form-label" for="observaciones_cita">Observaciones: </label>
+        <textarea class="form-control" id="observaciones_cita" rows="4"></textarea>
+      </div>
+
+      <div class="form-outline1 w-100 mb-3" id="observaciones_propias">
+        <label class="form-label" for="observaciones_propias">Anotaciones: </label>
+        <textarea class="form-control" id="observaciones_propias" rows="4"></textarea>
+      </div>
+      <div class="form-outline2 w-100 mb-3" id="conducta_a_seguir">
+        <label class="form-label" for="conducta_a_seguir">Conducta a seguir: </label>
+        <textarea class="form-control" id="conducta_a_seguir" rows="4"></textarea>
+      </div>
+    </div>
+    <div class="seguimiento2  mt-3 mb-3">
+        Fecha próxima cita: <input id="fecha_p_cita" name="fecha_p_cita" type="date">
+        Hora inicio cita: <input id="inicio_p_cita" name="inicio_p_cita" type="time">
+        Hora fin cita: <input id="fin_p_cita" name="fin_p_cita" type="time">
+        Psicólogo: <select formControlName="psicologo">
+            <option *ngFor="let p of t_psicologo" [value]="p.nombre">{{p.nombre}}</option>
+          </select>
+    </div>
+      <button type="button" class="button" value="Submit Button">Guardar</button>    
+</form>
+  
+  
+  
