@@ -4,9 +4,7 @@ import User from "../models/User";
 import Role from "../models/Role";
 
 export const verifyToken = async (req, res, next) => {
-    console.log('entra al token');
     try {
-        console.log('entra 1:',res.statusCode);
         const token = req.headers["authorization"]
         if (!token) return res.status(403).json({message: 'No token'})
 
@@ -15,19 +13,56 @@ export const verifyToken = async (req, res, next) => {
         req.userId = decoded.id;
         const user = await User.findById(req.userId)
 
-        if (!user) return res.status(404).json({message: 'User not found'})
+        if (!user) return res.status(200).json({message: 'User not found'})
 
-        const roles = await Role.find({_id: {$in: user.roles}})
-        let name = [];
-        for (let a of roles)
-        {
-            name.push({rolInt: a.name})
-        }
-
-        console.log(name);
-        return res.status(202).json(name)
+        next()
     } catch (e) {
         console.log('error');
-        return res.status(404).json({message: 'Unauthorized'})
+        return res.status(200).json({message: 'Unauthorized'})
+    }
+}
+
+export const isAdmin = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.userId)
+        const roles = await Role.find({_id: {$in: user.roles}})
+
+        for (const role of roles) {
+            if (role.name === 'admin') {
+                return res.status(200).json(true);
+            }
+        }
+    }catch (e) {
+        console.log(e);
+    }
+}
+
+export const isUser = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.userId)
+        const roles = await Role.find({_id: {$in: user.roles}})
+
+        for (const role of roles) {
+            if (role.name === 'user') {
+                return res.status(200).json(true);
+            }
+        }
+    }catch (e) {
+        console.log(e);
+    }
+}
+
+export const isModerator = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.userId)
+        const roles = await Role.find({_id: {$in: user.roles}})
+
+        for (const role of roles) {
+            if (role.name === 'moderator') {
+                return res.status(200).json(true);
+            }
+        }
+    }catch (e) {
+        console.log(e);
     }
 }

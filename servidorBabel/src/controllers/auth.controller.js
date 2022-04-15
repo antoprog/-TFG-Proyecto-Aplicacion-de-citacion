@@ -4,9 +4,6 @@ import config from '../config'
 import Role from "../models/Role";
 import {authJwt} from "../middlewares";
 
-export const checkRole = async (req, res, next) => {
-
-}
 
 export const signUp = async (req, res) => {
     const {username, email, password, roles} = req.body;
