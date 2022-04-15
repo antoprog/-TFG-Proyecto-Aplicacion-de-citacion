@@ -5,6 +5,11 @@ import {MenuConsultaComponent} from "./componentes/cuerpo/menu/menu-consulta.com
 import {AntecedentesComponent} from "./componentes/cuerpo/contenido/antecedentes/antecedentes.component";
 import {InformesComponent} from "./componentes/cuerpo/contenido/informes/informes.component";
 import { AltaPsicologoComponent } from './componentes/cuerpo/contenido/administrativo/alta-psicologo/alta-psicologo.component';
+import {ConsultaComponent} from "./componentes/cuerpo/contenido/consulta/consulta.component";
+import {PruebasComponent} from "./componentes/cuerpo/contenido/pruebas/pruebas.component";
+import {SeguimientoComponent} from "./componentes/cuerpo/contenido/seguimiento/seguimiento.component";
+import {SigninComponent} from "./componentes/login/signin/signin.component";
+import {SignupComponent} from "./componentes/login/signup/signup.component";
 
 const routes: Routes = [
   {
@@ -14,6 +19,14 @@ const routes: Routes = [
   {
     path: "altaPsicologo",
     component: AltaPsicologoComponent
+  },
+  {
+    path: 'login',
+    component: SigninComponent
+  },
+  {
+    path: 'registro',
+    component: SignupComponent
   },
   {
 

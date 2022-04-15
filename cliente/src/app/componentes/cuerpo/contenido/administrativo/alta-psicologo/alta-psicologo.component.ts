@@ -68,7 +68,6 @@ export class AltaPsicologoComponent implements OnInit {
     };
     this.serv.altaPsicologo(datos).subscribe({
       next: value => {
-        console.log(value);
       },
 
     })
@@ -95,7 +94,6 @@ export class AltaPsicologoComponent implements OnInit {
       return `The max ${this.psicologoForm.controls[field].getError('max')['max']}`
     }
     if (this.psicologoForm.controls[field].hasError('pattern')) {
-      console.log("entra")
       return 'Formato de documento no valido'
     }
     return 'invalid'

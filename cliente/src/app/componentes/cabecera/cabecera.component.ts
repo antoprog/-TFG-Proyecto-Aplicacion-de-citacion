@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NavbarClientesService} from "../../servicios/navbar-clientes.service";
 
 @Component({
@@ -6,7 +6,7 @@ import {NavbarClientesService} from "../../servicios/navbar-clientes.service";
   templateUrl: './cabecera.component.html',
   styleUrls: ['./cabecera.component.css']
 })
-export class CabeceraComponent {
+export class CabeceraComponent implements OnInit{
   constructor(private servicio: NavbarClientesService) {
   }
 
@@ -35,6 +35,10 @@ export class CabeceraComponent {
 
   onFocused(e: any) {
     e.target.value = ""
+  }
+
+  ngOnInit(): void {
+
   }
 
 }

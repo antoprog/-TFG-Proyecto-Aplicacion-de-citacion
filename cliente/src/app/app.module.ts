@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
@@ -11,10 +11,16 @@ import {MenuPacienteComponent} from "./componentes/cuerpo/contenido/cabecera/men
 import {AntecedentesComponent} from "./componentes/cuerpo/contenido/antecedentes/antecedentes.component";
 import {PruebasComponent} from "./componentes/cuerpo/contenido/pruebas/pruebas.component";
 import {InformesComponent} from "./componentes/cuerpo/contenido/informes/informes.component";
-import {ConsultaComponent} from "./componentes/cuerpo/contenido/consulta/consulta.component";
 import {AltaPacienteComponent} from "./componentes/cuerpo/contenido/administrativo/alta-paciente/alta-paciente.component";
 import {AppComponent} from "./app.component";
 import { AltaPsicologoComponent } from './componentes/cuerpo/contenido/administrativo/alta-psicologo/alta-psicologo.component';
+import {ConsultaComponent} from "./componentes/cuerpo/contenido/consulta/consulta.component";
+import {SeguimientoComponent} from "./componentes/cuerpo/contenido/seguimiento/seguimiento.component";
+import {AdminGuard} from "./guards/admin.guard";
+import {UserGuard} from "./guards/user.guard";
+import {TokenInterceptorService} from "./servicios/token-interceptor.service";
+import {SignupComponent} from "./componentes/login/signup/signup.component";
+import {SigninComponent} from "./componentes/login/signin/signin.component";
 
 @NgModule({
   declarations: [
@@ -28,7 +34,10 @@ import { AltaPsicologoComponent } from './componentes/cuerpo/contenido/administr
     PruebasComponent,
     InformesComponent,
     AltaPacienteComponent,
-    AltaPsicologoComponent
+    AltaPsicologoComponent,
+    SeguimientoComponent,
+    SignupComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +47,15 @@ import { AltaPsicologoComponent } from './componentes/cuerpo/contenido/administr
     ReactiveFormsModule,
     AutocompleteLibModule
   ],
-  providers: [],
+  providers: [
+    AdminGuard,
+    UserGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -10,11 +10,12 @@ export class BbddService {
   constructor(private http:HttpClient) { }
 
   altaPsicologo(datos:any){
-    console.log(datos);
     return this.http.post('http://localhost:4001/psicologo/', datos);
   }
   altaPaciente(datos:any){
-    console.log(datos);
     return this.http.post('http://localhost:4001/paciente/', datos);
+  }
+  getDatosMedicosPaciente(paciente:any){
+    return this.http.get<Paciente>('http://localhost:4001/paciente/uno/'+paciente)
   }
 }

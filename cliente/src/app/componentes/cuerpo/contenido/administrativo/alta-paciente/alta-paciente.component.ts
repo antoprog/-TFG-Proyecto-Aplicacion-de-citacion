@@ -94,7 +94,6 @@ export class AltaPacienteComponent implements OnInit {
     };
     this.serv.altaPaciente(datos).subscribe({
       next: value => {
-        console.log(value);
       },
 
     })
@@ -121,7 +120,6 @@ export class AltaPacienteComponent implements OnInit {
       return `The max ${this.insClienteForm.controls[field].getError('max')['max']}`
     }
     if (this.insClienteForm.controls[field].hasError('pattern')) {
-      console.log("entra")
       return 'Formato de documento no valido'
     }
     return 'invalid'
