@@ -18,7 +18,10 @@ export const getPsicologoById = async (req, res) => { // GET
     const psicologo = await Psicologo.findOne({name:req.params.psicologoId});
     res.json(psicologo);
 }
-
+export const getPsicologoNombre = async (req, res) => { // GET
+    const psicologo = await Psicologo.findOne({nombre: req.params.nombre});
+    res.json(psicologo);
+}
 export const updatePsicologoById = async (req, res) => { // PUT
     const psicologo = await Psicologo.findOneAndUpdate({name:req.params.psicologoId}, req.body, {
         new: true
