@@ -15,7 +15,10 @@ export class MisDatosComponent implements OnInit {
  psico:any
   ngOnInit(): void {
     this.servicio.getDatosPsicoligo("psicologoUno").subscribe(
-      result => this.psico=result
+       (respuesta:Psicologo)=>{
+          this.psico=respuesta
+         console.log(respuesta)
+       }
     )  
   }
   

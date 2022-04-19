@@ -10,6 +10,7 @@ import {PruebasComponent} from "./componentes/cuerpo/contenido/pruebas/pruebas.c
 import {SeguimientoComponent} from "./componentes/cuerpo/contenido/seguimiento/seguimiento.component";
 import {SigninComponent} from "./componentes/login/signin/signin.component";
 import {SignupComponent} from "./componentes/login/signup/signup.component";
+import { MisDatosComponent } from './componentes/cuerpo/contenido/mis-datos/mis-datos.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: "altaPsicologo",
     component: AltaPsicologoComponent
+  },
+  {
+    path: "misDatos",
+    component: MisDatosComponent
   },
   {
     path: 'login',
