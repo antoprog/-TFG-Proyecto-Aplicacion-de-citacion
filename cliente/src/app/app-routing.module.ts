@@ -13,11 +13,17 @@ import {SignupComponent} from "./componentes/login/signup/signup.component";
 import { DatosComponent } from './componentes/cuerpo/contenido/datos/datos.component';
 import {InicioPaginaComponent} from "./componentes/inicio-pagina/inicio-pagina.component";
 import {AppComponent} from "./app.component";
+import { MisDatosComponent } from './componentes/cuerpo/contenido/mis-datos/mis-datos.component';
+>>>>>>> feature-2-Olga
 
 const routes: Routes = [
   {
     path: 'inicio',
     component: AppComponent
+  },
+  {
+    path: "misDatos",
+    component: MisDatosComponent
   },
   {
     path: 'login',

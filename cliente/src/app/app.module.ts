@@ -25,7 +25,7 @@ import {SigninComponent} from "./componentes/login/signin/signin.component";
 import { DatosComponent } from './componentes/cuerpo/contenido/datos/datos.component';
 import { InicioPaginaComponent } from './componentes/inicio-pagina/inicio-pagina.component';
 import {ToastrModule} from "ngx-toastr";
-
+import { MisDatosComponent } from './componentes/cuerpo/contenido/mis-datos/mis-datos.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +45,8 @@ import {ToastrModule} from "ngx-toastr";
     SigninComponent,
     DatosComponent,
     InicioPaginaComponent,
+    MisDatosComponent
+>>>>>>> feature-2-Olga
   ],
   imports: [
     BrowserModule,
