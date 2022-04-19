@@ -10,8 +10,13 @@ import {PruebasComponent} from "./componentes/cuerpo/contenido/pruebas/pruebas.c
 import {SeguimientoComponent} from "./componentes/cuerpo/contenido/seguimiento/seguimiento.component";
 import {SigninComponent} from "./componentes/login/signin/signin.component";
 import {SignupComponent} from "./componentes/login/signup/signup.component";
+import { DatosComponent } from './componentes/cuerpo/contenido/datos/datos.component';
 
 const routes: Routes = [
+  {
+    path: "misDatos",
+    component: DatosComponent
+  },
   {
     path: "altaPaciente",
     component: AltaPacienteComponent

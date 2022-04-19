@@ -1,107 +1,121 @@
-<section>
-  <form [formGroup]="insClienteForm" (submit)="onSubmit()">
-    <!-- <div *ngIf="pagina == 0">-->
-    <label for="nombre">NOMBRE</label><input class="form-control" type="text" formControlName="nombre">
-    <span *ngIf="getError('nombre') as message">
-      <strong>{{message}}</strong>
-    </span>
-    <label for="apellido1">PRIMER APELLIDO</label><input type="text" formControlName="apellido1">
-    <span *ngIf="getError('apellido1') as message">
-      <strong>{{message}}</strong>
-    </span>
-    <label for="apellido2">SEGUNDO APELLIDO</label><input type="text" formControlName="apellido2">
-    <span *ngIf="getError('apellido2') as message">
-      <strong>{{message}}</strong>
-    </span>
-
-    <label for="tipo_doc">TIPO DE DOCUMENTO</label>
-    <select formControlName="tipo_doc">
-      <option *ngFor="let d of t_doc" [value]="d.nombre">{{d.nombre}}</option>
-    </select>
-    <!--si tipo_doc =DNI -->
-    <div *ngIf="insClienteForm.get('tipo_doc')?.value === 'DNI'">
-      DNI: <input class="form-control" formControlName="documentoDni" type="text">
-      <span *ngIf="getError('documentoDni') as message">
-        <strong>{{message}}</strong>
-      </span>
-    </div>
-    <!--si tipo_doc =NIE-->
-    <div *ngIf="insClienteForm.get('tipo_doc')?.value === 'NIE'">
-      NIE: <input class="form-control" formControlName="documentoNie" type="text">
-      <span *ngIf="getError('documentoNie') as message">
-        <strong>{{message}}</strong>
-      </span>
-    </div>
-    <label for="fecha_nacimiento">FECHA DE NACIMIENTO</label><input type="date" formControlName="fecha_nacimiento">
-    <span *ngIf="getError('fecha_nacimiento') as message">
-      <strong>{{message}}</strong>
-    </span>
-    <!--  </div>
-        <div *ngIf="pagina == 1">-->
-    <label for="telefono">TELEFONO</label><input type="text" formControlName="telefono">
-    <span *ngIf="getError('telefono') as message">
-      <strong>{{message}}</strong>
-    </span>
-    <label for="email">CORREO ELECTRONICO</label><input type="email" formControlName="email">
-    <span *ngIf="getError('email') as message">
-      <strong>{{message}}</strong>
-    </span>
-    <fieldset>
-        <legend>DOMICILIO:</legend>
-        <label for="calle">CALLE</label><input type="text" formControlName="calle">
+<section id="section_alta">
+  <form [formGroup]="insClienteForm" (submit)="onSubmit()" class="nuevo">
+    <div class="container">
+    <legend class="titulos">DATOS PACIENTE</legend>
+      <div class="form-group">
+        <label for="nombre">NOMBRE</label><input class="col-sm-2 mt-4 mb-4" type="text" style=" margin-right: 2%; margin-left: 1%;" formControlName="nombre">
+        <span *ngIf="getError('nombre') as message">
+          <strong>{{message}}</strong>
+        </span>
+        <label for="apellido1">APELLIDO</label><input class=" col-sm-2"type="text" style=" margin-right: 2%; margin-left: 1%;"  formControlName="apellido1">
+        <span *ngIf="getError('apellido1') as message">
+          <strong>{{message}}</strong>
+        </span>
+        <label for="apellido2">SEGUNDO APELLIDO </label><input class="col-sm-2" style=" margin-right: 2%; margin-left: 1%;" type="text" formControlName="apellido2">
+        <span *ngIf="getError('apellido2') as message">
+          <strong>{{message}}</strong>
+        </span>
+      </div>
+      <div class="d-flex flex-row">
+        <div >
+          <label for="tipo_doc" style="margin-right: 3px;">TIPO DE DOCUMENTO:</label>
+          <select formControlName="tipo_doc" >
+            <option *ngFor="let d of t_doc" [value]="d.nombre">{{d.nombre}}</option>
+          </select>
+        </div>
+       
+        <!--si tipo_doc =DNI -->
+        <div *ngIf="insClienteForm.get('tipo_doc')?.value === 'DNI'" class="p-2">
+         <input  formControlName="documentoDni" type="text" >
+          <span *ngIf="getError('documentoDni') as message">
+            <strong>{{message}}</strong>
+          </span>
+        </div>
+        <!--si tipo_doc =NIE-->
+        <div *ngIf="insClienteForm.get('tipo_doc')?.value === 'NIE'" class="p-2">
+        <input  formControlName="documentoNie" type="text" >
+          <span *ngIf="getError('documentoNie') as message">
+            <strong>{{message}}</strong>
+          </span>
+        </div>
+      </div>
+       
+      
+      <div class="mt-4 mb-4" >
+        <label for="fecha_nacimiento">FECHA DE NACIMIENTO</label><input type="date" min="1900-01-01" style="margin-right: 2%; margin-left: 1%;" formControlName="fecha_nacimiento">
+        <span *ngIf="getError('fecha_nacimiento') as message">
+          <strong>{{message}}</strong>
+        </span>
+        <label for="telefono">TELEFONO</label><input type="text" style=" margin-right: 2%; margin-left: 1%;" class="col-sm-2" formControlName="telefono">
+        <span *ngIf="getError('telefono') as message">
+          <strong>{{message}}</strong>
+        </span>
+        <label for="email">CORREO ELECTRONICO</label><input type="email" style=" margin-right: 2%; margin-left: 1%;" class="col-sm-2" formControlName="email">
+        <span *ngIf="getError('email') as message">
+          <strong>{{message}}</strong>
+        </span>
+      </div> 
+      <div >
+        <label for="calle">CALLE</label><input type="text" style=" margin-right: 2%; margin-left: 1%;" formControlName="calle">
         <span *ngIf="getError('calle') as message">
             <strong>{{message}}</strong>
         </span>
-        <label for="cod_postal">CODIGO POSTAL</label><input type="text" formControlName="cod_postal">
+        <label for="cod_postal">CODIGO POSTAL</label><input type="text" style=" margin-right: 2%; margin-left: 1%;"formControlName="cod_postal">
         <span *ngIf="getError('cod_postal') as message">
             <strong>{{message}}</strong>
         </span>
-        <label for="ciudad">CIUDAD</label><input type="text" formControlName="ciudad">
+        <label for="ciudad">CIUDAD</label><input type="text" style=" margin-right: 2%; margin-left: 1%;" formControlName="ciudad">
         <span *ngIf="getError('ciudad') as message">
             <strong>{{message}}</strong>
         </span>
-        <label for="provincia">PROVINCIA</label><input type="text" formControlName="provincia">
+
+        <label for="provincia">PROVINCIA</label><input type="text" style=" margin-right: 2%; margin-left: 1%;" formControlName="provincia">
         <span *ngIf="getError('provincia') as message">
             <strong>{{message}}</strong>
         </span>
-        <input type="hidden" formControlName="pais" value="España">
-    </fieldset>
-    <label for="aseguradora">ASEGURADORA</label>
-    <select formControlName="aseguradora">
-      <option *ngFor="let i of  t_aseguradora" [value]="i.tipo">{{i.tipo}}</option>
-    </select>
-    <div *ngIf="insClienteForm.get('aseguradora')?.value === 'COMPAÑIA'">
-      <label for="company">COMPAÑIA</label><input type="text" formControlName="company">
-    </div>
-    <!--  </div>
-        <div *ngIf="pagina == 2">-->
-    <fieldset>
-      <legend>CONTACTO:</legend>
+      </div>
+      
+      
+    <div class="mt-4 mb-4" >
+      <!--  <div>
         <label for="nombreContacto">NOMBRE</label><input type="text" formControlName="nombreContacto">
         <span *ngIf="getError('nombreContacto') as message">
           <strong>{{message}}</strong>
         </span>
+      </div>
+      <div>
         <label for="telefonoContacto">TELEFONO</label><input type="tel" formControlName="telefonoContacto">
         <span *ngIf="getError('telefonoContacto') as message">
           <strong>{{message}}</strong>
         </span>
-    </fieldset>
-    <label for="permisoGrabacion">PERMISO DE GRABACION</label><input type="checkbox" formControlName="permisoGrabacion">
-    <label for="firmaProteccionDatos">PROTECCION DE DATOS FIRMADO</label><input type="checkbox"
-      formControlName="firmaProteccionDatos">
-    <label for="psicologo">ASIGNAR PSCOLOGO</label>
-    <select formControlName="psicologo">
-      <option *ngFor="let p of t_psicologo" [value]="p.nombre">{{p.nombre}}</option>
-    </select>
-    <!--  </div>-->
-    <button class="button" type="submit" [disabled]="insClienteForm.invalid">Guardar</button>
+      </div> -->
+      <label for="permisoGrabacion">PERMISO DE GRABACION</label><input  type="checkbox"   style=" margin-right: 2%; margin-left: 1%;"formControlName="permisoGrabacion">
+        <label for="firmaProteccionDatos">PROTECCION DE DATOS FIRMADO</label><input type="checkbox"  style=" margin-right: 2%; margin-left: 1%;" formControlName="firmaProteccionDatos">
+        <label for="psicologo">ASIGNAR PSCOLOGO</label>
+        <select formControlName="psicologo"  style=" margin-right: 2%; margin-left: 1%;">
+          <option *ngFor="let p of t_psicologo" [value]="p.nombre">{{p.nombre}}</option>
+        </select>
+
+          <input type="hidden" formControlName="pais" value="España">
+          <label for="aseguradora">ASEGURADORA</label>
+        <select formControlName="aseguradora"  style=" margin-right: 2%; margin-left: 1%;">
+          <option *ngFor="let i of  t_aseguradora" [value]="i.tipo">{{i.tipo}}</option>
+        </select>
+        <div *ngIf="insClienteForm.get('aseguradora')?.value === 'COMPAÑIA'">
+          <label for="company">COMPAÑIA</label><input type="text" formControlName="company">
+        </div>
+      
+    </div>
+  
+    <button class="btn btn-primary" type="submit" [disabled]="insClienteForm.invalid">Guardar</button>
+  </div>
   </form>
   <!--<button (click)="sumar()">Siguiente pagina</button>-->
-  <div class="wrapper">
+<!--   <div class="wrapper">
     <div><b>Es valido el fomulario?: </b>
       <span *ngIf="insClienteForm.valid">✔</span>
       <span *ngIf="!insClienteForm.valid">🔴</span>
     </div>
     <pre>{{insClienteForm.value|json}}</pre>
-  </div>
+  </div> -->
 </section>

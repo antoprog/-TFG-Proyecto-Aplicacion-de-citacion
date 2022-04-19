@@ -21,6 +21,8 @@ import {UserGuard} from "./guards/user.guard";
 import {TokenInterceptorService} from "./servicios/token-interceptor.service";
 import {SignupComponent} from "./componentes/login/signup/signup.component";
 import {SigninComponent} from "./componentes/login/signin/signin.component";
+import { DatosComponent } from './componentes/cuerpo/contenido/datos/datos.component';
+
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import {SigninComponent} from "./componentes/login/signin/signin.component";
     AltaPsicologoComponent,
     SeguimientoComponent,
     SignupComponent,
-    SigninComponent
+    SigninComponent,
+    DatosComponent,
+  
   ],
   imports: [
     BrowserModule,

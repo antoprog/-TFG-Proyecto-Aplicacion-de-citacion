@@ -1,26 +1,30 @@
 <div class="card ">
 
   <section class="row ">
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <label class="may" name="paciente">Paciente: {{data.nombre}}  {{data.apellido1}} {{data.apellido2}}</label>
     </div>
-    <div class="col-sm-4">
-      <label class="may" name="tipoSesion">Tipo de sesión: </label>
-    </div>
-  </section>
-  <section class="row ">
-    <div class="col-sm-4">
-      <label name="ultimaSesion">Nº Hitorial: </label>
-    </div>
     <div class="col-sm-3">
-      Cons. Grabación: <input type="checkbox" name="consentimientoGrabacion" value="boolean" disabled>
+      <label class="may" name="tipoSesion">Tipo de sesión: </label>
     </div>
     <div class="col-sm-3">
       <label name="edad">Edad: {{data.edad}}</label>
     </div>
+   
   </section>
+  <section class="row ">
+    <div class="col-sm-2">
+      <label name="ultimaSesion">Nº Hitorial: </label>
+    </div>
+    <div class="col-sm-3">
+      Cons. Grabación: <input type="checkbox" name="consentimientoGrabacion" value="boolean" disabled>
+      
+    </div>
+    <div class="col-sm-3">
+      <select  name="diagnostico" id="diagnostico">
+        <option *ngFor="let a of diagnostico">{{a}}</option>
+      </select>
+    </div>
+  </section>
+ 
 </div>
-
-<select name="" id="">
-  <option *ngFor="let a of diagnostico">{{a}}</option>
-</select>
