@@ -38,7 +38,8 @@ import { MisDatosComponent } from './componentes/cuerpo/contenido/mis-datos/mis-
     AltaPsicologoComponent,
     SeguimientoComponent,
     SignupComponent,
-    SigninComponent
+    SigninComponent,
+    MisDatosComponent
   ],
   imports: [
     BrowserModule,
