@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Paciente} from "../modelo/paciente";
 
@@ -7,15 +7,22 @@ import {Paciente} from "../modelo/paciente";
 })
 export class BbddService {
 
-  constructor(private http:HttpClient) { }
-
-  altaPsicologo(datos:any){
-    return this.http.post('http://localhost:4001/psicologo/', datos);
+  constructor(private http: HttpClient) {
   }
-  altaPaciente(datos:any){
+
+  altaPsicologo(datos: any) {
+    return this.http.post('http://localhost:4001/psicologo/altaDatos/', datos);
+  }
+
+  altaPsicologoLogin(datos: any) {
+    return this.http.post('http://localhost:4001/psicologo/altaLogin/', datos);
+  }
+
+  altaPaciente(datos: any) {
     return this.http.post('http://localhost:4001/paciente/', datos);
   }
-  getDatosMedicosPaciente(paciente:any){
-    return this.http.get<Paciente>('http://localhost:4001/paciente/uno/'+paciente)
+
+  getDatosMedicosPaciente(paciente: any) {
+    return this.http.get<Paciente>('http://localhost:4001/paciente/uno/' + paciente)
   }
 }

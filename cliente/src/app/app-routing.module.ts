@@ -11,8 +11,24 @@ import {SeguimientoComponent} from "./componentes/cuerpo/contenido/seguimiento/s
 import {SigninComponent} from "./componentes/login/signin/signin.component";
 import {SignupComponent} from "./componentes/login/signup/signup.component";
 import { DatosComponent } from './componentes/cuerpo/contenido/datos/datos.component';
+import {InicioPaginaComponent} from "./componentes/inicio-pagina/inicio-pagina.component";
+import {AppComponent} from "./app.component";
 
 const routes: Routes = [
+  {
+    path: 'inicio',
+    component: AppComponent
+  },
+  {
+    path: 'login',
+    outlet: 'sinPermiso',
+    component: SigninComponent
+  },
+  {
+    path: 'registro',
+    outlet: 'sinPermiso',
+    component: SignupComponent
+  },
   {
     path: "misDatos",
     component: DatosComponent
@@ -26,15 +42,6 @@ const routes: Routes = [
     component: AltaPsicologoComponent
   },
   {
-    path: 'login',
-    component: SigninComponent
-  },
-  {
-    path: 'registro',
-    component: SignupComponent
-  },
-  {
-
     path: 'menu',
     component: MenuConsultaComponent,
     children: [

@@ -1,13 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {NavbarClientesService} from "../../servicios/navbar-clientes.service";
+import {AuthService} from "../../servicios/auth.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-cabecera',
   templateUrl: './cabecera.component.html',
   styleUrls: ['./cabecera.component.css']
 })
-export class CabeceraComponent implements OnInit{
-  constructor(private servicio: NavbarClientesService) {
+export class CabeceraComponent implements OnInit {
+  constructor(private servicio: NavbarClientesService,
+              private servicioRol: AuthService) {
   }
 
   data: any;
@@ -37,8 +40,24 @@ export class CabeceraComponent implements OnInit{
     e.target.value = ""
   }
 
+  admin:any
+  psicologo:any
   ngOnInit(): void {
+    this.servicioRol.isAdmin().subscribe({
+      next: value => {
+        this.admin = true
+      },
+    })
 
+    this.servicioRol.isPsicologo().subscribe({
+      next: value => {
+        this.psicologo = true
+      },
+    })
   }
 
+  logout() {
+    localStorage.removeItem('token');
+    window.location.reload();
+  }
 }

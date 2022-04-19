@@ -1,2 +1,7 @@
-<app-cabecera></app-cabecera>
-<router-outlet></router-outlet>
+<div *ngIf="acceso">
+  <app-cabecera></app-cabecera>
+</div>
+
+<div *ngIf="!acceso">
+  <app-inicio-pagina></app-inicio-pagina>
+</div>

@@ -1,6 +1,10 @@
 <section>
-    <form [formGroup]="psicologoForm" (submit)="onSubmit()">
-        <label for="nombre">NOMBRE</label><input type="text" formControlName="nombre">
+  <form [formGroup]="psicologoForm" (submit)="onSubmit()">
+    <label for="username">USERNAME</label><input type="text" formControlName="username">
+    <span *ngIf="getError('username') as message">
+      <strong>{{message}}</strong>
+    </span>
+    <label for="nombre">NOMBRE</label><input type="text" formControlName="nombre">
     <span *ngIf="getError('nombre') as message">
       <strong>{{message}}</strong>
     </span>
@@ -38,7 +42,8 @@
     <span *ngIf="getError('especialidad') as message">
       <strong>{{message}}</strong>
     </span>
-    <label for="credenciales_adic">CREDENCIALES ADICIONALES</label><input type="text" formControlName="credenciales_adic">
+    <label for="credenciales_adic">CREDENCIALES ADICIONALES</label><input type="text"
+                                                                          formControlName="credenciales_adic">
     <span *ngIf="getError('credenciales_adic') as message">
       <strong>{{message}}</strong>
     </span>
@@ -55,32 +60,32 @@
       <strong>{{message}}</strong>
     </span>
     <fieldset>
-        <legend>DOMICILIO:</legend>
-        <label for="calle">CALLE</label><input type="text" formControlName="calle">
-        <span *ngIf="getError('calle') as message">
+      <legend>DOMICILIO:</legend>
+      <label for="calle">CALLE</label><input type="text" formControlName="calle">
+      <span *ngIf="getError('calle') as message">
             <strong>{{message}}</strong>
         </span>
-        <label for="cod_postal">CODIGO POSTAL</label><input type="text" formControlName="cod_postal">
-        <span *ngIf="getError('cod_postal') as message">
+      <label for="cod_postal">CODIGO POSTAL</label><input type="text" formControlName="cod_postal">
+      <span *ngIf="getError('cod_postal') as message">
             <strong>{{message}}</strong>
         </span>
-        <label for="ciudad">CIUDAD</label><input type="text" formControlName="ciudad">
-        <span *ngIf="getError('ciudad') as message">
+      <label for="ciudad">CIUDAD</label><input type="text" formControlName="ciudad">
+      <span *ngIf="getError('ciudad') as message">
             <strong>{{message}}</strong>
         </span>
-        <label for="provincia">PROVINCIA</label><input type="text" formControlName="provincia">
-        <span *ngIf="getError('provincia') as message">
+      <label for="provincia">PROVINCIA</label><input type="text" formControlName="provincia">
+      <span *ngIf="getError('provincia') as message">
             <strong>{{message}}</strong>
         </span>
-        <input type="hidden" formControlName="pais" value="España">
+      <input type="hidden" formControlName="pais" value="España">
     </fieldset>
     <button class="button" type="submit" [disabled]="psicologoForm.invalid">Guardar</button>
-    </form>
-    <div class="wrapper">
-        <div><b>Es valido el fomulario?: </b>
-          <span *ngIf="psicologoForm.valid">✔</span>
-          <span *ngIf="!psicologoForm.valid">🔴</span>
-        </div>
-        <pre>{{psicologoForm.value|json}}</pre>
-      </div>
+  </form>
+  <div class="wrapper">
+    <div><b>Es valido el fomulario?: </b>
+      <span *ngIf="psicologoForm.valid">✔</span>
+      <span *ngIf="!psicologoForm.valid">🔴</span>
+    </div>
+    <pre>{{psicologoForm.value|json}}</pre>
+  </div>
 </section>

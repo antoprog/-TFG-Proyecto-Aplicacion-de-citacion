@@ -52,17 +52,17 @@ export const isUser = async (req, res, next) => {
     }
 }
 
-export const isModerator = async (req, res, next) => {
+export const isPsicologo = async (req, res, next) => {
     try {
         const user = await User.findById(req.userId)
         const roles = await Role.find({_id: {$in: user.roles}})
 
         for (const role of roles) {
-            if (role.name === 'moderator') {
+            if (role.name === 'psicologo') {
                 return res.status(200).json(true);
             }
         }
     }catch (e) {
-        console.log(e);
+
     }
 }

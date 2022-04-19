@@ -1,9 +1,9 @@
 import Psicologo from '../models/Psicologo';
 
 export const createPsicologo = async (req, res) => {
-    const {nombre, apellido1, apellido2, tipo_doc,documento,titulacion,especialidad,credenciales_adic,
+    const {username, nombre, apellido1, apellido2, tipo_doc,documento,titulacion,especialidad,credenciales_adic,
         num_colegiado,telefono,email,direccion} = req.body;
-    const newPsicologo = new Psicologo({nombre, apellido1, apellido2, tipo_doc,documento,titulacion,especialidad,credenciales_adic,
+    const newPsicologo = new Psicologo({username, nombre, apellido1, apellido2, tipo_doc,documento,titulacion,especialidad,credenciales_adic,
         num_colegiado,telefono,email,direccion});
     const psicologoSaved = await newPsicologo.save();
     res.status(200).json(psicologoSaved);

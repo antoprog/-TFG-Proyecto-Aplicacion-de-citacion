@@ -46,4 +46,8 @@ export class AuthService {
     return this.http.get(this.URL + '/checkRole/admin');
   }
 
+  isPsicologo(): Observable<any> {
+    return this.http.get(this.URL + '/checkRole/psicologo');
+  }
+
 }
