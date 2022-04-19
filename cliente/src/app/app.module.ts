@@ -46,7 +46,6 @@ import { MisDatosComponent } from './componentes/cuerpo/contenido/mis-datos/mis-
     DatosComponent,
     InicioPaginaComponent,
     MisDatosComponent
->>>>>>> feature-2-Olga
   ],
   imports: [
     BrowserModule,

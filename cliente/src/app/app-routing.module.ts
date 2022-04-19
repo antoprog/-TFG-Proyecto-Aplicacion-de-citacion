@@ -14,7 +14,6 @@ import { DatosComponent } from './componentes/cuerpo/contenido/datos/datos.compo
 import {InicioPaginaComponent} from "./componentes/inicio-pagina/inicio-pagina.component";
 import {AppComponent} from "./app.component";
 import { MisDatosComponent } from './componentes/cuerpo/contenido/mis-datos/mis-datos.component';
->>>>>>> feature-2-Olga
 
 const routes: Routes = [
   {
