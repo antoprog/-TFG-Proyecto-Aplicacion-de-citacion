@@ -51,7 +51,8 @@ import { MisDatosComponent } from './componentes/cuerpo/contenido/mis-datos/mis-
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AdminGuard,

@@ -78,7 +78,6 @@ export class AltaPsicologoComponent implements OnInit {
       password: 'psicologo' + (new Date()).getFullYear(),
       roles: ['psicologo']
     };
-
     this.service.signup(login).subscribe({
       next: value => {
         this.serv.altaPsicologo(datos).subscribe();
