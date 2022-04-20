@@ -8,11 +8,8 @@ import {AuthService} from "../../../../servicios/auth.service";
   styleUrls: ['./mis-datos.component.css']
 })
 export class MisDatosComponent implements OnInit {
+  constructor(private servicio:BbddService, private authService: AuthService) {}
 
-
-  constructor(private servicio:BbddService, private authService: AuthService) {
-
-  }
  psico:any
   ngOnInit(): void {
     this.servicio.getDatosPsicologo(this.authService.getToken()).subscribe(

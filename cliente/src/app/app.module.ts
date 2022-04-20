@@ -13,7 +13,7 @@ import {PruebasComponent} from "./componentes/cuerpo/contenido/pruebas/pruebas.c
 import {InformesComponent} from "./componentes/cuerpo/contenido/informes/informes.component";
 import {AltaPacienteComponent} from "./componentes/cuerpo/contenido/administrativo/alta-paciente/alta-paciente.component";
 import {AppComponent} from "./app.component";
-import { AltaPsicologoComponent } from './componentes/cuerpo/contenido/administrativo/alta-psicologo/alta-psicologo.component';
+import {AltaPsicologoComponent} from './componentes/cuerpo/contenido/administrativo/alta-psicologo/alta-psicologo.component';
 import {ConsultaComponent} from "./componentes/cuerpo/contenido/consulta/consulta.component";
 import {SeguimientoComponent} from "./componentes/cuerpo/contenido/seguimiento/seguimiento.component";
 import {AdminGuard} from "./guards/admin.guard";
@@ -21,9 +21,10 @@ import {UserGuard} from "./guards/user.guard";
 import {TokenInterceptorService} from "./servicios/token-interceptor.service";
 import {SignupComponent} from "./componentes/login/signup/signup.component";
 import {SigninComponent} from "./componentes/login/signin/signin.component";
-import { DatosComponent } from './componentes/cuerpo/contenido/datos/datos.component';
-import { InicioPaginaComponent } from './componentes/inicio-pagina/inicio-pagina.component';
-import { MisDatosComponent } from './componentes/cuerpo/contenido/mis-datos/mis-datos.component';
+import {DatosComponent} from './componentes/cuerpo/contenido/datos/datos.component';
+import {InicioPaginaComponent} from './componentes/inicio-pagina/inicio-pagina.component';
+import {MisDatosComponent} from './componentes/cuerpo/contenido/mis-datos/mis-datos.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -65,4 +66,5 @@ import { MisDatosComponent } from './componentes/cuerpo/contenido/mis-datos/mis-
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
