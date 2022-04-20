@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms"
 import {BbddService} from "../../../../../servicios/bbdd.service";
+import {AuthService} from "../../../../../servicios/auth.service";
 
 @Component({
   selector: 'app-alta-psicologo',
@@ -13,7 +14,7 @@ export class AltaPsicologoComponent implements OnInit {
     {nombre: "NIE"}
   ];
 
-  constructor(private fb: FormBuilder, private serv: BbddService) {
+  constructor(private fb: FormBuilder, private serv: BbddService, private service: AuthService) {
   }
 
   ngOnInit(): void {
@@ -78,7 +79,7 @@ export class AltaPsicologoComponent implements OnInit {
       roles: ['psicologo']
     };
 
-    this.serv.altaPsicologoLogin(login).subscribe({
+    this.service.signup(login).subscribe({
       next: value => {
         this.serv.altaPsicologo(datos).subscribe();
       }

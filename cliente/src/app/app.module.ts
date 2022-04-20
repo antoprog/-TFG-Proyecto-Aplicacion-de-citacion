@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -24,7 +23,6 @@ import {SignupComponent} from "./componentes/login/signup/signup.component";
 import {SigninComponent} from "./componentes/login/signin/signin.component";
 import { DatosComponent } from './componentes/cuerpo/contenido/datos/datos.component';
 import { InicioPaginaComponent } from './componentes/inicio-pagina/inicio-pagina.component';
-import {ToastrModule} from "ngx-toastr";
 import { MisDatosComponent } from './componentes/cuerpo/contenido/mis-datos/mis-datos.component';
 
 @NgModule({
@@ -53,9 +51,7 @@ import { MisDatosComponent } from './componentes/cuerpo/contenido/mis-datos/mis-
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AutocompleteLibModule,
-    ToastrModule.forRoot(), // ToastrModule added,
-    BrowserAnimationsModule
+    AutocompleteLibModule
   ],
   providers: [
     AdminGuard,
