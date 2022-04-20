@@ -28,7 +28,7 @@ export const signUp = async (req, res) => {
 
 export const signIn = async (req, res) => {
     // .populate('campo relacionado') -> se utiliza para sacar el objeto completo al estar relacionado
-    const userFound = await User.findOne({email: req.body.email}).populate("roles")
+    const userFound = await User.findOne({username: req.body.username}).populate("roles")
     if (!userFound) return res.status(400).json({message: 'User not found'});
 
     const matchPassword = await User.comparePassword(req.body.password, userFound.password)

@@ -15,10 +15,6 @@ export class BbddService {
     return this.http.post('http://localhost:4001/psicologo/altaDatos/', datos);
   }
 
-  altaPsicologoLogin(datos: any) {
-    return this.http.post('http://localhost:4001/psicologo/altaLogin/', datos);
-  }
-
   altaPaciente(datos: any) {
     return this.http.post('http://localhost:4001/paciente/', datos);
   }
@@ -26,7 +22,7 @@ export class BbddService {
   getDatosMedicosPaciente(paciente: any) {
     return this.http.get<Paciente>('http://localhost:4001/paciente/uno/' + paciente)
   }
-  getDatosPsicoligo(psicologo:any){
-    return this.http.get<Psicologo>('http://localhost:4001/psicologo/uno/'+psicologo)
+  getDatosPsicologo(psicologo:any){
+    return this.http.get<Psicologo>('http://localhost:4001/psicologo/uno/')
   }
 }

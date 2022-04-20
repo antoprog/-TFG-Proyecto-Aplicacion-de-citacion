@@ -1,4 +1,7 @@
 import Psicologo from '../models/Psicologo';
+import jwt from "jsonwebtoken";
+import config from "../config";
+import User from "../models/User";
 
 export const createPsicologo = async (req, res) => {
     const {username, nombre, apellido1, apellido2, tipo_doc,documento,titulacion,especialidad,credenciales_adic,
@@ -15,8 +18,16 @@ export const getPsicologo = async (req, res) => {
 }
 
 export const getPsicologoById = async (req, res) => { // GET
-    const psicologo = await Psicologo.findOne({name:req.params.psicologoId});
-    res.json(psicologo);
+    const token = req.headers["authorization"]
+    if (!token) return res.status(403).json({message: 'No token'})
+
+    const tokenString = token.split(' ')[1];
+    const decoded = jwt.verify(tokenString, config.SECRET, null, null);
+
+    const id = await User.findById(decoded.id)
+    const psicologo = await Psicologo.findOne({username: id.username})
+    console.log(psicologo);
+    res.status(200).json(psicologo)
 }
 export const getPsicologoNombre = async (req, res) => { // GET
     const psicologo = await Psicologo.findOne({nombre: req.params.nombre});
