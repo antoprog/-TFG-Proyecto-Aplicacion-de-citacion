@@ -24,7 +24,6 @@ import {SignupComponent} from "./componentes/login/signup/signup.component";
 import {SigninComponent} from "./componentes/login/signin/signin.component";
 import { DatosComponent } from './componentes/cuerpo/contenido/datos/datos.component';
 import { InicioPaginaComponent } from './componentes/inicio-pagina/inicio-pagina.component';
-import {ToastrModule} from "ngx-toastr";
 import { MisDatosComponent } from './componentes/cuerpo/contenido/mis-datos/mis-datos.component';
 
 @NgModule({
@@ -54,7 +53,6 @@ import { MisDatosComponent } from './componentes/cuerpo/contenido/mis-datos/mis-
     FormsModule,
     ReactiveFormsModule,
     AutocompleteLibModule,
-    ToastrModule.forRoot(), // ToastrModule added,
     BrowserAnimationsModule
   ],
   providers: [
