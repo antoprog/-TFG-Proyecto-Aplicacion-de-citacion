@@ -1,4 +1,5 @@
 import {NgModule} from '@angular/core';
+import {AppComponent} from "./app.component";
 import {BrowserModule} from '@angular/platform-browser';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
@@ -12,7 +13,6 @@ import {AntecedentesComponent} from "./componentes/cuerpo/contenido/antecedentes
 import {PruebasComponent} from "./componentes/cuerpo/contenido/pruebas/pruebas.component";
 import {InformesComponent} from "./componentes/cuerpo/contenido/informes/informes.component";
 import {AltaPacienteComponent} from "./componentes/cuerpo/contenido/administrativo/alta-paciente/alta-paciente.component";
-import {AppComponent} from "./app.component";
 import {AltaPsicologoComponent} from './componentes/cuerpo/contenido/administrativo/alta-psicologo/alta-psicologo.component';
 import {ConsultaComponent} from "./componentes/cuerpo/contenido/consulta/consulta.component";
 import {SeguimientoComponent} from "./componentes/cuerpo/contenido/seguimiento/seguimiento.component";
