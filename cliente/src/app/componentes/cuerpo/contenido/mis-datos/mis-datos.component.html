@@ -1,4 +1,5 @@
-<div class="overflow-hidden mx-3 mt-5">
+<div class="overflow-hidden mx-3 mt-2">
+    <legend class="titulos mb-3 border-bottom borde shadow-sm">MIS DATOS</legend>
     <div class="row justify-content mb-2">
         <div class="col ">
             <div><label class="text-primary font-weight:bolder" name="username">Nombre de usuario: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm">{{psico?.username}}</span></div>
@@ -62,7 +63,7 @@
         </div>
     </div>
     <div class="mt-5"> 
-        <button (click)="mostrar()">Cambiar contraseña</button>
+        <button class="btn btn-primary" (click)="mostrar()">Cambiar contraseña</button>
     </div>    
     <div *ngIf="visible">
         <app-cambiar-pass></app-cambiar-pass>
