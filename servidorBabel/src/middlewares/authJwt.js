@@ -9,7 +9,15 @@ export const verifyToken = async (req, res, next) => {
         if (!token) return res.status(403).json({message: 'No token'})
 
         const tokenString = token.split(' ')[1];
-        const decoded = jwt.verify(tokenString, config.SECRET, null, null);
+        let decoded;
+
+        try{
+            decoded = jwt.verify(tokenString, config.SECRET, null, null);
+        }catch (e) {
+            console.log('entra a token caducado');
+            return res.status(200).json({message: 'Token caducado'})
+        }
+
         req.userId = decoded.id;
         const user = await User.findById(req.userId)
 
@@ -17,7 +25,7 @@ export const verifyToken = async (req, res, next) => {
 
         next()
     } catch (e) {
-        console.log('error');
+        console.log('error VERIFY TOKEN', e);
         return res.status(200).json({message: 'Unauthorized'})
     }
 }
@@ -32,7 +40,7 @@ export const isAdmin = async (req, res, next) => {
                 return res.status(200).json(true);
             }
         }
-    }catch (e) {
+    } catch (e) {
         console.log(e);
     }
 }
@@ -47,7 +55,7 @@ export const isUser = async (req, res, next) => {
                 return res.status(200).json(true);
             }
         }
-    }catch (e) {
+    } catch (e) {
         console.log(e);
     }
 }
@@ -62,7 +70,7 @@ export const isPsicologo = async (req, res, next) => {
                 return res.status(200).json(true);
             }
         }
-    }catch (e) {
+    } catch (e) {
 
     }
 }

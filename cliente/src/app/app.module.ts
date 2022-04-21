@@ -25,6 +25,7 @@ import {DatosComponent} from './componentes/cuerpo/contenido/datos/datos.compone
 import {InicioPaginaComponent} from './componentes/inicio-pagina/inicio-pagina.component';
 import {MisDatosComponent} from './componentes/cuerpo/contenido/mis-datos/mis-datos.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { CambiarPassComponent } from './componentes/cuerpo/contenido/administrativo/cambiar-pass/cambiar-pass.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     SigninComponent,
     DatosComponent,
     InicioPaginaComponent,
-    MisDatosComponent
+    MisDatosComponent,
+    CambiarPassComponent
   ],
   imports: [
     BrowserModule,

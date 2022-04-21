@@ -11,8 +11,7 @@ const userSchema = new Schema({
         unique: true
     },
     password: {
-        type: String,
-        unique: true
+        type: String
     },
     roles: [{
         ref: "Role",

@@ -8,5 +8,5 @@ router.post('/signup', [verifySignup.checkDuplicateUsernameOrEmail, verifySignup
 router.get('/checkRole/admin', [authJwt.verifyToken, authJwt.isAdmin])
 router.get('/checkRole/user', [authJwt.verifyToken, authJwt.isUser])
 router.get('/checkRole/psicologo', [authJwt.verifyToken, authJwt.isPsicologo])
-
+router.put('/changePassword', [authJwt.verifyToken], authCtrl.changePassword)
 export default router;

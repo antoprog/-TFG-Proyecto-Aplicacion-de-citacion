@@ -50,4 +50,7 @@ export class AuthService {
     return this.http.get(this.URL + '/checkRole/psicologo');
   }
 
+  changePassword(data:any){
+      return this.http.put(this.URL + '/changePassword', data)
+  }
 }
