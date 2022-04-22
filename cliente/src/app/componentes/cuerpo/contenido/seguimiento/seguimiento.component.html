@@ -7,22 +7,22 @@
     <div class="form-outline mb-12" id="observaciones_cita">
       <div class="form-outline1 w-100 mb-3" id="observaciones_cita">
         <label class="form-label" for="observaciones_cita">Observaciones: </label>
-        <textarea class="form-control" id="observaciones_cita" rows="4"></textarea>
+        <textarea class="form-control"  formControlName="observaciones_cita" id="observaciones_cita" rows="4"></textarea>
       </div>
 
       <div class="form-outline1 w-100 mb-3" id="observaciones_propias">
         <label class="form-label" for="observaciones_propias">Anotaciones: </label>
-        <textarea class="form-control" id="observaciones_propias" rows="4"></textarea>
+        <textarea class="form-control"formControlName="observaciones_propias" id="observaciones_propias" rows="4"></textarea>
       </div>
       <div class="form-outline2 w-100 mb-3" id="conducta_a_seguir">
         <label class="form-label" for="conducta_a_seguir">Conducta a seguir: </label>
-        <textarea class="form-control" id="conducta_a_seguir" rows="4"></textarea>
+        <textarea class="form-control"formControlName="conducta_a_seguir" id="conducta_a_seguir" rows="4"></textarea>
       </div>
     </div>
     <div class="seguimiento2  mt-3 mb-3">
-        Fecha próxima cita: <input id="fecha_p_cita" name="fecha_p_cita" type="date" min="2022-01-01">
-        Hora inicio cita: <input id="inicio_p_cita" name="inicio_p_cita" type="time">
-        Hora fin cita: <input id="fin_p_cita" name="fin_p_cita" type="time">
+        Fecha próxima cita: <input id="fecha_p_cita" formControlName="fecha_p_cita" name="fecha_p_cita" type="date" min="2022-01-01">
+        Hora inicio cita: <input id="inicio_p_cita" formControlName="inicio_p_cita"name="inicio_p_cita" type="time">
+        Hora fin cita: <input id="fin_p_cita" formControlName="fin_p_cita"name="fin_p_cita" type="time">
         Psicólogo: <select>
             <option *ngFor="let p of t_psicologo" [value]="p.nombre">{{p.nombre}}</option>
           </select>
