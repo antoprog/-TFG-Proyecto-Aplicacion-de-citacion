@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../../../../servicios/auth.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-cambiar-pass',
@@ -8,7 +9,8 @@ import {AuthService} from "../../../../../servicios/auth.service";
 })
 export class CambiarPassComponent implements OnInit {
 
-    constructor(private authService: AuthService) {
+    constructor(private authService: AuthService,
+                private toastr:ToastrService) {
     }
 
     ngOnInit(): void {
@@ -24,6 +26,7 @@ export class CambiarPassComponent implements OnInit {
         if (this.user.passNew === this.user.passNew2) {
             this.authService.changePassword(this.user).subscribe({
                 next: value => {
+                    this.toastr.success("pepe", "pepe1")
                     console.log(value);
                 },
                 error: err => {
@@ -31,7 +34,7 @@ export class CambiarPassComponent implements OnInit {
                 }
             })
         }else{
-            console.log('las contraseñas no coinciden');
+            this.toastr.error('', "Las contraseñas no coinciden")
         }
     }
 

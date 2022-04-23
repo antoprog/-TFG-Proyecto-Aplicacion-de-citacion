@@ -25,48 +25,50 @@ import {DatosComponent} from './componentes/cuerpo/contenido/datos/datos.compone
 import {InicioPaginaComponent} from './componentes/inicio-pagina/inicio-pagina.component';
 import {MisDatosComponent} from './componentes/cuerpo/contenido/mis-datos/mis-datos.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { CambiarPassComponent } from './componentes/cuerpo/contenido/administrativo/cambiar-pass/cambiar-pass.component';
+import {CambiarPassComponent} from './componentes/cuerpo/contenido/administrativo/cambiar-pass/cambiar-pass.component';
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CabeceraComponent,
-    PieComponent,
-    MenuConsultaComponent,
-    MenuPacienteComponent,
-    AntecedentesComponent,
-    ConsultaComponent,
-    PruebasComponent,
-    InformesComponent,
-    AltaPacienteComponent,
-    AltaPsicologoComponent,
-    SeguimientoComponent,
-    SignupComponent,
-    SigninComponent,
-    DatosComponent,
-    InicioPaginaComponent,
-    MisDatosComponent,
-    CambiarPassComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AutocompleteLibModule,
-    BrowserAnimationsModule
-  ],
-  providers: [
-    AdminGuard,
-    UserGuard,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true
-    },
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        CabeceraComponent,
+        PieComponent,
+        MenuConsultaComponent,
+        MenuPacienteComponent,
+        AntecedentesComponent,
+        ConsultaComponent,
+        PruebasComponent,
+        InformesComponent,
+        AltaPacienteComponent,
+        AltaPsicologoComponent,
+        SeguimientoComponent,
+        SignupComponent,
+        SigninComponent,
+        DatosComponent,
+        InicioPaginaComponent,
+        MisDatosComponent,
+        CambiarPassComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AutocompleteLibModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot(), // ToastrModule added
+    ],
+    providers: [
+        AdminGuard,
+        UserGuard,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptorService,
+            multi: true
+        },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
