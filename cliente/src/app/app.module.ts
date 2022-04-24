@@ -5,7 +5,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
-import {CabeceraComponent} from "./componentes/cabecera/cabecera.component";
+import {CabeceraComponent} from "./componentes/cabeceras/cabecera-usuarios/cabecera.component";
 import {PieComponent} from "./componentes/pie/pie.component";
 import {MenuConsultaComponent} from "./componentes/cuerpo/menu/menu-consulta.component";
 import {MenuPacienteComponent} from "./componentes/cuerpo/contenido/cabecera/menu-paciente.component";
@@ -22,11 +22,12 @@ import {TokenInterceptorService} from "./servicios/token-interceptor.service";
 import {SignupComponent} from "./componentes/login/signup/signup.component";
 import {SigninComponent} from "./componentes/login/signin/signin.component";
 import {DatosComponent} from './componentes/cuerpo/contenido/datos/datos.component';
-import {InicioPaginaComponent} from './componentes/inicio-pagina/inicio-pagina.component';
+import {InicioPaginaComponent} from './componentes/pagina-inicio/pagina-inicio';
 import {MisDatosComponent} from './componentes/cuerpo/contenido/mis-datos/mis-datos.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CambiarPassComponent} from './componentes/cuerpo/contenido/administrativo/cambiar-pass/cambiar-pass.component';
 import {ToastrModule} from "ngx-toastr";
+import { CabeceraNoUserComponent } from './componentes/cabeceras/cabecera-no-user/cabecera-no-user.component';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import {ToastrModule} from "ngx-toastr";
         DatosComponent,
         InicioPaginaComponent,
         MisDatosComponent,
-        CambiarPassComponent
+        CambiarPassComponent,
+        CabeceraNoUserComponent
     ],
     imports: [
         BrowserModule,

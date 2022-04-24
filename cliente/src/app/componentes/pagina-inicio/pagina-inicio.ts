@@ -2,8 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-inicio-pagina',
-  templateUrl: './inicio-pagina.component.html',
-  styleUrls: ['./inicio-pagina.component.css']
+  templateUrl: './cabecera-noUsuarios.html',
+  styleUrls: ['./cabecera-noUsuarios.css']
 })
 export class InicioPaginaComponent implements OnInit, OnDestroy {
 

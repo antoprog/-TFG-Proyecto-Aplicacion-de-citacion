@@ -1,23 +1,71 @@
-<section>
-    <label class="" name="username">Nombre de usuario: {{psico?.username}} </label><br>
-    <label class="" name="nombre">Nombre: {{psico?.nombre}} </label><br>
-    <label class="" name="apellido1">Primer Apellido: {{psico?.apellido1}} </label><br>
-    <label class="" name="apellido2">Segundo Apellido: {{psico?.apellido2}} </label><br>
-    <label class="" name="tipo_doc">Tipo Documento: {{psico?.tipo_doc}} </label><br>
-    <label class="" name="documento">Documento: {{psico?.documento}} </label><br>
-    <label class="" name="titulacion">Titulación: {{psico?.titulacion}} </label><br>
-    <label class="" name="especialidad">Especialidad: {{psico?.especialidad}} </label><br>
-    <label class="" name="credenciales_adic">Credenciales Adicionales: {{psico?.credenciales_adic}} </label><br>
-    <label class="" name="telefono">Teléfono: {{psico?.telefono}} </label><br>
-    <label class="" name="email">Número de Colegiado: {{psico?.num_colegiado}} </label><br>
-    <label class="" name="num_colegiado">Correo electrónico: {{psico?.email}} </label><br>
-    <label class="" name="calle">Dirección: {{psico?.direccion.calle}} </label><br>
-    <label class="" name="cod_postal">Códifo postal: {{psico?.direccion.cod_postal}} </label><br>
-    <label class="" name="ciudad">Ciudad: {{psico?.direccion.ciudad}} </label><br>
-    <label class="" name="provincia">Provincia: {{psico?.direccion.provincia}} </label><br>
-    <button (click)="mostrar()">Cambiar contraseña</button>
-
+<div class="overflow-hidden mx-3 mt-2">
+    <legend class="titulos mb-3 border-bottom borde shadow-sm">MIS DATOS</legend>
+    <div class="row justify-content mb-2">
+        <div class="col ">
+            <div><label class="text-primary font-weight:bolder" name="username">Nombre de usuario: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm">{{psico?.username}}</span></div>
+        </div>
+    </div>
+    <div class="row justify-content mb-2">
+        <div class="col">
+            <label class="text-primary font-weight:bolder" name="nombre">Nombre: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.nombre}}</span>
+        </div>  
+        <div class="col">  
+            <label class="text-primary font-weight:bolder" name="apellido1">Primer Apellido: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.apellido1}} </span>
+        </div> 
+        <div class="col">
+            <label class="text-primary font-weight:bolder" name="apellido2">Segundo Apellido: </label> <span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.apellido2}} </span>
+        </div>
+    </div>
+    <div class="row justify-content mb-2">
+        <div class="col-md-auto">   
+            <label class="text-primary font-weight:bolder" name="tipo_doc">Tipo Documento: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.tipo_doc}} </span>
+        </div> 
+        <div class="col-md-auto">
+            <label class="text-primary font-weight:bolder" name="documento">Documento: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.documento}} </span>
+        </div>
+        <div class="col-md-auto"> 
+            <label class="text-primary font-weight:bolder" name="num_colegiado">Número colegiado: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.num_colegiado}}</span>
+        </div>
+        <div class="col-md-auto">
+            <label class="text-primary font-weight:bolder" name="telefono">Teléfono: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.telefono}} </span>
+        </div> 
+        <div class="col-md-auto">
+            <label class="text-primary font-weight:bolder" name="email">Correo electónico: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.email}} </span>
+        </div>
+    </div>
+    <div class="row justify-content mb-2">
+        <div class="col">
+            <label class="text-primary font-weight:bolder " name="titulacion">Titulación: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.titulacion}} </span>
+        </div> 
+        <div class="col">
+            <label class="text-primary font-weight:bolder" name="especialidad">Especialidad: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.especialidad}} </span>
+        </div>
+    </div>
+    <div class="row justify-content mb-2">
+        <div class="col">
+            <label class="text-primary font-weight:bolder" name="credenciales_adic">Credenciales Adicionales: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.credenciales_adic}} </span> 
+        </div>      
+    </div>
+    <div class="row justify-content-md-center mb-2">
+        <div class="col">
+            <label class="text-primary font-weight:bolder" name="calle">Dirección: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.direccion.calle}} </span>
+        </div> 
+    </div>
+    <div class="row justify-content-md-center mb-2">
+        <div class="col">
+            <label class="text-primary font-weight:bolder" name="cod_postal">Código postal: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm"> {{psico?.direccion.cod_postal}} </span>
+        </div>
+        <div class="col">
+            <label class="text-primary font-weight:bolder" name="ciudad">Ciudad: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.direccion.ciudad}} </span>
+        </div> 
+        <div class="col">
+            <label class="text-primary font-weight:bolder" name="provincia">Provincia: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.direccion.provincia}} </span>
+        </div>
+    </div>
+    <div class="mt-5"> 
+        <button class="btn btn-primary" (click)="mostrar()">Cambiar contraseña</button>
+    </div>    
     <div *ngIf="visible">
         <app-cambiar-pass></app-cambiar-pass>
     </div>
-</section>
+</div>

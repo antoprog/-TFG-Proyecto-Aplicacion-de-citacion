@@ -10,8 +10,7 @@ import {Router} from "@angular/router";
 })
 export class CabeceraComponent implements OnInit {
     constructor(private servicio: NavbarClientesService,
-                private servicioRol: AuthService,
-                private router: Router) {
+                private authService: AuthService,) {
     }
 
     data: any;
@@ -45,16 +44,16 @@ export class CabeceraComponent implements OnInit {
     psicologo: any
 
     ngOnInit(): void {
-        this.servicioRol.isAdmin().subscribe({
+        this.authService.isAdmin().subscribe({
             next: value => {
                 console.log('VALUE ADMIN', value.message);
                 switch (value.message) {
                     case 'Token caducado':
                         console.log('entra 1');
-                        this.logout();
+                        //this.logout();
                         break;
                     case 'Unauthorized':
-                        this.logout();
+                        //this.logout();
                         break;
                 }
                 this.admin = true
@@ -64,7 +63,7 @@ export class CabeceraComponent implements OnInit {
             }
         })
 
-        this.servicioRol.isPsicologo().subscribe({
+        this.authService.isPsicologo().subscribe({
             next: value => {
                 this.psicologo = true
             },
@@ -72,7 +71,6 @@ export class CabeceraComponent implements OnInit {
     }
 
     logout() {
-        localStorage.removeItem('token');
-        window.location.reload();
+        this.authService.logout();
     }
 }

@@ -14,18 +14,14 @@ import {PruebasComponent} from "./componentes/cuerpo/contenido/pruebas/pruebas.c
 import {SeguimientoComponent} from "./componentes/cuerpo/contenido/seguimiento/seguimiento.component";
 import {SigninComponent} from "./componentes/login/signin/signin.component";
 import {SignupComponent} from "./componentes/login/signup/signup.component";
-import {DatosComponent} from './componentes/cuerpo/contenido/datos/datos.component';
-import {AppComponent} from "./app.component";
 import {MisDatosComponent} from './componentes/cuerpo/contenido/mis-datos/mis-datos.component';
+import {InicioPaginaComponent} from "./componentes/pagina-inicio/pagina-inicio";
+import {AdminGuard} from "./guards/admin.guard";
 
 const routes: Routes = [
     {
         path: '',
-        component: AppComponent
-    },
-    {
-        path: 'inicio',
-        component: AppComponent
+        component: InicioPaginaComponent
     },
     {
         path: "misDatos",
@@ -33,17 +29,11 @@ const routes: Routes = [
     },
     {
         path: 'login',
-        outlet: 'sinPermiso',
         component: SigninComponent
     },
     {
         path: 'registro',
-        outlet: 'sinPermiso',
         component: SignupComponent
-    },
-    {
-        path: "misDatos",
-        component: DatosComponent
     },
     {
         path: "altaPaciente",
@@ -51,35 +41,36 @@ const routes: Routes = [
     },
     {
         path: "altaPsicologo",
-        component: AltaPsicologoComponent
+        component: AltaPsicologoComponent,
+        canActivate: [AdminGuard]
     },
     {
-        path: 'menu',
+        path: 'psicologo/menu',
         component: MenuConsultaComponent,
         children: [
             {
                 path: 'antecedentes',
-                outlet: 'prueba',
+                outlet: 'psicologo',
                 component: AntecedentesComponent
             },
             {
                 path: 'consulta',
-                outlet: 'prueba',
+                outlet: 'psicologo',
                 component: ConsultaComponent
             },
             {
                 path: 'pruebas',
-                outlet: 'prueba',
+                outlet: 'psicologo',
                 component: PruebasComponent
             },
             {
                 path: 'seguimiento',
-                outlet: 'prueba',
+                outlet: 'psicologo',
                 component: SeguimientoComponent
             },
             {
                 path: 'informes',
-                outlet: 'prueba',
+                outlet: 'psicologo',
                 component: InformesComponent
             },
             /* {

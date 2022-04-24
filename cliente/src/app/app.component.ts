@@ -16,8 +16,9 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
         console.log('app-component');
         this.acceso = !!localStorage.getItem('token');
-        this.router.navigate(
-            ['.']
-        ).then();
+        // if (this.acceso)
+        //     this.router.navigate(['/']).then();
+        // else
+        //     this.router.navigate(['/']).then();
     }
 }
