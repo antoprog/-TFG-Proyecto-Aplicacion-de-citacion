@@ -18,23 +18,32 @@ export const getPsicologo = async (req, res) => {
 }
 
 export const getPsicologoById = async (req, res) => { // GET
-    const token = req.headers["authorization"]
-    if (!token) return res.status(403).json({message: 'No token'})
+    try {
+        const token = req.headers["authorization"]
+        if (!token) return res.status(403).json({message: 'No token'})
 
-    const tokenString = token.split(' ')[1];
-    const decoded = jwt.verify(tokenString, config.SECRET, null, null);
+        const tokenString = token.split(' ')[1];
+        const decoded = jwt.verify(tokenString, config.SECRET, null, null);
 
-    const id = await User.findById(decoded.id)
-    const psicologo = await Psicologo.findOne({username: id.username})
-    console.log(psicologo);
-    res.status(200).json(psicologo)
+        const id = await User.findById(decoded.id)
+        const psicologo = await Psicologo.findOne({username: id.username})
+        console.log(psicologo);
+        res.status(200).json(psicologo)
+    }catch (e) {
+        console.log(e);
+    }
 }
 
 export const updatePsicologoById = async (req, res) => { // PUT
-    const psicologo = await Psicologo.findOneAndUpdate({name:req.params.psicologoId}, req.body, {
-        new: true
-    });
-    res.status(200).json(psicologo);
+
+    try{
+        const psicologo = await Psicologo.findOneAndUpdate({name:req.params.psicologoId}, req.body, {
+            new: true
+        });
+        res.status(200).json(psicologo);
+    }catch (e) {
+        console.log(e);
+    }
 }
 
 export const deletePsicologoById = async (req, res) => { // DELETE

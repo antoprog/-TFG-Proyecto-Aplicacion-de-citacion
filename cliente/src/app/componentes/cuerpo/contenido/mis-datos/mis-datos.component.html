@@ -1,3 +1,4 @@
+<app-cabecera></app-cabecera>
 <div class="overflow-hidden mx-3 mt-2">
     <legend class="titulos mb-3 border-bottom borde shadow-sm">MIS DATOS</legend>
     <div class="row justify-content mb-2">
@@ -8,27 +9,27 @@
     <div class="row justify-content mb-2">
         <div class="col">
             <label class="text-primary font-weight:bolder" name="nombre">Nombre: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.nombre}}</span>
-        </div>  
-        <div class="col">  
+        </div>
+        <div class="col">
             <label class="text-primary font-weight:bolder" name="apellido1">Primer Apellido: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.apellido1}} </span>
-        </div> 
+        </div>
         <div class="col">
             <label class="text-primary font-weight:bolder" name="apellido2">Segundo Apellido: </label> <span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.apellido2}} </span>
         </div>
     </div>
     <div class="row justify-content mb-2">
-        <div class="col-md-auto">   
+        <div class="col-md-auto">
             <label class="text-primary font-weight:bolder" name="tipo_doc">Tipo Documento: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.tipo_doc}} </span>
-        </div> 
+        </div>
         <div class="col-md-auto">
             <label class="text-primary font-weight:bolder" name="documento">Documento: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.documento}} </span>
         </div>
-        <div class="col-md-auto"> 
+        <div class="col-md-auto">
             <label class="text-primary font-weight:bolder" name="num_colegiado">Número colegiado: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.num_colegiado}}</span>
         </div>
         <div class="col-md-auto">
             <label class="text-primary font-weight:bolder" name="telefono">Teléfono: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.telefono}} </span>
-        </div> 
+        </div>
         <div class="col-md-auto">
             <label class="text-primary font-weight:bolder" name="email">Correo electónico: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.email}} </span>
         </div>
@@ -36,20 +37,20 @@
     <div class="row justify-content mb-2">
         <div class="col">
             <label class="text-primary font-weight:bolder " name="titulacion">Titulación: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.titulacion}} </span>
-        </div> 
+        </div>
         <div class="col">
             <label class="text-primary font-weight:bolder" name="especialidad">Especialidad: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.especialidad}} </span>
         </div>
     </div>
     <div class="row justify-content mb-2">
         <div class="col">
-            <label class="text-primary font-weight:bolder" name="credenciales_adic">Credenciales Adicionales: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.credenciales_adic}} </span> 
-        </div>      
+            <label class="text-primary font-weight:bolder" name="credenciales_adic">Credenciales Adicionales: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.credenciales_adic}} </span>
+        </div>
     </div>
     <div class="row justify-content-md-center mb-2">
         <div class="col">
             <label class="text-primary font-weight:bolder" name="calle">Dirección: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.direccion.calle}} </span>
-        </div> 
+        </div>
     </div>
     <div class="row justify-content-md-center mb-2">
         <div class="col">
@@ -57,14 +58,14 @@
         </div>
         <div class="col">
             <label class="text-primary font-weight:bolder" name="ciudad">Ciudad: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.direccion.ciudad}} </span>
-        </div> 
+        </div>
         <div class="col">
             <label class="text-primary font-weight:bolder" name="provincia">Provincia: </label><span class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.direccion.provincia}} </span>
         </div>
     </div>
-    <div class="mt-5"> 
+    <div class="mt-5">
         <button class="btn btn-primary" (click)="mostrar()">Cambiar contraseña</button>
-    </div>    
+    </div>
     <div *ngIf="visible">
         <app-cambiar-pass></app-cambiar-pass>
     </div>

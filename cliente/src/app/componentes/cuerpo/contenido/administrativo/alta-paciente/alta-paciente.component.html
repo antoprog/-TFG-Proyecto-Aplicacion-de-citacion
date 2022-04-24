@@ -1,3 +1,4 @@
+<app-cabecera></app-cabecera>
 <section id="section_alta">
   <form [formGroup]="insClienteForm" (submit)="onSubmit()">
     <div class="container">
@@ -23,7 +24,7 @@
             <option *ngFor="let d of t_doc" [value]="d.nombre">{{d.nombre}}</option>
           </select>
         </div>
-       
+
         <!--si tipo_doc =DNI -->
         <div *ngIf="insClienteForm.get('tipo_doc')?.value === 'DNI'" style="padding-left: 0.3rem; padding-right: 0.3rem">
          <input  formControlName="documentoDni" type="text" >
@@ -47,15 +48,15 @@
           <strong>{{message}}</strong>
         </span>
       </div>
-       
-      
+
+
       <div class="mt-4 mb-4" >
-        
-      
+
+
         <label for="calle">CALLE</label><input type="text" style="margin-right:2%; margin-left:1%;" formControlName="calle">
         <span *ngIf="getError('calle') as message">
             <strong>{{message}}</strong>
-        </span>     
+        </span>
         <label for="cod_postal">CODIGO POSTAL</label><input type="text" style="margin-right:2%; margin-left:1%;"formControlName="cod_postal">
         <span *ngIf="getError('cod_postal') as message">
             <strong>{{message}}</strong>

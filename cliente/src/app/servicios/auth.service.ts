@@ -11,7 +11,7 @@ export interface Persona {
   telefono: string;
 }
 
-export interface RolesPrueba {
+export interface Roles {
   rol: string;
 }
 
@@ -35,19 +35,24 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
-    this.router.navigate(['/signin']).then();
+    this.router.navigate(['/']).then();
   }
 
   getToken() {
     return localStorage.getItem('token');
   }
 
-  isAdmin(): Observable<any> {
-    return this.http.get(this.URL + '/checkRole/admin');
-  }
+   getRoles(): Observable<[String]> {
+      this.http.get<Roles>(this.URL + '/getRoles/').subscribe({
+          next: value => {
+              console.log('SERVICIO RESULTADO ROLES:', value);
+          },
+          error: err => {
+              console.log(err);
+          }
+      })
 
-  isPsicologo(): Observable<any> {
-    return this.http.get(this.URL + '/checkRole/psicologo');
+      return this.http.get<[String]>(this.URL + '/getRoles/');
   }
 
   changePassword(data:any){

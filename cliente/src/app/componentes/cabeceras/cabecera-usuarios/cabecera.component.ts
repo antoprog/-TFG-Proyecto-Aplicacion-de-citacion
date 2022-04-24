@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {NavbarClientesService} from "../../servicios/navbar-clientes.service";
-import {AuthService} from "../../servicios/auth.service";
+import {NavbarClientesService} from "../../../servicios/navbar-clientes.service";
+import {AuthService} from "../../../servicios/auth.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -44,18 +44,20 @@ export class CabeceraComponent implements OnInit {
     psicologo: any
 
     ngOnInit(): void {
-        this.authService.isAdmin().subscribe({
+        this.authService.getRoles().subscribe({
             next: value => {
-                console.log('VALUE ADMIN', value.message);
-                switch (value.message) {
-                    case 'Token caducado':
-                        console.log('entra 1');
-                        //this.logout();
-                        break;
-                    case 'Unauthorized':
-                        //this.logout();
-                        break;
-                }
+                if (value.includes("admin"))
+                console.log('CABECERA',value);
+                // switch (value) {
+                //     case 'Token caducado':
+                //         console.log('Token caducado');
+                //         //this.logout();
+                //         break;
+                //     case 'Unauthorized':
+                //         console.log('Unauthorized');
+                //         //this.logout();
+                //         break;
+                // }
                 this.admin = true
             },
             error: err => {
@@ -63,11 +65,11 @@ export class CabeceraComponent implements OnInit {
             }
         })
 
-        this.authService.isPsicologo().subscribe({
-            next: value => {
-                this.psicologo = true
-            },
-        })
+        // this.authService.isPsicologo().subscribe({
+        //     next: value => {
+        //         this.psicologo = true
+        //     },
+        // })
     }
 
     logout() {

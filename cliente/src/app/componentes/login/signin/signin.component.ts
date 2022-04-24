@@ -23,19 +23,20 @@ export class SigninComponent implements OnInit {
     }
 
     signIn() {
-        this.servicio.singin(this.user)
-            .subscribe(
-                res => {
-                    this.toastr.error('', "Login bien")
-                    console.log('Login:', res.token);
-                    localStorage.setItem('token', res.token);
-                    this.router.navigate(['.']).then();
-                   // window.location.reload();
+        console.log('entra.');
+        this.servicio.singin(this.user).subscribe({
+            next: value => {
+                this.toastr.success('', "Login bien")
+                console.log('Login:', value.token);
+                localStorage.setItem('token', value.token);
+                this.router.navigate(['/psicologo/menu']).then();
                 },
-                error => {
-                    console.log(error.status, error.error.message)
-                    this.toastr.error('', "Los datos son incorrectos.")
-                }
-            )
+            error: err => {
+                this.toastr.error('', "Los datos son incorrectos.")
+                console.log(err.status, err.error.message)
+            },
+            complete:() => {
+            }
+        })
     }
 }

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree} from '@angular/router';
-import {Observable} from "rxjs";
+import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
+import {filter, map} from "rxjs";
 import {AuthService} from "../servicios/auth.service";
 
 @Injectable({
@@ -11,7 +11,14 @@ export class AdminGuard implements CanActivate {
     constructor(private authService: AuthService) {
     }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-        return this.authService.isAdmin();
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        return this.authService.getRoles().pipe(
+            filter(member => !!member),  // Filter NULL value here before sending object further
+            map(member => {
+                console.log(member);
+                const index = member.findIndex(rol => rol === "admin");
+                    return index != -1;
+                }
+            ))
     }
 }

@@ -6,16 +6,17 @@ import Role from "../models/Role";
 export const verifyToken = async (req, res, next) => {
     try {
         const token = req.headers["authorization"]
-        if (!token) return res.status(403).json({message: 'No token'})
-
         const tokenString = token.split(' ')[1];
-        let decoded;
 
+        if (tokenString === 'null') {
+            return res.status(200).json([{message: 'No token'}])
+        }
+
+        let decoded;
         try{
             decoded = jwt.verify(tokenString, config.SECRET, null, null);
         }catch (e) {
-            console.log('entra a token caducado');
-            return res.status(200).json({message: 'Token caducado'})
+            return res.status(200).json([{message: 'Token caducado'}])
         }
 
         req.userId = decoded.id;
@@ -30,47 +31,19 @@ export const verifyToken = async (req, res, next) => {
     }
 }
 
-export const isAdmin = async (req, res, next) => {
+export const getRoles = async (req, res, next) => {
     try {
         const user = await User.findById(req.userId)
-        const roles = await Role.find({_id: {$in: user.roles}})
+        const rolesBD = await Role.find({_id: {$in: user.roles}})
 
-        for (const role of roles) {
-            if (role.name === 'admin') {
-                return res.status(200).json(true);
-            }
+        const roles = [];
+
+        for (let a of rolesBD){
+            roles.push(a.name)
         }
+
+        return res.status(200).json(roles);
     } catch (e) {
         console.log(e);
-    }
-}
-
-export const isUser = async (req, res, next) => {
-    try {
-        const user = await User.findById(req.userId)
-        const roles = await Role.find({_id: {$in: user.roles}})
-
-        for (const role of roles) {
-            if (role.name === 'user') {
-                return res.status(200).json(true);
-            }
-        }
-    } catch (e) {
-        console.log(e);
-    }
-}
-
-export const isPsicologo = async (req, res, next) => {
-    try {
-        const user = await User.findById(req.userId)
-        const roles = await Role.find({_id: {$in: user.roles}})
-
-        for (const role of roles) {
-            if (role.name === 'psicologo') {
-                return res.status(200).json(true);
-            }
-        }
-    } catch (e) {
-
     }
 }

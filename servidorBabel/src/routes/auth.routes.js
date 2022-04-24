@@ -5,8 +5,6 @@ import {authJwt, verifySignup} from '../middlewares'
 
 router.post('/signin', authCtrl.signIn);
 router.post('/signup', [verifySignup.checkDuplicateUsernameOrEmail, verifySignup.checkRolesExisted], authCtrl.signUp);
-router.get('/checkRole/admin', [authJwt.verifyToken, authJwt.isAdmin])
-router.get('/checkRole/user', [authJwt.verifyToken, authJwt.isUser])
-router.get('/checkRole/psicologo', [authJwt.verifyToken, authJwt.isPsicologo])
+router.get('/getRoles/', [authJwt.verifyToken], authJwt.getRoles)
 router.put('/changePassword', [authJwt.verifyToken], authCtrl.changePassword)
 export default router;
