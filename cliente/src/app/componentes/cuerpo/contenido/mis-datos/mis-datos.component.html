@@ -1,86 +1,70 @@
 <app-cabecera></app-cabecera>
 <div class="overflow-hidden mx-3 mt-2">
-    <legend class="titulos mb-3 border-bottom borde shadow-sm">MIS DATOS</legend>
+    <h3 class="titulos my-2 borde shadow-sm h3">MIS DATOS</h3>
     <div class="row justify-content mb-2">
         <div class="col ">
-            <div><span class="text-primary">Nombre de usuario:</span>
-                <span class="mx-2 py-1 px-2 border-bottom borde shadow-sm">{{psico?.username}}</span></div>
-        </div>
-    </div>
-    <div class="row justify-content mb-2">
-        <div class="col">
-            <span class="text-primary">Nombre:</span><span
-            class="mx-2 py-1 px-2 border-bottom borde text-uppercase"> {{psico?.nombre}}</span>
-        </div>
-        <div class="col">
-            <span class="text-primary">Primer Apellido: </span><span
-            class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.apellido1}} </span>
-        </div>
-        <div class="col">
-            <span class="text-primary">Segundo Apellido: </span> <span
-            class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.apellido2}} </span>
+            <div><span class="text-primary texto" name="username">Nombre de usuario: </span><span class="mx-2 py-1 px-2 borde shadow-sm texto2">{{psico?.username}}</span></div>
         </div>
     </div>
     <div class="row justify-content mb-2">
         <div class="col-md-auto">
-            <span class="text-primary">Tipo Documento: </span><span
-            class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.tipo_doc}} </span>
+            <span class="text-primary texto" name="nombre">Nombre: </span><span class="mx-2 py-1 px-2 borde shadow-sm text-uppercase texto2"> {{psico?.nombre}}</span>
         </div>
         <div class="col-md-auto">
-            <span class="text-primary">Documento: </span><span
-            class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.documento}} </span>
+            <span class="text-primary texto" name="apellido1">Primer Apellido: </span><span class="mx-2 py-1 px-2 borde shadow-sm text-uppercase texto2"> {{psico?.apellido1}} </span>
         </div>
         <div class="col-md-auto">
-            <span class="text-primary">Número colegiado: </span><span
-            class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.num_colegiado}}</span>
+            <span class="text-primary texto" name="apellido2">Segundo Apellido: </span> <span class="mx-2 py-1 px-2 borde shadow-sm text-uppercase texto2"> {{psico?.apellido2}} </span>
+        </div>
+    </div>
+    <div class="row justify-content mb-2">
+        <div class="col-md-auto">
+            <span class="text-primary texto" name="tipo_doc">Tipo Documento: </span><span class="mx-2 py-1 px-2 borde shadow-sm text-uppercase texto2"> {{psico?.tipo_doc}} </span>
         </div>
         <div class="col-md-auto">
-            <span class="text-primary">Teléfono: </span><span
-            class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.telefono}} </span>
+            <span class="text-primary texto" name="documento">Documento: </span><span class="mx-2 py-1 px-2 borde shadow-sm text-uppercase texto2"> {{psico?.documento}} </span>
         </div>
         <div class="col-md-auto">
-            <span class="text-primary">Correo electónico: </span><span
-            class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.email}} </span>
+            <span class="text-primary texto" name="num_colegiado">Número colegiado: </span><span class="mx-2 py-1 px-2 borde shadow-sm text-uppercase texto2"> {{psico?.num_colegiado}}</span>
+        </div>
+        <div class="col-md-auto">
+            <span class="text-primary texto" name="telefono">Teléfono: </span><span class="mx-2 py-1 px-2 borde shadow-sm text-uppercase texto2"> {{psico?.telefono}} </span>
+        </div>
+        <div class="col-md-auto">
+            <span class="text-primary texto" name="email">Correo electónico: </span><span class="mx-2 py-1 px-2 borde shadow-sm text-uppercase texto2"> {{psico?.email}} </span>
+        </div>
+    </div>
+    <div class="row justify-content mb-2">
+        <div class="col-md-auto">
+            <span class="text-primary  texto" name="titulacion">Titulación: </span><span class="mx-2 py-1 px-2 borde shadow-sm text-uppercase texto2"> {{psico?.titulacion}} </span>
+        </div>
+        <div class="col-md-auto">
+            <span class="text-primary texto" name="especialidad">Especialidad: </span><span class="mx-2 py-1 px-2 borde shadow-sm text-uppercase texto2"> {{psico?.especialidad}} </span>
         </div>
     </div>
     <div class="row justify-content mb-2">
         <div class="col">
-            <span class="text-primary">Titulación: </span><span
-            class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.titulacion}} </span>
-        </div>
-        <div class="col">
-            <span class="text-primary">Especialidad: </span><span
-            class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.especialidad}} </span>
-        </div>
-    </div>
-    <div class="row justify-content mb-2">
-        <div class="col">
-            <span class="text-primary">Credenciales Adicionales: </span><span
-            class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.credenciales_adic}} </span>
+            <span class="text-primary texto" name="credenciales_adic">Credenciales Adicionales: </span><span class="mx-2 py-1 px-2 borde shadow-sm text-uppercase texto2"> {{psico?.credenciales_adic}} </span>
         </div>
     </div>
     <div class="row justify-content-md-center mb-2">
         <div class="col">
-            <span class="text-primary">Dirección: </span><span
-            class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.direccion.calle}} </span>
+            <span class="text-primary texto" name="calle">Dirección: </span><span class="mx-2 py-1 px-2 borde shadow-sm text-uppercase texto2"> {{psico?.direccion.calle}} </span>
         </div>
     </div>
     <div class="row justify-content-md-center mb-2">
         <div class="col">
-            <span class="text-primary">Código postal: </span><span
-            class="mx-2 py-1 px-2 border-bottom borde shadow-sm"> {{psico?.direccion.cod_postal}} </span>
+            <span class="text-primary texto" name="cod_postal">Código postal: </span><span class="mx-2 py-1 px-2 borde shadow-sm texto2"> {{psico?.direccion.cod_postal}} </span>
         </div>
         <div class="col">
-            <span class="text-primary">Ciudad: </span><span
-            class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.direccion.ciudad}} </span>
+            <span class="text-primary texto" name="ciudad">Ciudad: </span><span class="mx-2 py-1 px-2 borde shadow-sm text-uppercase texto2"> {{psico?.direccion.ciudad}} </span>
         </div>
         <div class="col">
-            <span class="text-primary">Provincia: </span><span
-            class="mx-2 py-1 px-2 border-bottom borde shadow-sm text-uppercase"> {{psico?.direccion.provincia}} </span>
+            <span class="text-primary texto" name="provincia">Provincia: </span><span class="mx-2 py-1 px-2 borde shadow-sm text-uppercase texto2"> {{psico?.direccion.provincia}} </span>
         </div>
     </div>
     <div class="mt-5">
-        <button class="btn btn-primary" (click)="mostrar()">Cambiar contraseña</button>
+        <button class="btn btn-primary texto" (click)="mostrar()">Cambiar contraseña</button>
     </div>
     <div *ngIf="visible">
         <app-cambiar-pass></app-cambiar-pass>
