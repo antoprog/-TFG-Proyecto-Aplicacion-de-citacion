@@ -31,7 +31,7 @@ export const verifyToken = async (req, res, next) => {
     }
 }
 
-export const getRoles = async (req, res, next) => {
+export const getRoles = async (req, res) => {
     try {
         const user = await User.findById(req.userId)
         const rolesBD = await Role.find({_id: {$in: user.roles}})
@@ -45,5 +45,6 @@ export const getRoles = async (req, res, next) => {
         return res.status(200).json(roles);
     } catch (e) {
         console.log(e);
+        return res.status(200).json('error');
     }
 }

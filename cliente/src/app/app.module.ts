@@ -27,7 +27,8 @@ import {MisDatosComponent} from './componentes/cuerpo/contenido/mis-datos/mis-da
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CambiarPassComponent} from './componentes/cuerpo/contenido/administrativo/cambiar-pass/cambiar-pass.component';
 import {ToastrModule} from "ngx-toastr";
-import { CabeceraNoUserComponent } from './componentes/cabeceras/cabecera-no-user/cabecera-no-user.component';
+import {CabeceraNoUserComponent} from './componentes/cabeceras/cabecera-no-user/cabecera-no-user.component';
+import { AgendaComponent } from './componentes/agenda/agenda.component';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import { CabeceraNoUserComponent } from './componentes/cabeceras/cabecera-no-use
         InicioPaginaComponent,
         MisDatosComponent,
         CambiarPassComponent,
-        CabeceraNoUserComponent
+        CabeceraNoUserComponent,
+        AgendaComponent
     ],
     imports: [
         BrowserModule,

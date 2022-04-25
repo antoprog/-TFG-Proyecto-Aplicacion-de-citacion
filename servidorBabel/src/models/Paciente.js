@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const DatosSchema = mongoose.Schema(
     {
+        nomApe1Ape2: {type: String},
         nombre: {type: String},
         apellido1: {type: String},
         apellido2: {type: String},

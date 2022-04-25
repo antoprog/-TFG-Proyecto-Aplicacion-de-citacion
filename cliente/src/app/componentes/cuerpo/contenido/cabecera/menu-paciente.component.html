@@ -1,30 +1,26 @@
-<div class="card ">
-
-  <section class="row ">
-    <div class="col-sm-3">
-      <label class="may" name="paciente">Paciente: {{data.nombre}}  {{data.apellido1}} {{data.apellido2}}</label>
+<div class="card">
+    <div class="row">
+        <div class="col-sm-auto">
+            <label class="text-capitalize" name="paciente">Paciente: {{data?.nombre}} {{data?.apellido1}} {{data?.apellido2}}</label>
+        </div>
+        <div class="col-sm-auto">
+            <label class="text-capitalize" name="tipoSesion">Tipo de sesión: </label>
+        </div>
+        <div class="col-sm-auto">
+            <label name="edad">Edad: {{ edad }}</label>
+        </div>
     </div>
-    <div class="col-sm-3">
-      <label class="may" name="tipoSesion">Tipo de sesión: </label>
+    <div class="row">
+        <div class="col-sm-auto">
+            <label name="ultimaSesion">Nº Historial: </label>
+        </div>
+        <div class="col-sm-auto">
+            Cons. Grabación: <input type="checkbox" name="consentimientoGrabacion" value="boolean" disabled>
+        </div>
+        <div class="col-sm-auto">
+            <select name="diagnostico" id="diagnostico">
+                <option *ngFor="let a of diagnostico">{{a}}</option>
+            </select>
+        </div>
     </div>
-    <div class="col-sm-3">
-      <label name="edad">Edad: {{data.edad}}</label>
-    </div>
-   
-  </section>
-  <section class="row ">
-    <div class="col-sm-2">
-      <label name="ultimaSesion">Nº Hitorial: </label>
-    </div>
-    <div class="col-sm-3">
-      Cons. Grabación: <input type="checkbox" name="consentimientoGrabacion" value="boolean" disabled>
-      
-    </div>
-    <div class="col-sm-3">
-      <select  name="diagnostico" id="diagnostico">
-        <option *ngFor="let a of diagnostico">{{a}}</option>
-      </select>
-    </div>
-  </section>
- 
 </div>

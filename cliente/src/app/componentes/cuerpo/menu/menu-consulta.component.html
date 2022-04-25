@@ -2,11 +2,11 @@
 <div class="row">
   <nav class="col-sm-2">
     <ul class="acorh">
-      <li><a [routerLink]="[{ outlets: { prueba: ['antecedentes'] } }]">ANTECEDENTES</a></li>
-      <li><a [routerLink]="[{ outlets: { prueba: ['consulta'] } }]">CONSULTA</a></li>
-      <li><a [routerLink]="[{ outlets: { prueba: ['pruebas'] } }]">PRUEBAS</a></li>
-      <li><a [routerLink]="[{ outlets: { prueba: ['seguimiento'] } }]">SEGUIMIENTO</a></li>
-      <li><a [routerLink]="[{ outlets: { prueba: ['informes'] } }]">INFORMES</a>
+      <li><a [routerLink]="[{ outlets: { psicologo: ['antecedentes'] } }]">ANTECEDENTES</a></li>
+      <li><a [routerLink]="[{ outlets: { psicologo: ['consulta'] } }]">CONSULTA</a></li>
+      <li><a [routerLink]="[{ outlets: { psicologo: ['pruebas'] } }]">PRUEBAS</a></li>
+      <li><a [routerLink]="[{ outlets: { psicologo: ['seguimiento'] } }]">SEGUIMIENTO</a></li>
+      <li><a [routerLink]="[{ outlets: { psicologo: ['informes'] } }]">INFORMES</a>
         <!--Dejamos el ul con vistas a poder desarrollar en un futuro-->
         <!-- <ul>
             <li><a href="#">PACIENTE</a></li>
@@ -26,6 +26,6 @@
 
   <div class="col-sm-9">
     <app-menu-paciente></app-menu-paciente>
-    <router-outlet name="prueba"></router-outlet>
+    <router-outlet name="psicologo"></router-outlet>
   </div>
 </div>

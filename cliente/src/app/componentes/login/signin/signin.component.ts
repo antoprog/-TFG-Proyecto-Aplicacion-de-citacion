@@ -29,7 +29,7 @@ export class SigninComponent implements OnInit {
                 this.toastr.success('', "Login bien")
                 console.log('Login:', value.token);
                 localStorage.setItem('token', value.token);
-                this.router.navigate(['/psicologo/menu']).then();
+                this.router.navigate(['/agenda']).then();
                 },
             error: err => {
                 this.toastr.error('', "Los datos son incorrectos.")

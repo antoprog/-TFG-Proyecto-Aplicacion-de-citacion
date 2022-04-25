@@ -3,11 +3,11 @@ import NombrePacientes from '../models/NombrePacientes';
 
 export const createPaciente = async (req, res) => {
     const {
-        nombre, apellido1, apellido2, tipo_doc, documento, fecha_nacimiento, telefono, email, direccion,
+        nomApe1Ape2, nombre, apellido1, apellido2, tipo_doc, documento, fecha_nacimiento, telefono, email, direccion,
         aseguradora, company, numero_historia, contacto, permiso_grabacion, firma_proteccion_datos, datosMedicos
     } = req.body;
     const newPaciente = new Paciente({
-        nombre, apellido1, apellido2, tipo_doc, documento, fecha_nacimiento, telefono, email, direccion,
+        nomApe1Ape2, nombre, apellido1, apellido2, tipo_doc, documento, fecha_nacimiento, telefono, email, direccion,
         aseguradora, company, numero_historia, contacto, permiso_grabacion, firma_proteccion_datos, datosMedicos
     });
     const pacienteSaved = await newPaciente.save();
@@ -24,12 +24,13 @@ export const getPaciente = async (req, res) => {
 }
 
 export const getPacienteById = async (req, res) => { // GET
-    const paciente = await Paciente.findOne({name: req.params.pacienteId});
+    const paciente = await Paciente.findById(req.params.pacienteId);
     res.json(paciente);
 }
 
 export const getPacienteNombre = async (req, res) => { // GET
-    const paciente = await Paciente.findOne({nombre: req.params.nombre}, {datosMedicos:1})
+    //const paciente = await Paciente.findOne({nombre: req.params.nombre}, {datosMedicos:1})
+    const paciente = await Paciente.findOne({nombre: req.params.nombre})
     res.json(paciente);
 }
 
@@ -48,8 +49,11 @@ export const deletePacienteById = async (req, res) => { // DELETE
 
 export const getPacientesNombre = async (req, res) => {
     try {
-        const dat = await NombrePacientes.find({"name": new RegExp(req.params.nombre.toUpperCase())});
-        res.send(dat)
+        console.log(req.params.nombre);
+        const projection = {_id: 1, nomApe1Ape2: 1};
+        const dato = await Paciente.find({nomApe1Ape2 : new RegExp(req.params.nombre)}, projection);
+        console.log(dato);
+        res.send(dato)
     } catch (error) {
         console.log(error)
     }

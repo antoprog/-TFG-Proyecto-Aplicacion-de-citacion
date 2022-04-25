@@ -1,92 +1,93 @@
 <app-cabecera></app-cabecera>
 <section>
-  <form [formGroup]="psicologoForm" (submit)="onSubmit()">
-    <label for="username">USERNAME</label><input type="text" formControlName="username">
-    <span *ngIf="getError('username') as message">
+    <form [formGroup]="psicologoForm" (submit)="onSubmit()">
+        <label for="username">USERNAME</label><input type="text" formControlName="username">
+        <span *ngIf="getError('username') as message">
       <strong>{{message}}</strong>
     </span>
-    <label for="nombre">NOMBRE</label><input type="text" formControlName="nombre">
-    <span *ngIf="getError('nombre') as message">
+        <label for="nombre">NOMBRE</label><input type="text" formControlName="nombre">
+        <span *ngIf="getError('nombre') as message">
       <strong>{{message}}</strong>
     </span>
-    <label for="apellido1">PRIMER APELLIDO</label><input type="text" formControlName="apellido1">
-    <span *ngIf="getError('apellido1') as message">
+        <label for="apellido1">PRIMER APELLIDO</label><input type="text" formControlName="apellido1">
+        <span *ngIf="getError('apellido1') as message">
       <strong>{{message}}</strong>
     </span>
-    <label for="apellido2">SEGUNDO APELLIDO</label><input type="text" formControlName="apellido2">
-    <span *ngIf="getError('apellido2') as message">
+        <label for="apellido2">SEGUNDO APELLIDO</label><input type="text" formControlName="apellido2">
+        <span *ngIf="getError('apellido2') as message">
       <strong>{{message}}</strong>
     </span>
-    <label for="tipo_doc">TIPO DE DOCUMENTO</label>
-    <select formControlName="tipo_doc">
-      <option *ngFor="let d of t_doc" [value]="d.nombre">{{d.nombre}}</option>
-    </select>
-    <!--si tipo_doc =DNI -->
-    <div *ngIf="psicologoForm.get('tipo_doc')?.value === 'DNI'">
-      DNI: <input class="form-control" formControlName="documentoDni" type="text">
-      <span *ngIf="getError('documentoDni') as message">
+        <label for="tipo_doc">TIPO DE DOCUMENTO</label>
+        <select formControlName="tipo_doc">
+            <option *ngFor="let d of t_doc" [value]="d.nombre">{{d.nombre}}</option>
+        </select>
+        <!--si tipo_doc =DNI -->
+        <div *ngIf="psicologoForm.get('tipo_doc')?.value === 'DNI'">
+            DNI: <input class="form-control" formControlName="documentoDni" type="text">
+            <span *ngIf="getError('documentoDni') as message">
         <strong>{{message}}</strong>
       </span>
-    </div>
-    <!--si tipo_doc =NIE-->
-    <div *ngIf="psicologoForm.get('tipo_doc')?.value === 'NIE'">
-      NIE: <input class="form-control" formControlName="documentoNie" type="text">
-      <span *ngIf="getError('documentoNie') as message">
+        </div>
+        <!--si tipo_doc =NIE-->
+        <div *ngIf="psicologoForm.get('tipo_doc')?.value === 'NIE'">
+            NIE: <input class="form-control" formControlName="documentoNie" type="text">
+            <span *ngIf="getError('documentoNie') as message">
         <strong>{{message}}</strong>
       </span>
+        </div>
+        <label for="titulacion">TITULACION</label><input type="text" formControlName="titulacion">
+        <span *ngIf="getError('titulacion') as message">
+      <strong>{{message}}</strong>
+    </span>
+        <label for="especialidad">ESPECIALIDAD</label><input type="text" formControlName="especialidad">
+        <span *ngIf="getError('especialidad') as message">
+      <strong>{{message}}</strong>
+    </span>
+        <label for="credenciales_adic">CREDENCIALES ADICIONALES</label><input type="text"
+                                                                              formControlName="credenciales_adic">
+        <span *ngIf="getError('credenciales_adic') as message">
+      <strong>{{message}}</strong>
+    </span>
+        <label for="num_colegiado">NÚMERO DE COLEGIADO</label><input type="text" formControlName="num_colegiado">
+        <span *ngIf="getError('num_colegiado') as message">
+      <strong>{{message}}</strong>
+    </span>
+        <label for="telefono">TELEFONO</label><input type="text" formControlName="telefono">
+        <span *ngIf="getError('telefono') as message">
+      <strong>{{message}}</strong>
+    </span>
+        <label for="email">CORREO ELECTRONICO</label><input type="email" formControlName="email">
+        <span *ngIf="getError('email') as message">
+      <strong>{{message}}</strong>
+    </span>
+        <fieldset>
+            <legend>DOMICILIO:</legend>
+            <label for="calle">CALLE</label><input type="text" formControlName="calle">
+            <span *ngIf="getError('calle') as message">
+            <strong>{{message}}</strong>
+        </span>
+            <label for="cod_postal">CODIGO POSTAL</label><input type="text" formControlName="cod_postal">
+            <span *ngIf="getError('cod_postal') as message">
+            <strong>{{message}}</strong>
+        </span>
+            <label for="ciudad">CIUDAD</label><input type="text" formControlName="ciudad">
+            <span *ngIf="getError('ciudad') as message">
+            <strong>{{message}}</strong>
+        </span>
+            <label for="provincia">PROVINCIA</label><input type="text" formControlName="provincia">
+            <span *ngIf="getError('provincia') as message">
+            <strong>{{message}}</strong>
+        </span>
+            <input type="hidden" formControlName="pais" value="España">
+        </fieldset>
+        <button class="button" type="submit" [disabled]="psicologoForm.invalid">Guardar</button>
+    </form>
+    <div class="wrapper">
+        <div>
+            <strong>Es valido el fomulario?: </strong>
+            <span *ngIf="psicologoForm.valid">✔</span>
+            <span *ngIf="!psicologoForm.valid">🔴</span>
+        </div>
+        <pre>{{psicologoForm.value|json}}</pre>
     </div>
-    <label for="titulacion">TITULACION</label><input type="text" formControlName="titulacion">
-    <span *ngIf="getError('titulacion') as message">
-      <strong>{{message}}</strong>
-    </span>
-    <label for="especialidad">ESPECIALIDAD</label><input type="text" formControlName="especialidad">
-    <span *ngIf="getError('especialidad') as message">
-      <strong>{{message}}</strong>
-    </span>
-    <label for="credenciales_adic">CREDENCIALES ADICIONALES</label><input type="text"
-                                                                          formControlName="credenciales_adic">
-    <span *ngIf="getError('credenciales_adic') as message">
-      <strong>{{message}}</strong>
-    </span>
-    <label for="num_colegiado">NÚMERO DE COLEGIADO</label><input type="text" formControlName="num_colegiado">
-    <span *ngIf="getError('num_colegiado') as message">
-      <strong>{{message}}</strong>
-    </span>
-    <label for="telefono">TELEFONO</label><input type="text" formControlName="telefono">
-    <span *ngIf="getError('telefono') as message">
-      <strong>{{message}}</strong>
-    </span>
-    <label for="email">CORREO ELECTRONICO</label><input type="email" formControlName="email">
-    <span *ngIf="getError('email') as message">
-      <strong>{{message}}</strong>
-    </span>
-    <fieldset>
-      <legend>DOMICILIO:</legend>
-      <label for="calle">CALLE</label><input type="text" formControlName="calle">
-      <span *ngIf="getError('calle') as message">
-            <strong>{{message}}</strong>
-        </span>
-      <label for="cod_postal">CODIGO POSTAL</label><input type="text" formControlName="cod_postal">
-      <span *ngIf="getError('cod_postal') as message">
-            <strong>{{message}}</strong>
-        </span>
-      <label for="ciudad">CIUDAD</label><input type="text" formControlName="ciudad">
-      <span *ngIf="getError('ciudad') as message">
-            <strong>{{message}}</strong>
-        </span>
-      <label for="provincia">PROVINCIA</label><input type="text" formControlName="provincia">
-      <span *ngIf="getError('provincia') as message">
-            <strong>{{message}}</strong>
-        </span>
-      <input type="hidden" formControlName="pais" value="España">
-    </fieldset>
-    <button class="button" type="submit" [disabled]="psicologoForm.invalid">Guardar</button>
-  </form>
-  <div class="wrapper">
-    <div><b>Es valido el fomulario?: </b>
-      <span *ngIf="psicologoForm.valid">✔</span>
-      <span *ngIf="!psicologoForm.valid">🔴</span>
-    </div>
-    <pre>{{psicologoForm.value|json}}</pre>
-  </div>
 </section>

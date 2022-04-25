@@ -47,6 +47,10 @@
         <span *ngIf="getError('email') as message">
           <strong>{{message}}</strong>
         </span>
+          <label for="fecha_nacimiento">FECHA NACIMINETO</label><input type="date" style="margin-right:2%; margin-left:1%;" class="col-sm-2" formControlName="fecha_nacimiento">
+          <span *ngIf="getError('fecha_nacimiento') as message">
+          <strong>{{message}}</strong>
+        </span>
       </div>
 
 
@@ -100,12 +104,11 @@
     <button class="btn btn-primary" style="float:right" type="submit" [disabled]="insClienteForm.invalid">Guardar</button>
   </div>
   </form>
-  <!--<button (click)="sumar()">Siguiente pagina</button>-->
-<!--   <div class="wrapper">
+   <div class="wrapper">
     <div><b>Es valido el fomulario?: </b>
       <span *ngIf="insClienteForm.valid">✔</span>
       <span *ngIf="!insClienteForm.valid">🔴</span>
     </div>
     <pre>{{insClienteForm.value|json}}</pre>
-  </div> -->
+  </div>
 </section>

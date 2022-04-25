@@ -6,9 +6,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link active" aria-current="page" routerLink="/">Inicio</a>-->
-<!--        </li>-->
         <li class="nav-item">
           <a class="nav-link" routerLink="/misDatos">Mis datos</a>
         </li>
@@ -35,7 +32,7 @@
       </ul>
       <div class="ng-autocomplete">
         <ng-autocomplete
-          [data]="data"
+          [data]="listaPantalla"
           placeholder="Buscar cliente"
           (selected)='selectEvent($event)'
           (inputChanged)='onChangeSearch($event)'
@@ -45,7 +42,7 @@
         </ng-autocomplete>
 
         <ng-template #itemTemplate let-item>
-          <a [innerHTML]="item" routerLink="/menu"></a>
+          <a [innerHTML]="item" routerLink="/psicologo" (click)="actualizarPagina()"></a>
         </ng-template>
 
         <ng-template #notFoundTemplate let-notFound>
@@ -55,4 +52,3 @@
     </div>
   </div>
 </nav>
-<router-outlet></router-outlet>

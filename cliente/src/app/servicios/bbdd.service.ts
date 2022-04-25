@@ -20,8 +20,9 @@ export class BbddService {
   }
 
   getDatosMedicosPaciente(paciente: any) {
-    return this.http.get<Paciente>('http://localhost:4001/paciente/uno/' + paciente)
+    return this.http.get<Paciente>('http://localhost:4001/paciente/' + paciente)
   }
+
   getDatosPsicologo(psicologo:any){
     return this.http.get<Psicologo>('http://localhost:4001/psicologo/uno/')
   }
