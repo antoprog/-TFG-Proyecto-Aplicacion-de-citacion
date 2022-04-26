@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Psicologo} from 'src/app/modelo/psicologo';
 import {BbddService} from "../../../../servicios/bbdd.service";
 import {AuthService} from "../../../../servicios/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-mis-datos',
@@ -9,8 +10,10 @@ import {AuthService} from "../../../../servicios/auth.service";
     styleUrls: ['./mis-datos.component.css']
 })
 export class MisDatosComponent implements OnInit {
-    constructor(private servicio: BbddService, private authService: AuthService) {
+    constructor(private servicio: BbddService, private authService: AuthService, private router:Router) {
     }
+
+
 
     visible: any
 

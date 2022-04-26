@@ -1,33 +1,31 @@
-<form [formGroup]="consultaForm"  (submit)="onSubmit()">
-  <div class="procedencia">
-    Enviado por: <input formControlName="procedencia" placeholder="Juez, médico, amigo..." type="text">
-  </div>
-  <div class="form-outline w-50  mb-12" id="motivos">
-    <div class="form-outline1 w-50 mb-3" id="motivo1">
-      <label class="form-label" for="con_motivo">Motivo consulta: </label>
-      <textarea class="form-control" id="con_motivo" formControlName="con_motivo" rows="3"></textarea>
+<form [formGroup]="consultaForm">
+    <div class="procedencia">
+        Enviado por: <input formControlName="procedencia" placeholder="Juez, médico, amigo..." type="text">
+        Fecha diagnóstico: <input id="fecha_diagnostico" formControlName="fecha_diagnostico" type="date"
+                                  min="2012-01-01">
     </div>
-    <div class="form-outline2 w-50 mb-3" id="motivo2">
-      <label class="form-label" for="con_sintomas">Síntomas: </label>
-      <textarea class="form-control" id="con_sintomas" formControlName="con_sintomas" rows="3"></textarea>
+    <div class="form-outline w-50  mb-12" id="motivos">
+        <div class="form-outline1 w-50 mb-3" id="motivo1">
+            <label class="form-label" for="con_motivo">Motivo consulta: </label>
+            <textarea class="form-control" id="con_motivo" formControlName="con_motivo" rows="3"></textarea>
+        </div>
+        <div class="form-outline2 w-50 mb-3" id="motivo2">
+            <label class="form-label" for="con_sintomas">Síntomas: </label>
+            <textarea class="form-control" id="con_sintomas" formControlName="con_sintomas" rows="3"></textarea>
+        </div>
     </div>
-  </div>
-  <div>
-    Fecha diagnóstico: <input id="fecha_diagnostico" formControlName="fecha_diagnostico" type="date" min="2012-01-01"> <!--Ponemos como minimo 2012 ya que damos por válidas pruebas que se han podido recabar hasta esa fecha-->
-    Patología Médica: <input id="patología_medica" formControlName="patología_medica" placeholder="patología médica..." type="text">
-  </div>
-  <div class="form-outline w-50  mb-12" id="dco_medico">
-    <div class="form-outline1 w-50 mb-3" id="dco_medico1">
-      <label class="form-label" for="dco_medico1">Posología: </label>
-      <textarea formControlName="dco_medico1" class="form-control" id="dco_medico1" rows="3"></textarea>
+    <div class="form-outline w-50  mb-12" id="dco_medico">
+        <div class="form-outline1 w-50 mb-3" id="dco_medico1">
+            <label class="form-label" for="dco_medico1">Posología: </label>
+            <textarea formControlName="posologia" class="form-control" id="tratamiento" rows="3"></textarea>
+        </div>
+        <div class="form-outline2 w-50 mb-3" id="dco_medico2">
+            <label class="form-label" for="dco_medico2">Patología medica:</label>
+            <textarea formControlName="patologia_medica" class="form-control" id="dco_medico2" rows="3"></textarea>
+        </div>
     </div>
-    <div class="form-outline2 w-50 mb-3" id="dco_medico2">
-      <label class="form-label" for="dco_medico2">Observaciones Médicas: </label>
-      <textarea  formControlName="dco_medico2" class="form-control" id="dco_medico2" rows="3"></textarea>
-      <button class="button" type="button" value="Submit Button">Guardar</button>
-      <button class="button" type="button" value="Modify Button">Modificar</button>
-    </div>
-  </div>
+    <input type="submit" value="Guardar" (click)="guardar()">
+    <input type="submit" value="Modificar" (click)="modificar()">
 </form>
 
 

@@ -1,19 +1,19 @@
-<form action="prueba" submit="onSubmit()">
+<form [formGroup]="formulario">
     <div class="enfermedad_actual">
         Diagnóstico Psicológico: <input type="text" formGroupName="dco_psicologico" placeholder="Enfermedad actual..." name="enfermedad_actual">
     </div>
     <div class="form-outline w-50  mb-12" id="prueba">
-        <div class="form-outline1 w-50 mb-3" id="prueba1">
+        <div class="form-outline1 w-50 mb-3">
             <label class="form-label" for="prueba1">Prueba cognitiva: </label>
-            <textarea class="form-control" formGroupName="prueba1" id="prueba1" rows="3"value="Prueba_cognitiva"></textarea>    
+            <textarea class="form-control" formGroupName="prueba1" id="prueba1" rows="3" value="Prueba_cognitiva"></textarea>
         </div>
-        <div class="form-outline2 w-50 mb-3" id="prueba2">
+        <div class="form-outline2 w-50 mb-3">
             <label class="form-label" for="prueba2">Prueba emocional: </label>
-            <textarea class="form-control" id="prueba2"  formGroupName="prueba2"rows="3"value="Prueba_emocional"></textarea>
+            <textarea class="form-control" id="prueba2"  formGroupName="prueba2" rows="3" value="Prueba_emocional"></textarea>
         </div>
     </div>
-    <div class="form-outline3  mb-3" id="prueba3">
-        <label class="form-label" for="prueba33">Prueba psicodiagnóstica:  </label>
+    <div class="form-outline3  mb-3">
+        <label class="form-label" for="prueba3">Prueba psicodiagnóstica:  </label>
         <textarea class="form-control" formGroupName="prueba3" id="prueba3" rows="3" value="Prueba_psicodiagnostica"></textarea>
     </div>
     <button type="button" class="button" value="Submit Button">Guardar</button>

@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {NavbarClientesService} from "../../../servicios/navbar-clientes.service";
 import {AuthService} from "../../../servicios/auth.service";
-import {Router} from "@angular/router";
+import {Route, Router} from "@angular/router";
+import {DataShareService} from "../../../servicios/data-share.service";
 
 export interface Dat {
     _id: string,
@@ -17,7 +18,8 @@ export interface Dat {
 export class CabeceraComponent implements OnInit {
     constructor(private servicio: NavbarClientesService,
                 private authService: AuthService,
-                private router: Router) {
+                private dataShare: DataShareService,
+                private router:Router) {
     }
 
     listaPantalla: any
@@ -42,8 +44,9 @@ export class CabeceraComponent implements OnInit {
     selectEvent(item: any) {
         for (let i = 0; i < this.datos.length; i++) {
             if (this.datos[i].nomApe1Ape2 === item) {
-                localStorage.removeItem('paciente')
-                localStorage.setItem('paciente', this.datos[i]._id)
+                console.log('SE LE ENVIA AL SHARE', this.datos[i]._id);
+                this.dataShare._idPaciente.next(this.datos[i]._id);
+                this.router.navigate(['/psicologo']).then();
                 break;
             }
         }
@@ -57,7 +60,7 @@ export class CabeceraComponent implements OnInit {
         e.target.value = ""
     }
 
-    admin: any
+        admin: any
     psicologo: any
 
     ngOnInit(): void {
@@ -74,9 +77,5 @@ export class CabeceraComponent implements OnInit {
 
     logout() {
         this.authService.logout();
-    }
-
-    actualizarPagina() {
-       window.location.reload();
     }
 }

@@ -56,17 +56,15 @@ export interface Paciente {
                 usu: String,
                 f_usu: Date,
                 acion_usu: String,
-
                 diagnostico_medico:
                     {
                         patologia_medica: String,
                         fecha_diagnostico: Date,
-                        tratamiento: String,
+                        posologia: String,
                         usu: String,
                         f_usu: Date,
                         acion_usu: String
                     },
-
                 test_diagnosticos:
                     {
                         cognitiva: {
@@ -116,7 +114,6 @@ export interface Paciente {
                     }
                 ]
             }
-
         ]
     }
 }

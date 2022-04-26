@@ -106,9 +106,10 @@ export class AltaPacienteComponent implements OnInit {
 
     //funcion de control de errores
     getError(field: string): string {
-        if (!this.insClienteForm.controls[field].dirty || !this.insClienteForm.controls[field].errors) {
+        if (!this.insClienteForm.controls[field] || !this.insClienteForm.controls[field].errors) {
             return ''
         }
+        this.insClienteForm.controls[field].setErrors(Validators.required)
         if (this.insClienteForm.controls[field].hasError('required')) {
             return 'required'
         }

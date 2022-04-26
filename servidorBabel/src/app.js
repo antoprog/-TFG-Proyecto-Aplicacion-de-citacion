@@ -2,7 +2,6 @@ import express from 'express'
 import morgan from 'morgan'
 import pkg from '../package.json'
 import {createRoles} from "./libs/initialSetup";
-import productsRoutes from "./routes/products.routes";
 import authRoutes from "./routes/auth.routes";
 import userRoutes from "./routes/user.routes";
 import psicologosRoutes from "./routes/psicologos.routes";
@@ -24,7 +23,6 @@ app.get('/', (req, res) => {
     });
 })
 
-app.use('/products', productsRoutes)
 app.use('/auth', authRoutes)
 app.use('/users', userRoutes)
 app.use('/psicologo', psicologosRoutes)

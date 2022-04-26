@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 
 @Component({
     selector: 'app-root',
@@ -8,17 +8,12 @@ import {Router} from "@angular/router";
 })
 export class AppComponent implements OnInit {
 
-    constructor(private router: Router) {
+    constructor() {
     }
 
     acceso: any
-
     ngOnInit(): void {
         console.log('app-component');
         this.acceso = !!localStorage.getItem('token');
-        // if (this.acceso)
-        //     this.router.navigate(['/']).then();
-        // else
-        //     this.router.navigate(['/']).then();
     }
 }

@@ -31,7 +31,6 @@ export class SignupComponent implements OnInit {
         },
         next: a => {
           localStorage.setItem('token', a.token);
-          window.location.reload();
         },
       });
   }
