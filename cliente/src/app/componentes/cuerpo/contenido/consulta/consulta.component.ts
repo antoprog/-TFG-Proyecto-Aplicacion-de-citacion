@@ -7,7 +7,7 @@ import {BbddService} from 'src/app/servicios/bbdd.service';
     templateUrl: './consulta.component.html',
     styleUrls: ['./consulta.component.css']
 })
-export class ConsultaComponent implements OnInit {
+export class ConsultaComponent  {
     constructor(private fb: FormBuilder, private serv: BbddService) {
     }
 
@@ -20,26 +20,16 @@ export class ConsultaComponent implements OnInit {
         posologia: ['']
     })
 
-    ngOnInit(): void {
-    }
-
-    getDatos(): any {
-        return {
-            procedencia: this.consultaForm.controls['procedencia'].value,
-            con_motivo: this.consultaForm.controls['con_motivo'].value,
-            con_sintomas: this.consultaForm.controls['con_sintomas'].value,
-            fecha_diagnostico: this.consultaForm.controls['fecha_diagnostico'].value,
-            patologia_medica: this.consultaForm.controls['patologia_medica'].value,
-            posologia: this.consultaForm.controls['posologia'].value
-        }
-    }
-
     guardar() {
-        console.log('DATOS:', this.getDatos());
+        this.serv.altaConsultaPaciente(this.consultaForm.value).subscribe({
+            next: value => {}
+        })
     }
 
     modificar() {
-        console.log('DATOS:', this.getDatos());
+        this.serv.modificarConsultaPaciente(this.consultaForm.value).subscribe({
+            next: value => {}
+        })
     }
 
     // control de errores

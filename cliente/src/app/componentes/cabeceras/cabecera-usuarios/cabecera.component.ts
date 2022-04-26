@@ -46,6 +46,7 @@ export class CabeceraComponent implements OnInit {
             if (this.datos[i].nomApe1Ape2 === item) {
                 console.log('SE LE ENVIA AL SHARE', this.datos[i]._id);
                 this.dataShare._idPaciente.next(this.datos[i]._id);
+                localStorage.setItem('idPaciente', this.datos[i]._id)
                 this.router.navigate(['/psicologo']).then();
                 break;
             }
