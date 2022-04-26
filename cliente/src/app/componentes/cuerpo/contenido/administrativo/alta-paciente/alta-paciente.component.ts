@@ -1,3 +1,4 @@
+import { variable } from '@angular/compiler/src/output/output_ast';
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms"
 import {BbddService} from "../../../../../servicios/bbdd.service";
@@ -50,7 +51,7 @@ export class AltaPacienteComponent implements OnInit {
         nombreContacto: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(40), Validators.pattern('[a-zA-Z ]*')]],
         telefonoContacto: ['', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{9}$')]],
         permisoGrabacion: [false],
-        firmaProteccionDatos: [false, [Validators.required]],
+        firmaProteccionDatos: [false,[Validators.requiredTrue]],
         psicologo: ['', [Validators.required]]
     })
 
@@ -61,9 +62,14 @@ export class AltaPacienteComponent implements OnInit {
             return this.insClienteForm.controls['documentoDni'].value
         }
     }
-
+    _error:any
     //funcion de envio
     onSubmit() {
+        if(this.insClienteForm.invalid){
+            this.insClienteForm.controls['psicologo'].setErrors({"incorrect":true})
+            this._error ='Faltan campos'
+            return
+        }
         const datos = {
             nomApe1Ape2: this.insClienteForm.controls['nombre'].value + ' ' + this.insClienteForm.controls['apellido1'].value + ' ' + this.insClienteForm.controls['apellido2'].value,
             nombre: this.insClienteForm.controls['nombre'].value,
@@ -126,6 +132,9 @@ export class AltaPacienteComponent implements OnInit {
         }
         if (this.insClienteForm.controls[field].hasError('pattern')) {
             return 'Formato de documento no valido'
+        }
+        if(this.insClienteForm.controls[field].hasError('requiredTrue')){
+            return 'Es necesario que se haya entregado el documento'
         }
         return 'invalid'
     }
