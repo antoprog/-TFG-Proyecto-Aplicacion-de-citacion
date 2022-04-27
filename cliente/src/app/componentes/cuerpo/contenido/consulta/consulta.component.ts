@@ -1,14 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {BbddService} from 'src/app/servicios/bbdd.service';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-consulta',
     templateUrl: './consulta.component.html',
     styleUrls: ['./consulta.component.css']
 })
-export class ConsultaComponent  {
-    constructor(private fb: FormBuilder, private serv: BbddService) {
+export class ConsultaComponent implements OnInit{
+    constructor(private fb: FormBuilder,
+                private bbdd: BbddService) {
+    }
+
+    ngOnInit(): void {
+        this.cargarPantalla();
     }
 
     consultaForm = this.fb.group({
@@ -17,19 +23,28 @@ export class ConsultaComponent  {
         con_sintomas: [''],
         fecha_diagnostico: [''],
         patologia_medica: [''],
-        posologia: ['']
+        posologia: [''],
+        fecha_inicio: ''
     })
 
+    cargarPantalla(){
+        this.bbdd.getDatosMedicosPaciente(localStorage.getItem('idPaciente')).subscribe(
+            {
+                next: value => {
+                    console.log(value.datosMedicos);
+                }
+            }
+        )
+    }
+
     guardar() {
-        this.serv.altaConsultaPaciente(this.consultaForm.value).subscribe({
-            next: value => {}
-        })
+        this.consultaForm.value.fecha_inicio = moment(new Date()).format('YYYY-MM-DD[T00:00:00.000Z]');
+        console.log(this.consultaForm.value);
+        this.bbdd.altaConsultaPaciente(this.consultaForm.value).subscribe()
     }
 
     modificar() {
-        this.serv.modificarConsultaPaciente(this.consultaForm.value).subscribe({
-            next: value => {}
-        })
+        this.bbdd.modificarConsultaPaciente(this.consultaForm.value).subscribe()
     }
 
     // control de errores

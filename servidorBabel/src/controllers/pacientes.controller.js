@@ -67,7 +67,7 @@ export const altaConsultaPaciente = async (req, res) => {
         const idPaciente = req.params.pacienteId;
         const datos = req.body;
 
-        const user = await Paciente.updateOne(
+        await Paciente.updateOne(
             {_id: idPaciente,},
             {
                 $push:
@@ -76,6 +76,7 @@ export const altaConsultaPaciente = async (req, res) => {
                             procedencia: datos.procedencia,
                             motivo_consulta: datos.con_motivo,
                             sintomas: datos.con_sintomas,
+                            fecha_inicio: datos.fecha_inicio,
                             diagnostico_medico: {
                                 fecha_diagnostico: datos.fecha_diagnostico,
                                 patologia_medica: datos.patologia_medica,
@@ -98,7 +99,7 @@ export const modificacionConsulta = async (req, res) => {
         const idPaciente = req.params.pacienteId;
         const datos = req.body;
 
-        const user = await Paciente.updateOne(
+        await Paciente.updateOne(
             {
                 _id: idPaciente,
                 "datosMedicos.valoracion.procedencia": datos.procedencia

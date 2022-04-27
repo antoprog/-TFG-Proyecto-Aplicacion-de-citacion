@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Paciente} from "../modelo/paciente";
 import {Psicologo} from '../modelo/psicologo';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -31,11 +32,11 @@ export class BbddService {
         return this.http.put(url, consultaDatos)
     }
 
-    getDatosMedicosPaciente(paciente: any) {
+    getDatosMedicosPaciente(paciente: any): Observable<Paciente> {
         return this.http.get<Paciente>('http://localhost:4001/paciente/' + paciente)
     }
 
-    getDatosPsicologo(psicologo: any) {
+    getDatosPsicologo(psicologo: any): Observable<Psicologo> {
         return this.http.get<Psicologo>('http://localhost:4001/psicologo/uno/')
     }
 }
