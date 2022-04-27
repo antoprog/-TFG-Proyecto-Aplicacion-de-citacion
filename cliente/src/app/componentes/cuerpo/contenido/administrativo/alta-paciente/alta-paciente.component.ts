@@ -34,8 +34,8 @@ export class AltaPacienteComponent implements OnInit {
     insClienteForm = this.fb.group({
         nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],//agregar ñ y acentos
         apellido1: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
-        apellido2: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
-        tipo_doc: [[Validators.required]],
+        apellido2: ['', [Validators.minLength(2), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
+        tipo_doc: ['',[Validators.required]],
         documentoDni: ['', [Validators.pattern(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
         documentoNie: ['', [Validators.pattern(/^[XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
         fecha_nacimiento: ['', [Validators.required]],
@@ -46,7 +46,7 @@ export class AltaPacienteComponent implements OnInit {
         ciudad: ['', [Validators.required]],
         provincia: ['', [Validators.required]],
         pais: ['España'],
-        aseguradora: [[Validators.required]],
+        aseguradora: ['',[Validators.required]],
         company: [''],
         nombreContacto: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(40), Validators.pattern('[a-zA-Z ]*')]],
         telefonoContacto: ['', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{9}$')]],
@@ -62,12 +62,26 @@ export class AltaPacienteComponent implements OnInit {
             return this.insClienteForm.controls['documentoDni'].value
         }
     }
-    _error:any
+    tipo_doc_err:string=""
+    psicologo_err:string=""
+    aseguradora_err:string=""
+    firma:string=""
     //funcion de envio
     onSubmit() {
+      
         if(this.insClienteForm.invalid){
-            this.insClienteForm.controls['psicologo'].setErrors({"incorrect":true})
-            this._error ='Faltan campos'
+            if(this.insClienteForm.controls['tipo_doc'].value==""){
+                this.tipo_doc_err = "requerido"
+            } 
+            if(this.insClienteForm.controls['psicologo'].value==""){
+                this.psicologo_err = "requerido"
+            } 
+            if(this.insClienteForm.controls['aseguradora'].value==""){
+                this.aseguradora_err = "requerido"
+            } 
+            if(this.insClienteForm.controls['firmaProteccionDatos'].value==false){
+                this.firma = "Es necesario que se haya entregado el documento"
+            } 
             return
         }
         const datos = {
@@ -112,11 +126,12 @@ export class AltaPacienteComponent implements OnInit {
 
     //funcion de control de errores
     getError(field: string): string {
+        
         if (!this.insClienteForm.controls[field].dirty || !this.insClienteForm.controls[field].errors) {
             return ''
         }
         if (this.insClienteForm.controls[field].hasError('required')) {
-            return 'required'
+            return 'requerido'
         }
 
         if (this.insClienteForm.controls[field].hasError('minlength')) {
