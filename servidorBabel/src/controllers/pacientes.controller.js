@@ -2,20 +2,17 @@ import Paciente from '../models/Paciente';
 import NombrePacientes from '../models/NombrePacientes';
 
 export const createPaciente = async (req, res) => {
-    const {
-        nomApe1Ape2, nombre, apellido1, apellido2, tipo_doc, documento, fecha_nacimiento, telefono, email, direccion,
-        aseguradora, company, numero_historia, contacto, permiso_grabacion, firma_proteccion_datos, datosMedicos
-    } = req.body;
-    const newPaciente = new Paciente({
-        nomApe1Ape2, nombre, apellido1, apellido2, tipo_doc, documento, fecha_nacimiento, telefono, email, direccion,
-        aseguradora, company, numero_historia, contacto, permiso_grabacion, firma_proteccion_datos, datosMedicos
-    });
-    const pacienteSaved = await newPaciente.save();
+    try {
+        const newPaciente = new Paciente(req.body)
+        const pacienteSaved = await newPaciente.save();
 
-    const nombreConcat = nombre + ' ' + apellido1 + ' ' + apellido2
-    const newNombre = new NombrePacientes({name: nombreConcat.toUpperCase()})
-    await newNombre.save();
-    res.status(200).json(pacienteSaved);
+        const nombreConcat = req.body.nombre + ' ' + req.body.apellido1 + ' ' + req.body.apellido2
+        const newNombre = new NombrePacientes({name: nombreConcat.toUpperCase()})
+        await newNombre.save();
+        res.status(200).json(pacienteSaved);
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 export const getPaciente = async (req, res) => {

@@ -57,7 +57,7 @@ const DatosSchema = mongoose.Schema(
                         diagnostico_medico: {
                             patologia_medica: {type: String},
                             fecha_diagnostico: {type: Date},
-                            tratamiento: {type: String},
+                            posologia: {type: String},
                             usu: {type: String},
                             f_usu: {type: Date},
                             acion_usu: {type: String}

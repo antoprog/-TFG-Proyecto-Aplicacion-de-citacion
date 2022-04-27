@@ -1,20 +1,20 @@
-<form>
+<form [formGroup]="formulario">
     <div class="seguimiento1 mt-3 mb-3">
-        Fecha cita: 
-        Hora inicio cita: 
-        Hora fin cita: 
+        Fecha cita:
+        Hora inicio cita:
+        Hora fin cita:
     </div>
-    <div class="form-outline mb-12" id="observaciones_cita">
-      <div class="form-outline1 w-100 mb-3" id="observaciones_cita">
+    <div class="form-outline mb-12">
+      <div class="form-outline1 w-100 mb-3">
         <label class="form-label" for="observaciones_cita">Observaciones: </label>
         <textarea class="form-control"  formControlName="observaciones_cita" id="observaciones_cita" rows="4"></textarea>
       </div>
 
-      <div class="form-outline1 w-100 mb-3" id="observaciones_propias">
+      <div class="form-outline1 w-100 mb-3">
         <label class="form-label" for="observaciones_propias">Anotaciones: </label>
         <textarea class="form-control"formControlName="observaciones_propias" id="observaciones_propias" rows="4"></textarea>
       </div>
-      <div class="form-outline2 w-100 mb-3" id="conducta_a_seguir">
+      <div class="form-outline2 w-100 mb-3">
         <label class="form-label" for="conducta_a_seguir">Conducta a seguir: </label>
         <textarea class="form-control"formControlName="conducta_a_seguir" id="conducta_a_seguir" rows="4"></textarea>
       </div>

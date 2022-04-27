@@ -130,6 +130,7 @@ export class AltaPacienteComponent implements OnInit {
         if (!this.insClienteForm.controls[field].dirty || !this.insClienteForm.controls[field].errors) {
             return ''
         }
+        this.insClienteForm.controls[field].setErrors(Validators.required)
         if (this.insClienteForm.controls[field].hasError('required')) {
             return 'requerido'
         }

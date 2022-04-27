@@ -8,7 +8,6 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import {CabeceraComponent} from "./componentes/cabeceras/cabecera-usuarios/cabecera.component";
 import {PieComponent} from "./componentes/pie/pie.component";
 import {MenuConsultaComponent} from "./componentes/cuerpo/menu/menu-consulta.component";
-import {MenuPacienteComponent} from "./componentes/cuerpo/contenido/cabecera/menu-paciente.component";
 import {AntecedentesComponent} from "./componentes/cuerpo/contenido/antecedentes/antecedentes.component";
 import {PruebasComponent} from "./componentes/cuerpo/contenido/pruebas/pruebas.component";
 import {InformesComponent} from "./componentes/cuerpo/contenido/informes/informes.component";
@@ -21,7 +20,6 @@ import {UserGuard} from "./guards/user.guard";
 import {TokenInterceptorService} from "./servicios/token-interceptor.service";
 import {SignupComponent} from "./componentes/login/signup/signup.component";
 import {SigninComponent} from "./componentes/login/signin/signin.component";
-import {DatosComponent} from './componentes/cuerpo/contenido/datos/datos.component';
 import {InicioPaginaComponent} from './componentes/pagina-inicio/pagina-inicio';
 import {MisDatosComponent} from './componentes/cuerpo/contenido/mis-datos/mis-datos.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -29,6 +27,7 @@ import {CambiarPassComponent} from './componentes/cuerpo/contenido/administrativ
 import {ToastrModule} from "ngx-toastr";
 import {CabeceraNoUserComponent} from './componentes/cabeceras/cabecera-no-user/cabecera-no-user.component';
 import { AgendaComponent } from './componentes/agenda/agenda.component';
+import {CabeceraPacienteComponent} from "./componentes/cuerpo/contenido/cabecera/cabecera-paciente.component";
 
 @NgModule({
     declarations: [
@@ -36,7 +35,7 @@ import { AgendaComponent } from './componentes/agenda/agenda.component';
         CabeceraComponent,
         PieComponent,
         MenuConsultaComponent,
-        MenuPacienteComponent,
+        CabeceraPacienteComponent,
         AntecedentesComponent,
         ConsultaComponent,
         PruebasComponent,
@@ -46,7 +45,6 @@ import { AgendaComponent } from './componentes/agenda/agenda.component';
         SeguimientoComponent,
         SignupComponent,
         SigninComponent,
-        DatosComponent,
         InicioPaginaComponent,
         MisDatosComponent,
         CambiarPassComponent,

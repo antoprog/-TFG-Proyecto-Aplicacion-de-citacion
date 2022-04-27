@@ -3,9 +3,6 @@
     padding: 1%;
 }
 
-.procedencia{
-    margin: 1%;
-}
 /* controlo que el textarea estén paralelos*/
 #motivos{
     display: flex;
@@ -38,7 +35,7 @@
     margin-top: 3%;
  }
 
- #patología_medica{
+ #patologia_medica{
     margin-right: 2%;
     margin-top: 3%;
  }
