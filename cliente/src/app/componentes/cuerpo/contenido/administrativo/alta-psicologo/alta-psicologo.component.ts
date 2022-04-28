@@ -21,22 +21,22 @@ export class AltaPsicologoComponent implements OnInit {
     }
 
     psicologoForm = this.fb.group({
-        nombre: ['ASDA', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],//agregar ñ y acentos
-        apellido1: ['ASDA', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
-        apellido2: ['ASDA', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
-        tipo_doc: ['DNI', [Validators.required]],
-        documentoDni: ['12312312X', [Validators.pattern(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
+        nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],//agregar ñ y acentos
+        apellido1: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
+        apellido2: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
+        tipo_doc: ['', [Validators.required]],
+        documentoDni: ['', [Validators.pattern(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
         documentoNie: ['', [Validators.pattern(/^[XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
-        titulacion: ['ASD', [Validators.required]],
+        titulacion: ['', [Validators.required]],
         especialidad: [''],
         credenciales_adic: [''],
-        num_colegiado: ['123123123', [Validators.required, Validators.pattern('[0-9]{9}')]],
-        telefono: ['123123123', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{9}$')]],
-        email: ['AS@ASD', [Validators.required, Validators.email]],
-        calle: ['ASD', [Validators.required]],
-        cod_postal: ['12312', [Validators.required, Validators.pattern('((0[1-9]|5[0-2])|[1-4][0-9])[0-9]{3}')]],
-        ciudad: ['ASD', [Validators.required]],
-        provincia: ['ASD', [Validators.required]],
+        num_colegiado: ['', [Validators.required, Validators.pattern('[0-9]{9}')]],
+        telefono: ['', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{9}$')]],
+        email: ['', [Validators.required, Validators.email]],
+        calle: ['', [Validators.required]],
+        cod_postal: ['', [Validators.required, Validators.pattern('((0[1-9]|5[0-2])|[1-4][0-9])[0-9]{3}')]],
+        ciudad: ['', [Validators.required]],
+        provincia: ['', [Validators.required]],
         pais: ['España'],
         username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(16)]],
     })
@@ -48,9 +48,12 @@ export class AltaPsicologoComponent implements OnInit {
             return this.psicologoForm.controls['documentoNie'].value
         }
     }
-
+    tipo_doc_err:string=""
     //funcion de envio
     onSubmit() {
+        if(this.psicologoForm.controls['tipo_doc'].value==""){
+            this.tipo_doc_err = "requerido"
+        } 
         const datos = {
             username: this.psicologoForm.controls['username'].value,
             nombre: this.psicologoForm.controls['nombre'].value,
