@@ -39,7 +39,6 @@ export class ConsultaComponent implements OnInit{
 
     guardar() {
         this.consultaForm.value.fecha_inicio = moment(new Date()).format('YYYY-MM-DD[T00:00:00.000Z]');
-        console.log(this.consultaForm.value);
         this.bbdd.altaConsultaPaciente(this.consultaForm.value).subscribe()
     }
 
