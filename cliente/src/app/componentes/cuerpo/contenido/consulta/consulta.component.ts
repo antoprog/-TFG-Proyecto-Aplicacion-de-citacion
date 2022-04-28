@@ -1,14 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {BbddService} from 'src/app/servicios/bbdd.service';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-consulta',
     templateUrl: './consulta.component.html',
     styleUrls: ['./consulta.component.css']
 })
-export class ConsultaComponent implements OnInit {
-    constructor(private fb: FormBuilder, private serv: BbddService) {
+export class ConsultaComponent implements OnInit{
+    constructor(private fb: FormBuilder,
+                private bbdd: BbddService) {
+    }
+
+    ngOnInit(): void {
+        this.cargarPantalla();
     }
 
     consultaForm = this.fb.group({
@@ -17,29 +23,27 @@ export class ConsultaComponent implements OnInit {
         con_sintomas: [''],
         fecha_diagnostico: [''],
         patologia_medica: [''],
-        posologia: ['']
+        posologia: [''],
+        fecha_inicio: ''
     })
 
-    ngOnInit(): void {
-    }
-
-    getDatos(): any {
-        return {
-            procedencia: this.consultaForm.controls['procedencia'].value,
-            con_motivo: this.consultaForm.controls['con_motivo'].value,
-            con_sintomas: this.consultaForm.controls['con_sintomas'].value,
-            fecha_diagnostico: this.consultaForm.controls['fecha_diagnostico'].value,
-            patologia_medica: this.consultaForm.controls['patologia_medica'].value,
-            posologia: this.consultaForm.controls['posologia'].value
-        }
+    cargarPantalla(){
+        this.bbdd.getDatosMedicosPaciente(localStorage.getItem('idPaciente')).subscribe(
+            {
+                next: value => {
+                    console.log(value.datosMedicos);
+                }
+            }
+        )
     }
 
     guardar() {
-        console.log('DATOS:', this.getDatos());
+        this.consultaForm.value.fecha_inicio = moment(new Date()).format('YYYY-MM-DD[T00:00:00.000Z]');
+        this.bbdd.altaConsultaPaciente(this.consultaForm.value).subscribe()
     }
 
     modificar() {
-        console.log('DATOS:', this.getDatos());
+        this.bbdd.modificarConsultaPaciente(this.consultaForm.value).subscribe()
     }
 
     // control de errores

@@ -28,6 +28,7 @@ import {ToastrModule} from "ngx-toastr";
 import {CabeceraNoUserComponent} from './componentes/cabeceras/cabecera-no-user/cabecera-no-user.component';
 import { AgendaComponent } from './componentes/agenda/agenda.component';
 import {CabeceraPacienteComponent} from "./componentes/cuerpo/contenido/cabecera/cabecera-paciente.component";
+import { DatePipe } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -69,6 +70,7 @@ import {CabeceraPacienteComponent} from "./componentes/cuerpo/contenido/cabecera
             useClass: TokenInterceptorService,
             multi: true
         },
+        DatePipe
     ],
     bootstrap: [AppComponent]
 })

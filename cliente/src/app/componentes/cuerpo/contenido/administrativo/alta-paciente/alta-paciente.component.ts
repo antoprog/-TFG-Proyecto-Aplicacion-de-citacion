@@ -103,17 +103,13 @@ export class AltaPacienteComponent implements OnInit {
             },
             aseguradora: this.insClienteForm.controls['aseguradora'].value,
             company: this.insClienteForm.controls['company'].value,
+            numero_historia: '1234',
             contacto: {
                 nombre: this.insClienteForm.controls['nombreContacto'].value,
                 telefono: this.insClienteForm.controls['telefonoContacto'].value,
             },
-            permisoGrabacion: this.insClienteForm.controls['permisoGrabacion'].value,
-            firmaProteccionDatos: this.insClienteForm.controls['firmaProteccionDatos'].value,
-            datosMedicos: {
-                valoracion: [{
-                    psicologo: this.insClienteForm.controls['psicologo'].value,
-                }]
-            }
+            permiso_grabacion: this.insClienteForm.controls['permisoGrabacion'].value,
+            firma_proteccion_datos: this.insClienteForm.controls['firmaProteccionDatos'].value,
         };
 
         console.log(datos);

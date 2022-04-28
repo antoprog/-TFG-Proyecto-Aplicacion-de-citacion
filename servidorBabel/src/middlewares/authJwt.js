@@ -4,6 +4,7 @@ import User from "../models/User";
 import Role from "../models/Role";
 
 export const verifyToken = async (req, res, next) => {
+    console.log('entra verifyToken');
     try {
         const token = req.headers["authorization"]
         const tokenString = token.split(' ')[1];
