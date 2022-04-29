@@ -1,20 +1,6 @@
 
+.bordet{border-bottom:1px solid rgba(0,0,0,.125)}
+.borde{border:1px solid rgba(0,0,0,.125)}
+.texto{font-size:calc(6px + 0.85vw);}
+.texto2{font-size:calc(6px + 0.75vw);}
 
-.form-label{
-    margin-top: 0.7%;
-    padding: 1%;
-    
-   
-}
-
-
-
-.button{
-margin: 2%;
-float: right;
-color: aliceblue;
-background-color: rgb(11, 59, 194);
-
-
-
-}
