@@ -56,7 +56,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
         this.servicio.getDatosMedicosPaciente(id).subscribe({
             next: value => {
                 this.data = value
-                this.edad = this.calcularEdad(this.data?.fecha_nacimiento)
+                this.edad = this.calcularEdad(this.data.fecha_nacimiento)
                 this.edad = this.edad || 0
             },
             error: err => {
@@ -72,6 +72,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
             {
                 next: value => {
                     this.tablaDiagnosticos = []
+                    console.log(value);
                     for (let i = value.datosMedicos.valoracion.length - 1; i >= 0; i--) {
                         let valoracion = value.datosMedicos.valoracion[i];
                         let fechaFormateada;
@@ -81,14 +82,14 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
 
                         let registro : Valoracion = {
                             ordenI: i,
-                            diagnosticoI: valoracion.diagnostico_psicologico?.diagnostico || '',
+                            diagnosticoI: valoracion.diagnostico_psicologico.diagnostico || '',
                             fechaInicioI: fechaFormateada || ''
                         }
 
                         this.tablaDiagnosticos.push(registro);
                     }
 
-                    localStorage.setItem('valoracionId', String(this.tablaDiagnosticos[0]?.ordenI))
+                    localStorage.setItem('valoracionId', String(this.tablaDiagnosticos[0].ordenI))
                 }
             }
         )
@@ -101,8 +102,8 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
 
         let pos = all.map(function(e) { return e.fechaInicioI; }).indexOf(evento.value.split('-')[1].trim())
 
-        console.log(all[pos]?.ordenI);
-        localStorage.setItem('valoracionId', String(all[pos]?.ordenI))
+        console.log(all[pos].ordenI);
+        localStorage.setItem('valoracionId', String(all[pos].ordenI))
 
     }
 }

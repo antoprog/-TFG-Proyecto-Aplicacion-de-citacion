@@ -51,27 +51,22 @@ const routes: Routes = [
         children: [
             {
                 path: 'antecedentes',
-                outlet: 'psicologo',
                 component: AntecedentesComponent
             },
             {
                 path: 'consulta',
-                outlet: 'psicologo',
                 component: ConsultaComponent
             },
             {
                 path: 'pruebas',
-                outlet: 'psicologo',
                 component: PruebasComponent
             },
             {
                 path: 'seguimiento',
-                outlet: 'psicologo',
                 component: SeguimientoComponent
             },
             {
                 path: 'informes',
-                outlet: 'psicologo',
                 component: InformesComponent
             },
             /* {

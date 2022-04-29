@@ -29,6 +29,15 @@ import {CabeceraNoUserComponent} from './componentes/cabeceras/cabecera-no-user/
 import { AgendaComponent } from './componentes/agenda/agenda.component';
 import {CabeceraPacienteComponent} from "./componentes/cuerpo/contenido/cabecera/cabecera-paciente.component";
 import { DatePipe } from '@angular/common';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import {MatButtonModule} from "@angular/material/button";
+import {MatInputModule} from "@angular/material/input";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatIconModule} from "@angular/material/icon";
+import {FlatpickrModule} from "angularx-flatpickr";
+import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
+import { DetalleComponent } from './componentes/agenda/detalle/detalle.component';
 
 @NgModule({
     declarations: [
@@ -50,7 +59,9 @@ import { DatePipe } from '@angular/common';
         MisDatosComponent,
         CambiarPassComponent,
         CabeceraNoUserComponent,
-        AgendaComponent
+        AgendaComponent,
+        DetalleComponent,
+
     ],
     imports: [
         BrowserModule,
@@ -61,6 +72,19 @@ import { DatePipe } from '@angular/common';
         AutocompleteLibModule,
         BrowserAnimationsModule,
         ToastrModule.forRoot(), // ToastrModule added
+        NgbModalModule,
+        FlatpickrModule.forRoot(),
+        CalendarModule.forRoot({
+            provide: DateAdapter,
+            useFactory: adapterFactory,
+        }),
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatIconModule
     ],
     providers: [
         AdminGuard,
