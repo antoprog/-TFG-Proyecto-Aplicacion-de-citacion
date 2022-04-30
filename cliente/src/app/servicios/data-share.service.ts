@@ -6,4 +6,5 @@ import {BehaviorSubject} from "rxjs";
 })
 export class DataShareService {
     public _idPaciente$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    public _valoracion$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 }

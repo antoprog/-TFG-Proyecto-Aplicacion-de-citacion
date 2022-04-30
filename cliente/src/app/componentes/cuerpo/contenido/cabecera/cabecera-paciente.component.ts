@@ -82,14 +82,14 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
 
                         let registro : Valoracion = {
                             ordenI: i,
-                            diagnosticoI: valoracion.diagnostico_psicologico?.diagnostico || '',
+                            diagnosticoI: valoracion.diagnostico_psicologico?.diagnostico || 'En valoración',
                             fechaInicioI: fechaFormateada || ''
                         }
 
                         this.tablaDiagnosticos.push(registro);
                     }
 
-                    localStorage.setItem('valoracionId', String(this.tablaDiagnosticos[0].ordenI))
+                    localStorage.setItem('valoracionId', String(this.tablaDiagnosticos[0]?.ordenI))
                 }
             }
         )
@@ -102,7 +102,8 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
 
         let pos = all.map(function(e) { return e.fechaInicioI; }).indexOf(evento.value.split('-')[1].trim())
 
-        console.log(all[pos].ordenI);
+        this.dataShare._valoracion$.next(all[pos].ordenI);
+
         localStorage.setItem('valoracionId', String(all[pos].ordenI))
 
     }

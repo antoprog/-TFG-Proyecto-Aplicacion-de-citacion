@@ -1,16 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {BbddService} from 'src/app/servicios/bbdd.service';
 import * as moment from 'moment';
+import {DataShareService} from "../../../../servicios/data-share.service";
 
 @Component({
     selector: 'app-consulta',
     templateUrl: './consulta.component.html',
     styleUrls: ['./consulta.component.css']
 })
-export class ConsultaComponent implements OnInit{
+export class ConsultaComponent implements OnInit, OnDestroy {
     constructor(private fb: FormBuilder,
-                private bbdd: BbddService) {
+                private bbdd: BbddService,
+                private dataShare: DataShareService) {
+    }
+
+    ngOnDestroy(): void {
+        this.suscripcion.unsubscribe();
     }
 
     ngOnInit(): void {
@@ -27,14 +33,23 @@ export class ConsultaComponent implements OnInit{
         fecha_inicio: ''
     })
 
-    cargarPantalla(){
+    suscripcion: any
+    datos: any
+
+    cargarPantalla() {
         this.bbdd.getDatosMedicosPaciente(localStorage.getItem('idPaciente')).subscribe(
             {
                 next: value => {
-                    console.log(value.datosMedicos);
+                    this.datos = value.datosMedicos
                 }
             }
         )
+
+        this.suscripcion = this.dataShare._valoracion$.subscribe({
+            next: value => {
+                this.consultaForm.controls['procedencia'].setValue(this.datos?.valoracion[value].procedencia)
+            }
+        })
     }
 
     guardar() {
