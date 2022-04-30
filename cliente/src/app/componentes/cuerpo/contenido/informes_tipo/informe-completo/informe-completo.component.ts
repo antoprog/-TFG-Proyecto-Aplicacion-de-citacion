@@ -71,16 +71,20 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
 
 
     public convertToPDF() {
-        html2canvas(document.body).then((canvas) => {
-            const contentDataURL = canvas.toDataURL('image/png');
-            let pdf = new jsPDF('p', 'mm', 'a4'); // A4 tamaño de pagina de PDF
-            var width = pdf.internal.pageSize.getWidth();
-            var height = (canvas.height * width) / canvas.width;
-            pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height);
-            pdf.save('output.pdf'); // Genera PDF
+        let data = document.getElementById('exportar');
+
+        html2canvas(data!).then(canvas => {
+
+            let docWidth = 208;
+            let docHeight = canvas.height * docWidth / canvas.width;
+
+            const contentDataURL = canvas.toDataURL('image/png')
+            let doc = new jsPDF('p', 'mm', 'a4');
+            let position = 0;
+            doc.addImage(contentDataURL, 'PNG', 0, position, docWidth, docHeight)
+
+            doc.save('exportedPdf.pdf');
         });
     }
-
-
 }
 
