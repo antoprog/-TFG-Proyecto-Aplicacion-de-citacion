@@ -4,6 +4,7 @@ import {BbddService} from 'src/app/servicios/bbdd.service';
 import * as moment from 'moment';
 import {DataShareService} from "../../../../servicios/data-share.service";
 
+
 @Component({
     selector: 'app-consulta',
     templateUrl: './consulta.component.html',
@@ -37,17 +38,17 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     datos: any
 
     cargarPantalla() {
-        this.bbdd.getDatosMedicosPaciente(localStorage.getItem('idPaciente')).subscribe(
-            {
-                next: value => {
-                    this.datos = value.datosMedicos
-                }
-            }
-        )
 
         this.suscripcion = this.dataShare._valoracion$.subscribe({
-            next: value => {
-                this.consultaForm.controls['procedencia'].setValue(this.datos?.valoracion[value].procedencia)
+            next: _valoracion => {
+                this.bbdd.getDatosMedicosPaciente(localStorage.getItem('idPaciente')).subscribe(
+                    {
+                        next: value => {
+                            this.consultaForm.controls['procedencia'].setValue(value.datosMedicos.valoracion[_valoracion].procedencia)
+                            this.consultaForm.controls['fecha_diagnostico'].setValue(String(value.datosMedicos.valoracion[_valoracion].diagnostico_medico.fecha_diagnostico).split('T')[0])
+                        }
+                    }
+                )
             }
         })
     }
