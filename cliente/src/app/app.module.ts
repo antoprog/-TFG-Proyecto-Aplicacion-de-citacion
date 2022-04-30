@@ -38,6 +38,9 @@ import {MatIconModule} from "@angular/material/icon";
 import {FlatpickrModule} from "angularx-flatpickr";
 import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
 import { DetalleComponent } from './componentes/agenda/detalle/detalle.component';
+import {
+    InformeCompletoComponent
+} from "./componentes/cuerpo/contenido/informes_tipo/informe-completo/informe-completo.component";
 
 @NgModule({
     declarations: [
@@ -61,7 +64,7 @@ import { DetalleComponent } from './componentes/agenda/detalle/detalle.component
         CabeceraNoUserComponent,
         AgendaComponent,
         DetalleComponent,
-
+        InformeCompletoComponent
     ],
     imports: [
         BrowserModule,

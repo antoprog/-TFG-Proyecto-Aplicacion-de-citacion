@@ -14,6 +14,9 @@ import {MisDatosComponent} from './componentes/cuerpo/contenido/mis-datos/mis-da
 import {InicioPaginaComponent} from "./componentes/pagina-inicio/pagina-inicio";
 import {AdminGuard} from "./guards/admin.guard";
 import { AgendaComponent } from './componentes/agenda/agenda.component';
+import {
+    InformeCompletoComponent
+} from "./componentes/cuerpo/contenido/informes_tipo/informe-completo/informe-completo.component";
 
 const routes: Routes = [
     {
@@ -67,7 +70,7 @@ const routes: Routes = [
             },
             {
                 path: 'informes',
-                component: InformesComponent
+                component: InformeCompletoComponent
             },
             /* {
               path: 'facturas',
