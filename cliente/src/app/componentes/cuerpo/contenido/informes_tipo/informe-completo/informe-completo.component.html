@@ -1,81 +1,23 @@
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <img src="#">
+    <div id="exportar" style="margin-left: 2cm;margin-right: 1.5cm;">
+
+        <div class="row">
+            <div class="col-md-auto my-3 form-group">
+                <label for="mot_doc" class="text-primary texto">Motivo del informe:</label>
+                <select [(ngModel)]="motivoForm" id="mot_doc" class="form-control mx-2 py-1 px-2 borde shadow-sm texto2" required>
+                    <option *ngFor="let d of m_doc" [value]="d.nombre">{{d.nombre}}</option>
+                </select>
+            </div>
         </div>
-        <div class="col">
-            <p>Datos del centro Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit beatae delectus vitae,
-                dignissimos architecto et, esse voluptates corporis quam rerum numquam eius iusto! Aliquid sit magnam
-                repellendus recusandae dolorum quaerat?</p>
+
+        <div class="row">
+            <label class="text-primary texto">Conclusiones:</label>
+            <textarea [(ngModel)]="conclusiones" class="form-control mx-2 py-1 px-2 borde shadow-sm texto2" id="conclusiones" rows="3"></textarea>
         </div>
+
+
     </div>
-    <div class="row">
-        <div class="col-md-auto form-group">
-            <label for="mot_doc" class="text-primary texto">Motivo del informe:</label>
-            <select  id="mot_doc" class="mx-2 py-1 px-2 borde shadow-sm texto2" required>
-                <option *ngFor="let d of m_doc" [value]="d.nombre">{{d.nombre}}</option>
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <p>El paciente {{_datos?.nombre}} {{_datos?.apellido1}} {{_datos?.apellido2}} con {{_datos?.tipo_doc}}:{{_datos?.documento}}
-            de edad {{edad}} y fecha de nacimiento {{_datos?.fecha_nacimiento | date:'dd/MM/yyyy'}} acude al centro el día
-            {{_valoracion?.fecha_inicio}} con motivo de {{_valoracion?.motivo_consulta}}
-        </p>
-    </div>
-    <div class="row">
-        <p>Es atendido por {{_valoracion?.psicologo}}  con número de colegiado " ".
-        </p>
-    </div>
-    <div class="row">
-        <p>
-            Tras los estudios realizados, el diagnostico psicológico obtenido es que el paciente sufre de
-            {{_valoracion?.diagnostico_psicologico?.diagnostico}}
-        </p>
-    </div>
-    <div class="row">
-        Sintomas que presenta:
-        <p>{{_valoracion?.sintomas}}</p>
-    </div>
-    <div class="row">
-        Antecedentes personales:
-        <p>{{_valoracion?.antecendentes?.personales}}</p>
-    </div>
-    <div class="row">
-        Antecedentes familiares:
-        <p>{{_datos?.datosMedicos?.antecendentes?.familiares}}</p>
-    </div>
-    <div class="row">
-        Diagnostico Medico:
-        <p>{{_valoracion?.diagnostico_medico?.patologia_medica}}</p>
-    </div>
-    <div class="row">
-        Pruebas psicológicas realizadas:
-        Test Cognitivo:
-        <p>{{_valoracion?.test_diagnosticos?.cognitiva.observaciones}}</p>
-    </div>
-    <div class="row">
-        Test Emocional:
-        <p>{{_valoracion?.test_diagnosticos?.emocional.observaciones}}</p>
-    </div>
-    <div class="row">
-        Pruebas psicodiagnósticas:
-        <p>{{_valoracion?.test_diagnosticos?.pruebasPsicodiagnostico.observaciones}}</p>
-    </div>
-    <div class="row">
-        Conclusiones:
-        <textarea class="form-control" id="conclusiones" rows="3"></textarea>
-    </div>
-    Fecha del informe: {{hoy | date:'dd-MM-yyyy'}}
-    <div class="row">
-        Firma:_________________
-    </div>
-    <div class="row">
-        N. Col.:_______________
-    </div>
-    N. Col.:_______________
+    <input type="button" class="btn btn-primary float-end  m-3" value="Convert" (click)="createPDF()" />
+    <!--<input type="button" class="btn btn-danger" value="Convert" (click)="convertToPDF()" />-->
 
 </div>
-
-<input type="button" class="btn btn-danger" value="Convert" (click)="convertToPDF()" />
-

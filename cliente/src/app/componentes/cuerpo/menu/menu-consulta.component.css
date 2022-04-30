@@ -17,10 +17,10 @@ list-style: none;
 ul.acorh li a {
 display: block;
 padding: 10px 10px 10px 20px;
-background: #333;
+background: rgb(11, 94, 215);
 color: #eee;
-border-bottom: 1px solid #000;
-border-top: 1px solid #666;
+border-bottom: 1px #eee;
+border-top: 1px solid rgb(13,110,253);
 text-decoration: none;
 box-sizing: border-box;
 }
@@ -34,8 +34,8 @@ transition: .3s all ease-in;
 }
 ul.acorh li li a {
 padding: 10px 10px 10px 40px;
-background: #999;
-color: #000;
+background: rgb(60, 102, 166);
+color: #eee;
 font-size: 16px;
 border: 0;
 border-bottom: 1px solid #ccc;
@@ -49,6 +49,6 @@ max-height: 300px;
 transition: .3s all ease-in;
 }
 ul.acorh li a:hover {
-background: #666;
+background: rgb(13,110,253);
 color: #fff;
 }
