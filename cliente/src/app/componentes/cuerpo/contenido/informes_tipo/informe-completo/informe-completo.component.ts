@@ -77,6 +77,8 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
 
             let docWidth = 208;
             let docHeight = canvas.height * docWidth / canvas.width;
+            console.log(canvas.height);
+            console.log(canvas.width);
 
             const contentDataURL = canvas.toDataURL('image/png')
             let doc = new jsPDF('p', 'mm', 'a4');

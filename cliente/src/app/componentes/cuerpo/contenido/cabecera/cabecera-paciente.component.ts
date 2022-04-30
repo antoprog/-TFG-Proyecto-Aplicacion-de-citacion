@@ -32,7 +32,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
             if (value !== '') {
                 this.obtenerDatosPaciente(value)
                 this.obtenerDiagnosticos(value)
-            }else if (localStorage.getItem('idPaciente')){
+            } else if (localStorage.getItem('idPaciente')) {
                 this.obtenerDatosPaciente(localStorage.getItem('idPaciente'))
                 this.obtenerDiagnosticos(localStorage.getItem('idPaciente'))
             }
@@ -43,7 +43,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
         this.suscripcion.unsubscribe()
     }
 
-    tablaDiagnosticos:Valoracion[] = []
+    tablaDiagnosticos: Valoracion[] = []
     data: Paciente | undefined
     edad = 0
 
@@ -67,44 +67,45 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
         });
     }
 
+    indice: number[] = []
+    datova: String[] = []
+
     obtenerDiagnosticos(id: any) {
         this.servicio.getDatosMedicosPaciente(id).subscribe(
             {
                 next: value => {
                     this.tablaDiagnosticos = []
-                    console.log(value);
-                    for (let i = value.datosMedicos.valoracion.length - 1; i >= 0; i--) {
-                        let valoracion = value.datosMedicos.valoracion[i];
+                    console.log('BASE DE DATOS', value);
+
+                    for (const [index, dato] of value.datosMedicos.valoracion.entries()) {
                         let fechaFormateada;
-                        if (valoracion.fecha_inicio !== undefined) {
-                            fechaFormateada = this.datepipe.transform(valoracion.fecha_inicio, 'dd/MM/yyyy');
+                        if (dato.fecha_inicio !== undefined) {
+                            fechaFormateada = this.datepipe.transform(dato.fecha_inicio, 'dd/MM/yyyy');
                         }
 
-                        let registro : Valoracion = {
-                            ordenI: i,
-                            diagnosticoI: valoracion.diagnostico_psicologico?.diagnostico || 'En valoración',
+                        let registro: Valoracion = {
+                            ordenI: index,
+                            diagnosticoI: dato.diagnostico_psicologico?.diagnostico || 'En valoración',
                             fechaInicioI: fechaFormateada || ''
                         }
 
-                        this.tablaDiagnosticos.push(registro);
+                        this.tablaDiagnosticos.push(registro)
                     }
 
-                    localStorage.setItem('valoracionId', String(this.tablaDiagnosticos[0]?.ordenI))
+                    if (value.datosMedicos.valoracion.length > 0)
+                        this.dataShare._valoracion$.next(value.datosMedicos.valoracion.length - 1);
+                    else
+                        this.dataShare._valoracion$.next(0)
+                    
                 }
             }
         )
     }
 
     cambiarValoracion(evento: any) {
-        const all = this.tablaDiagnosticos.filter((obj) => {
-            return obj.diagnosticoI === evento.value.split('-')[0].trim()
-        })
-
-        let pos = all.map(function(e) { return e.fechaInicioI; }).indexOf(evento.value.split('-')[1].trim())
-
-        this.dataShare._valoracion$.next(all[pos].ordenI);
-
-        localStorage.setItem('valoracionId', String(all[pos].ordenI))
+        const indice = (evento.length - 1) - evento.selectedIndex
+        this.dataShare._valoracion$.next(indice);
+        localStorage.setItem('valoracionId', String(indice))
 
     }
 }
