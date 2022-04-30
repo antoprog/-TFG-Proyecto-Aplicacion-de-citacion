@@ -5,5 +5,5 @@ import {BehaviorSubject} from "rxjs";
   providedIn: 'root'
 })
 export class DataShareService {
-    public _idPaciente: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    public _idPaciente$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 }

@@ -12,8 +12,18 @@ import {
 } from 'date-fns';
 import {Subject} from 'rxjs';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView,} from 'angular-calendar';
+import {
+    CalendarEvent,
+    CalendarEventAction,
+    CalendarEventTimesChangedEvent,
+    CalendarView,
+    DAYS_OF_WEEK,
+} from 'angular-calendar';
 import {DetalleComponent} from "./detalle/detalle.component";
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+
+registerLocaleData(localeEs, 'es')
 
 const colors: any = {
     red: {
@@ -38,6 +48,10 @@ const colors: any = {
 })
 export class AgendaComponent {
     @ViewChild('modalContent', {static: true}) modalContent!: TemplateRef<any>;
+
+    weekStartsOn = "1";
+
+    locale = 'es'
 
     view: CalendarView = CalendarView.Month;
 
@@ -127,6 +141,7 @@ export class AgendaComponent {
     activeDayIsOpen: boolean = true;
 
     constructor(private modal: NgbModal) {
+
     }
 
     dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {

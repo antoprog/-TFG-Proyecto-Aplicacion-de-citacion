@@ -27,7 +27,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.tablaDiagnosticos = []
 
-        this.suscripcion = this.dataShare._idPaciente.subscribe(value => {
+        this.suscripcion = this.dataShare._idPaciente$.subscribe(value => {
             console.log('CREA COMPONENTE', value);
             if (value !== '') {
                 this.obtenerDatosPaciente(value)
