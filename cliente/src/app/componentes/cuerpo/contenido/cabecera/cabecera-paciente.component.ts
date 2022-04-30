@@ -82,7 +82,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
 
                         let registro : Valoracion = {
                             ordenI: i,
-                            diagnosticoI: valoracion.diagnostico_psicologico.diagnostico || '',
+                            diagnosticoI: valoracion.diagnostico_psicologico?.diagnostico || '',
                             fechaInicioI: fechaFormateada || ''
                         }
 

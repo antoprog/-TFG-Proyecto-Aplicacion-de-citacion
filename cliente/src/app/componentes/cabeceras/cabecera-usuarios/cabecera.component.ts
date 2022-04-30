@@ -17,9 +17,7 @@ export interface Dat {
 
 export class CabeceraComponent implements OnInit {
 
-    admin: any
-    psicologo: any
-    user: any
+
     listaPantalla: any
     datos: any
 
@@ -27,27 +25,6 @@ export class CabeceraComponent implements OnInit {
                 private authService: AuthService,
                 private dataShare: DataShareService,
                 private router: Router) {
-        this.authService.getRoles().subscribe({
-            next: value => {
-                console.log('CABECERA VALUE', value);
-                for (const rol of value) {
-                    switch (rol) {
-                        case 'admin':
-                           this.admin = true;
-                           break;
-                        case 'psicologo':
-                            this.psicologo = true;
-                            break;
-                        case 'user':
-                            this.user = true;
-                            break;
-                    }
-                }
-            },
-            error: err => {
-                console.log('ERROR VERIFY ADMIN', err);
-            }
-        })
     }
 
     buscarCliente(val: any) {
@@ -86,10 +63,38 @@ export class CabeceraComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
+        this.authService.getRoles().subscribe({
+            next: value => {
+                console.log('CABECERA VALUE', value);
+                this.admin = true
+                for (const rol of value) {
+                    switch (rol) {
+                        case 'admin':
+                            console.log('entra 1');
+                            this.admin = true;
+                            break;
+                        case 'psicologo':
+                            console.log('entra 2');
+                            this.psicologo = true;
+                            break;
+                        case 'user':
+                            console.log('entra 3');
+                            this.user = true;
+                            break;
+                    }
+                }
+            },
+            error: err => {
+                console.log('ERROR VERIFY ADMIN', err);
+            }
+        })
     }
 
     logout() {
         this.authService.logout();
     }
+
+    admin: any
+    psicologo: any
+    user: any
 }
