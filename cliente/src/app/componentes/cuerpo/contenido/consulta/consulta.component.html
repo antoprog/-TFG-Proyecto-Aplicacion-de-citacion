@@ -4,7 +4,7 @@
         <div class=" justify-content-around g-3 my-4">
             <label for="procedencia"class="text-primary texto" >Enviado por:</label><input class="mx-2" formControlName="procedencia" placeholder="Juez, médico, amigo..." type="text">
             <label class="mx-2 text-primary texto" for="psicologo">Psicólogo:</label> <select>
-                <option *ngFor="let p of t_psicologo" [value]="p.nombre" class="borde shadow-sm texto2">{{p.nombre}}</option>
+                <option *ngFor="let p of t_psicologo" [value]="p._valor" class="borde shadow-sm texto2">{{p._nombre}}</option>
               </select>
         </div>
         <div class="rows w-100">

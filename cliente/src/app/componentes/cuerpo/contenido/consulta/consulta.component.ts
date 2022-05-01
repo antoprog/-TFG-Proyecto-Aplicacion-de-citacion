@@ -4,6 +4,10 @@ import {BbddService} from 'src/app/servicios/bbdd.service';
 import * as moment from 'moment';
 import {DataShareService} from "../../../../servicios/data-share.service";
 
+export interface listaPsicologos {
+    _nombre: String
+    _valor: String
+}
 
 @Component({
     selector: 'app-consulta',
@@ -25,6 +29,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     }
 
     consultaForm = this.fb.group({
+        psicologo: [''],
         procedencia: [''],
         con_motivo: [''],
         con_sintomas: [''],
@@ -37,29 +42,45 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     suscripcion: any
     datos: any
 
-    t_psicologo = [
-        {nombre: "Juan Perez"},
-        {nombre: "Monica Quinteiro"}
-    ];
-    
-    cargarPantalla() {
+    t_psicologo: listaPsicologos[] = [];
 
-        this.suscripcion = this.dataShare._valoracion$.subscribe({
-            next: _valoracion => {
-                this.bbdd.getDatosMedicosPaciente(localStorage.getItem('idPaciente')).subscribe(
-                    {
-                        next: value => {
-                            this.consultaForm.controls['procedencia'].setValue(value.datosMedicos.valoracion[_valoracion].procedencia)
-                            this.consultaForm.controls['fecha_diagnostico'].setValue(String(value.datosMedicos.valoracion[_valoracion].diagnostico_medico.fecha_diagnostico).split('T')[0])
-                            this.consultaForm.controls['con_motivo'].setValue(value.datosMedicos.valoracion[_valoracion].motivo_consulta)
-                            this.consultaForm.controls['con_sintomas'].setValue(value.datosMedicos.valoracion[_valoracion].sintomas)
-                            this.consultaForm.controls['posologia'].setValue(value.datosMedicos.valoracion[_valoracion].diagnostico_medico.posologia)
-                            this.consultaForm.controls['patologia_medica'].setValue(value.datosMedicos.valoracion[_valoracion].diagnostico_medico.patologia_medica)
-                        }
+    cargarPsicologos() {
+        this.t_psicologo = [];
+        this.bbdd.getPsicologos().subscribe({
+            next: valor => {
+                for (const iterator of valor) {
+                    let registro: listaPsicologos = {
+                        _nombre: iterator.nombre + " " + iterator.apellido1 + " " + iterator.apellido2,
+                        _valor: iterator.username
                     }
-                )
+                    this.t_psicologo.push(registro)
+                }
             }
         })
+    }
+
+    cargarPantalla() {
+        this.cargarPsicologos();
+        this.suscripcion = this.dataShare._valoracion$.subscribe({
+                next: _valoracion => {
+                    if (_valoracion) {
+                        this.bbdd.getDatosMedicosPaciente(localStorage.getItem('idPaciente')).subscribe(
+                            {
+                                next: value => {
+                                    this.consultaForm.controls['psicologo'].setValue(value.datosMedicos.valoracion[_valoracion].psicologo)
+                                    this.consultaForm.controls['procedencia'].setValue(value.datosMedicos.valoracion[_valoracion].procedencia)
+                                    this.consultaForm.controls['fecha_diagnostico'].setValue(String(value.datosMedicos.valoracion[_valoracion].diagnostico_medico?.fecha_diagnostico).split('T')[0])
+                                    this.consultaForm.controls['con_motivo'].setValue(value.datosMedicos.valoracion[_valoracion].motivo_consulta)
+                                    this.consultaForm.controls['con_sintomas'].setValue(value.datosMedicos.valoracion[_valoracion].sintomas)
+                                    this.consultaForm.controls['posologia'].setValue(value.datosMedicos.valoracion[_valoracion].diagnostico_medico?.posologia)
+                                    this.consultaForm.controls['patologia_medica'].setValue(value.datosMedicos.valoracion[_valoracion].diagnostico_medico?.patologia_medica)
+                                }
+                            }
+                        )
+                    }
+                }
+            }
+        )
     }
 
     guardar() {
@@ -71,8 +92,12 @@ export class ConsultaComponent implements OnInit, OnDestroy {
         this.bbdd.modificarConsultaPaciente(this.consultaForm.value).subscribe()
     }
 
-    // control de errores
-    getError(field: string): string {
+// control de errores
+    getError(field
+                 :
+                 string
+    ):
+        string {
         if (!this.consultaForm.controls[field].dirty || !this.consultaForm.controls[field].errors) {
             return ''
         }

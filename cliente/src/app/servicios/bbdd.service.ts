@@ -39,4 +39,8 @@ export class BbddService {
     getDatosPsicologo(psicologo: any): Observable<Psicologo> {
         return this.http.get<Psicologo>('http://localhost:4001/psicologo/uno/')
     }
+
+    getPsicologos(){
+        return this.http.get<Psicologo[]>('http://localhost:4001/psicologo/')
+    }
 }
