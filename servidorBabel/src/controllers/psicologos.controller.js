@@ -17,7 +17,7 @@ export const getPsicologo = async (req, res) => {
     res.json(psicologo);
 }
 
-export const getPsicologoById = async (req, res) => { // GET
+export const getPsicologoByToken = async (req, res) => { // GET
     try {
         const token = req.headers["authorization"]
         if (!token) return res.status(403).json({message: 'No token'})
@@ -33,7 +33,12 @@ export const getPsicologoById = async (req, res) => { // GET
         console.log(e);
     }
 }
-
+export const getPsicologoByUserName = async (req, res) => { // GET
+    console.log(req.params.username);
+    const psicologo = await Psicologo.findOne({username: req.params.username})
+    console.log(psicologo);
+    res.status(200).json(psicologo)
+}
 export const updatePsicologoById = async (req, res) => { // PUT
 
     try{

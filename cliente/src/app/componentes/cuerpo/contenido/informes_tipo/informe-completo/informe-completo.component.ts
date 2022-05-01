@@ -9,6 +9,8 @@ import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import * as format from 'date-fns/format';
 import * as moment from 'moment';
+import { Psicologo } from 'src/app/modelo/psicologo';
+import { Console } from 'console';
 
 @Component({
     selector: 'app-informe-completo',
@@ -19,6 +21,7 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
     suscripcion: any;
     edad = 0;
     _datos: Paciente | undefined;
+    _psicologo: Psicologo|undefined;
     _valoracion: any;
     hoy!: String;
     motivoForm: String = '';
@@ -40,15 +43,7 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.suscripcion = this.dataShare._idPaciente$.subscribe((value) => {
-            if (value !== '') {
-                this.obtenerDatosPaciente(value);
-                this.hoy = moment(new Date()).format('DD/MM/yyy');
-            } else if (localStorage.getItem('idPaciente')) {
-                this.obtenerDatosPaciente(localStorage.getItem('idPaciente'));
-                this.hoy = moment(new Date()).format('DD/MM/yyy');
-            }
-        });
+        
     }
 
     ngOnDestroy(): void {
@@ -56,29 +51,57 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
     }
 
     obtenerDatosPaciente(id: any) {
+        console.log("2")
         this.servicio.getDatosMedicosPaciente(id).subscribe({
             next: (value) => {
                 this._datos = value;
                 this.edad = this.calcularEdad(this._datos?.fecha_nacimiento);
                 this.edad = this.edad || 0;
-                this._valoracion =
-                    value.datosMedicos.valoracion[
-                        parseInt(localStorage.getItem('valoracionId')!)
-                    ];
+                this._valoracion =value.datosMedicos.valoracion[parseInt(localStorage.getItem('valoracionId')!)];
+                console.log("_valoracion 2",this._valoracion);
+                console.log("psicologo 2",this._valoracion.psicologo);
+                this.obtenerDatosPsicologo(this._valoracion.psicologo);
             },
+            
             error: (err) => {
                 console.log('MENU-PACIENTE', err);
             },
             complete: () => {},
         });
     }
-
+    obtenerDatosPsicologo(username:string){
+        console.log("3")
+        this.servicio.getPsicologoByUser(username).subscribe({
+            next: dato=>{
+                this._psicologo=dato;
+                console.log("usuario",username)
+                console.log("dato",dato)
+                console.log("_psicologo",this._psicologo)
+                this.pdfOpen();
+            }
+        })
+    }
     calcularEdad(fxNacimiento: any): number {
         let timeDiff = Math.abs(Date.now() - new Date(fxNacimiento).getTime());
         return Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
     }
 
     createPDF() {
+        this.suscripcion = this.dataShare._idPaciente$.subscribe((value) => {
+            if (value !== '') {
+                this.obtenerDatosPaciente(value);
+                console.log("psicologo 1 _valoracion",this._valoracion);              
+                this.hoy = moment(new Date()).format('DD/MM/yyy');
+            } else if (localStorage.getItem('idPaciente')) {
+                console.log("1")
+                this.obtenerDatosPaciente(localStorage.getItem('idPaciente'));
+                console.log("psicologo 2 _valoracion",this._valoracion);
+                this.hoy = moment(new Date()).format('DD/MM/yyy');
+                
+            }
+        });}
+    pdfOpen(){
+        console.log()
         const pdfDefinition: any = {
             content: [
                 {
@@ -113,7 +136,7 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                         ' de edad ',
                         this.edad,
                         ' y fecha de nacimiento ',
-                        moment(this._datos!.fecha_nacimiento).format('DD/MM/yyyy'),
+                        moment(this._datos?.fecha_nacimiento).format('DD/MM/yyyy'),
                         ' acude al centro el día ',
                         moment(this._valoracion?.fecha_inicio).format('DD/MM/yyyy'),
                         ' con motivo de ',
@@ -124,8 +147,8 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                 {
                     text: [
                         'Es atendido por ',
-                        this._valoracion?.psicologo,
-                        ' con número de colegiado ',
+                        this._psicologo?.nombre, ' ',this._psicologo?.apellido1,' ',this._psicologo?.apellido2,
+                        ' con número de colegiado ',this._psicologo?.num_colegiado,
                         ' ',
                         '\n\n',
                     ],
@@ -173,7 +196,7 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                         {
                             text: 'Pruebas psicológicas realizadas:',
                             style: 'header',
-                        },
+                        },'\n\n',
                         {
                             text: 'Test Cognitivo:', bold: true
                         },
@@ -219,8 +242,8 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                         },
                         '\n\n',
                         {
-                            text:' N. Col.:_______________'
-                        },
+                            text:' N. Col.:'
+                        },this._psicologo?.num_colegiado
                     ]
 
                 }

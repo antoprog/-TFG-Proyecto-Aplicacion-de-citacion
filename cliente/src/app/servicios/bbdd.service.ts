@@ -43,4 +43,7 @@ export class BbddService {
     getPsicologos(){
         return this.http.get<Psicologo[]>('http://localhost:4001/psicologo/')
     }
+    getPsicologoByUser(username:string){
+        return this.http.get<Psicologo>('http://localhost:4001/psicologo/byUser')
+    }
 }
