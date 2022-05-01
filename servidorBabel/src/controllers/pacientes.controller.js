@@ -4,7 +4,36 @@ import NombrePacientes from '../models/NombrePacientes';
 export const createPaciente = async (req, res) => {
     console.log('createPaciente');
     try {
+
         const newPaciente = new Paciente(req.body)
+
+        let letra;
+
+        switch (newPaciente.aseguradora[0]) {
+            case "C":
+            case "c":
+                letra = "C";
+                break;
+            case "J":
+            case "j":
+                letra = "J";
+                break;
+            default:
+                letra = "P";
+                break;
+        }
+
+        let historia = '';
+        let buscar;
+
+        do {
+            const numero = Math.floor(Math.random() * (999999999 - 1)) + 1
+            buscar = letra + numero
+            historia = await Paciente.findOne({numero_historia: buscar})
+        } while (historia)
+
+        newPaciente.numero_historia = buscar
+        console.log('NEW PACIENTE',newPaciente);
         const pacienteSaved = await newPaciente.save();
 
         const nombreConcat = req.body.nombre + ' ' + req.body.apellido1 + ' ' + req.body.apellido2
@@ -120,7 +149,4 @@ export const modificacionConsulta = async (req, res) => {
     } catch (e) {
         console.log(e);
     }
-}
-export const getNumHistoria= async (req, res) => { // GET
-    const paciente = await Paciente.findOne({numero_historia:req.params.numHistoria});
 }

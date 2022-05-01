@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms"
 import {BbddService} from "../../../../../servicios/bbdd.service";
 import {AuthService} from "../../../../../servicios/auth.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-alta-psicologo',
@@ -14,7 +15,10 @@ export class AltaPsicologoComponent implements OnInit {
         {nombre: "NIE"}
     ];
 
-    constructor(private fb: FormBuilder, private serv: BbddService, private service: AuthService) {
+    constructor(private fb: FormBuilder,
+                private serv: BbddService,
+                private service: AuthService,
+                private toastr: ToastrService) {
     }
 
     ngOnInit(): void {
@@ -24,7 +28,7 @@ export class AltaPsicologoComponent implements OnInit {
         nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],//agregar ñ y acentos
         apellido1: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
         apellido2: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
-        tipo_doc: ['', [Validators.required]],
+        tipo_doc: ['DNI', [Validators.required]],
         documentoDni: ['', [Validators.pattern(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
         documentoNie: ['', [Validators.pattern(/^[XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
         titulacion: ['', [Validators.required]],
@@ -48,12 +52,10 @@ export class AltaPsicologoComponent implements OnInit {
             return this.psicologoForm.controls['documentoNie'].value
         }
     }
-    tipo_doc_err:string=""
+
+
     //funcion de envio
     onSubmit() {
-        if(this.psicologoForm.controls['tipo_doc'].value==""){
-            this.tipo_doc_err = "requerido"
-        } 
         const datos = {
             username: this.psicologoForm.controls['username'].value,
             nombre: this.psicologoForm.controls['nombre'].value,
@@ -84,11 +86,18 @@ export class AltaPsicologoComponent implements OnInit {
 
         console.log(datos);
 
-        this.service.signup(login).subscribe({
-            next: value => {
-                this.serv.altaPsicologo(datos).subscribe();
-            }
-        });
+        if (this.psicologoForm.invalid) {
+            this.service.signup(login).subscribe({
+                next: value => {
+                    this.serv.altaPsicologo(datos).subscribe();
+                    this.toastr.success('Administración', "Psicólogo creado correctamente.")
+                },
+                error: err => {
+                    console.log(err);
+                    this.toastr.error('Administración', "Error en servidor. Código: "+err.status)
+                }
+            });
+        }
     }
 
     //funcion de control de errores

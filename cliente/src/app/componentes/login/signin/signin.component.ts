@@ -23,14 +23,13 @@ export class SigninComponent implements OnInit {
     }
 
     signIn() {
-        console.log('entra.');
         this.servicio.singin(this.user).subscribe({
             next: value => {
                 this.toastr.success('', "Login bien")
                 console.log('Login:', value.token);
                 localStorage.setItem('token', value.token);
-                this.router.navigate(['/agenda']).then();
-                },
+                this.router.navigate(['/auth/agenda']).then();
+            },
             error: err => {
                 this.toastr.error('', "Los datos son incorrectos.")
                 console.log(err.status, err.error.message)

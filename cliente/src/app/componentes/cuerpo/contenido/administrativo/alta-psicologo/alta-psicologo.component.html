@@ -1,4 +1,3 @@
-<app-cabecera></app-cabecera>
 <section>
     <form [formGroup]="psicologoForm" (submit)="onSubmit()">
         <div class="container">
@@ -94,10 +93,6 @@
                 </div>
             </div>
             <div class="row justify-content mb-2">
-                <!--Tipo Documento Error-->
-                <div class="col-md-auto form-group">
-                    <span *ngIf="tipo_doc_err as message" class="text-danger texto"><strong>{{message}}</strong></span>
-                </div>
                 <!--Teléfono Error-->
                 <div class="col-md-auto form-group">
                     <span *ngIf="getError('telefono') as message"

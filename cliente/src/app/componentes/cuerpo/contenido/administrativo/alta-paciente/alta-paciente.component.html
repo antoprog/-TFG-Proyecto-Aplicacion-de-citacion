@@ -1,4 +1,3 @@
-<app-cabecera></app-cabecera>
 <section id="section_alta">
     <form [formGroup]="insClienteForm" (submit)="onSubmit()">
         <div class="container">
@@ -54,24 +53,24 @@
                     <span *ngIf="getError('documentoNie') as message" class="text-danger texto"><strong>{{message}}</strong></span>
                 </div>
                 <!--Teléfono-->
-                <div class="col-md-auto form-group"> 
+                <div class="col-md-auto form-group">
                     <label for="telefono" class="text-primary texto">Teléfono:</label>
                     <input type="text" id="telefono" class="mx-2 py-1 px-2 borde shadow-sm texto2" formControlName="telefono">
                 </div>
             </div>
-            <div class="row justify-content mb-2">    
+            <div class="row justify-content mb-2">
                 <!--Tipo Documento Error-->
-                <div class="col-md-auto form-group"> 
-                    <span *ngIf="tipo_doc_err as message" class="text-danger texto"><strong>{{message}}</strong></span>
-                </div>
+<!--                <div class="col-md-auto form-group">-->
+<!--                    <span *ngIf="tipo_doc_err as message" class="text-danger texto"><strong>{{message}}</strong></span>-->
+<!--                </div>-->
                 <!--Teléfono Error-->
-                <div class="col-md-auto form-group"> 
+                <div class="col-md-auto form-group">
                     <span *ngIf="getError('telefono') as message" class="text-danger texto"><strong>{{message}}</strong></span>
                 </div>
             </div>
             <div class="row justify-content mb-2 g-3">
                 <!--Correo electónico-->
-                <div class="col-md-6 form-group"> 
+                <div class="col-md-6 form-group">
                     <label for="email" class="text-primary texto">Correo electónico:</label>
                     <input type="email" id="email" class="mx-2 py-1 px-2 borde shadow-sm texto2" formControlName="email">
                 </div>
@@ -83,7 +82,7 @@
             </div>
             <div class="row justify-content mb-2 g-3">
                 <!--Correo electónico Error-->
-                <div class="col-md-6 form-group"> 
+                <div class="col-md-6 form-group">
                     <span *ngIf="getError('email') as message" class="text-danger texto"><strong>{{message}}</strong></span>
                 </div>
                 <!--Fecha Nacimiento Error-->
@@ -108,7 +107,7 @@
                 <!--Código postal-->
                 <div class="col-md-4 form-group">
                     <label for="cod_postal" class="text-primary texto">Código postal:</label>
-                    <input type="text" id="cod_postal" class="mx-2 py-1 px-2 borde shadow-sm texto2" formControlName="cod_postal"> 
+                    <input type="text" id="cod_postal" class="mx-2 py-1 px-2 borde shadow-sm texto2" formControlName="cod_postal">
                 </div>
                 <!--Ciudad-->
                 <div class="col-md-4 form-group">
@@ -147,12 +146,12 @@
                     <input type="tel" id="telefonoContacto" class="form-control borde shadow-sm texto2" formControlName="telefonoContacto">
                 </div>
                 <!--Asignar Psicólogo-->
-               <!-- <div class="col-md-4 form-group align-self-center">    
-                    <label for="psicologo" class="text-primary texto">Asignar Psicólogo</label>
-                    <select id="psicologo" class="mx-2 py-1 px-2 borde shadow-sm texto2" formControlName="psicologo" style=" margin-right:1%; margin-left:1%;">
-                        <option *ngFor="let p of t_psicologo" [value]="p.nombre">{{p.nombre}}</option>
-                    </select>
-                </div>-->
+                <!-- <div class="col-md-4 form-group align-self-center">
+                     <label for="psicologo" class="text-primary texto">Asignar Psicólogo</label>
+                     <select id="psicologo" class="mx-2 py-1 px-2 borde shadow-sm texto2" formControlName="psicologo" style=" margin-right:1%; margin-left:1%;">
+                         <option *ngFor="let p of t_psicologo" [value]="p.nombre">{{p.nombre}}</option>
+                     </select>
+                 </div>-->
             </div>
             <div class="row justify-content mb-2">
                 <!--Nombre de Contacto Error-->
@@ -164,10 +163,10 @@
                     <span *ngIf="getError('telefonoContacto') as message" class="text-danger texto"><strong>{{message}}</strong></span>
                 </div>
                 <!--Asignar Psicólogo Error-->
-               <!-- <div class="col-md-4 form-group">
-                    <span *ngIf="!this.insClienteForm.controls['psicologo'] as message" class="text-danger texto"><strong>{{message}}</strong></span>
-                    <span *ngIf="psicologo_err as message" class="text-danger texto"><strong>{{message}}</strong></span>
-                </div>-->
+                <!-- <div class="col-md-4 form-group">
+                     <span *ngIf="!this.insClienteForm.controls['psicologo'] as message" class="text-danger texto"><strong>{{message}}</strong></span>
+                     <span *ngIf="psicologo_err as message" class="text-danger texto"><strong>{{message}}</strong></span>
+                 </div>-->
             </div>
             <input type="hidden" formControlName="pais" value="España">
             <div class="row justify-content mb-2">

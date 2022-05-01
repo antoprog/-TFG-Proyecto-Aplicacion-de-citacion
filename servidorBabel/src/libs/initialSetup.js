@@ -1,3 +1,4 @@
+import Agenda from "../models/Agenda";
 import Role from "../models/Role";
 
 export const createRoles = async () => {
@@ -11,7 +12,46 @@ export const createRoles = async () => {
             new Role({name: 'admin'}).save(),
             new Role({name: 'moderator'}).save()
         ])
-    } catch (error){
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const createAgenda = async () => {
+    try {
+        const count = await Agenda.estimatedDocumentCount()
+
+        if (count > 0) return;
+
+        const values = await Promise.all([
+            new Agenda(
+                {
+                    id: 'String',
+                    start: new Date(),
+                    end: new Date(),
+                    title: 'String',
+                    color: {
+                        primary: 'String',
+                        secondary: 'String'
+                    },
+                    actions: [{
+                        id: 'String',
+                        label: 'String',
+                        cssClass: 'String',
+                        a11yLabel: 'String'
+                    }],
+                    allDay: false,
+                    cssClass: 'String',
+                    resizable: {
+                        beforeStart: false,
+                        afterEnd: false,
+                    },
+                    draggable: false,
+                    meta: 'String'
+                }
+            ).save()
+        ])
+    } catch (error) {
         console.log(error);
     }
 }

@@ -1,27 +1,12 @@
-import {ChangeDetectionStrategy, Component, TemplateRef, ViewChild,} from '@angular/core';
-import {
-    addDays,
-    addHours,
-    endOfDay,
-    endOfMonth,
-    isSameDay,
-    isSameMonth,
-    parseISO,
-    startOfDay,
-    subDays,
-} from 'date-fns';
+import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild,} from '@angular/core';
+import {endOfDay, isSameDay, isSameMonth, parseISO, startOfDay, subDays,} from 'date-fns';
 import {Subject} from 'rxjs';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {
-    CalendarEvent,
-    CalendarEventAction,
-    CalendarEventTimesChangedEvent,
-    CalendarView,
-    DAYS_OF_WEEK,
-} from 'angular-calendar';
+import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView,} from 'angular-calendar';
 import {DetalleComponent} from "./detalle/detalle.component";
-import { registerLocaleData } from '@angular/common';
+import {registerLocaleData} from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import {AgendaService} from "../../servicios/agenda.service";
 
 registerLocaleData(localeEs, 'es')
 
@@ -46,19 +31,30 @@ const colors: any = {
     styleUrls: ['./agenda.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AgendaComponent {
+export class AgendaComponent implements OnInit {
     @ViewChild('modalContent', {static: true}) modalContent!: TemplateRef<any>;
 
+    constructor(private modal: NgbModal, private servicioAgenda: AgendaService) {
+    }
+
+    ngOnInit(): void {
+        this.servicioAgenda.getAgendaByPsicologo('aa').subscribe({
+            next: value => {
+                for (const valor of value) {
+                    valor.start = subDays(startOfDay(parseISO(String(valor.start))), 0)
+                    valor.end = subDays(startOfDay(parseISO(String(valor.end))), 0)
+                    this.events.push(valor)
+                }
+                this.refresh.next()
+            }
+        })
+    }
+
     weekStartsOn = "1";
-
     locale = 'es'
-
     view: CalendarView = CalendarView.Month;
-
     CalendarView = CalendarView;
-
     viewDate: Date = new Date();
-
     modalData!: {
         action: string;
         event: CalendarEvent;
@@ -83,66 +79,9 @@ export class AgendaComponent {
     ];
 
     refresh = new Subject<void>();
-
-    events: CalendarEvent[] = [
-        {
-            start: subDays(startOfDay(parseISO('2022-04-01T14:34:32.999Z')), 0),
-            end: addDays(new Date('2022-04-02T14:34:32.999Z'), 0),
-            title: 'A 3 day event',
-            color: colors.red,
-            actions: this.actions,
-            allDay: true,
-            resizable: {
-                beforeStart: true,
-                afterEnd: true,
-            },
-            draggable: true,
-        },
-        {
-            start: subDays(startOfDay(parseISO('2022-04-03T14:34:32.999Z')), 0),
-            end: addDays(parseISO('2022-04-04T14:34:32.999Z'), 0),
-            title: 'A 3 day event1',
-            color: colors.red,
-            actions: this.actions,
-            allDay: true,
-            resizable: {
-                beforeStart: true,
-                afterEnd: true,
-            },
-            draggable: true,
-        },
-        {
-            start: startOfDay(new Date()),
-            title: 'An event with no end date',
-            color: colors.yellow,
-            actions: this.actions,
-        },
-        {
-            start: subDays(endOfMonth(new Date()), 3),
-            end: addDays(endOfMonth(new Date()), 3),
-            title: 'A long event that spans 2 months',
-            color: colors.blue,
-            allDay: true,
-        },
-        {
-            start: addHours(startOfDay(new Date()), 2),
-            end: addHours(new Date(), 2),
-            title: 'A draggable and resizable event',
-            color: colors.yellow,
-            actions: this.actions,
-            resizable: {
-                beforeStart: true,
-                afterEnd: true,
-            },
-            draggable: true,
-        },
-    ];
+    events: CalendarEvent[] = [];
 
     activeDayIsOpen: boolean = true;
-
-    constructor(private modal: NgbModal) {
-
-    }
 
     dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
         console.log('entra en dayClicked');
@@ -153,7 +92,7 @@ export class AgendaComponent {
         }
     }
 
-    eventTimesChanged({event,newStart,newEnd}: CalendarEventTimesChangedEvent): void {
+    eventTimesChanged({event, newStart, newEnd}: CalendarEventTimesChangedEvent): void {
         console.log('NEW START', newStart);
         this.events = this.events.map((iEvent) => {
             if (iEvent === event) {
@@ -170,8 +109,8 @@ export class AgendaComponent {
     }
 
     handleEvent(action: string, event: CalendarEvent): void {
-        console.log('ACTION',action)
-        console.log('EVENT',event)
+        console.log('ACTION', action)
+        console.log('EVENT', event)
         this.modalData = {event, action};
         const ref = this.modal.open(DetalleComponent, {size: 'lg'});
         ref.componentInstance.evento = event

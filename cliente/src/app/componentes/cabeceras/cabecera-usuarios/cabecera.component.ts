@@ -16,8 +16,6 @@ export interface Dat {
 })
 
 export class CabeceraComponent implements OnInit {
-
-
     listaPantalla: any
     datos: any
 
@@ -48,7 +46,7 @@ export class CabeceraComponent implements OnInit {
             if (this.datos[i].nomApe1Ape2 === item) {
                 this.dataShare._idPaciente$.next(this.datos[i]._id);
                 localStorage.setItem('idPaciente', this.datos[i]._id)
-                this.router.navigate(['/psicologo']).then();
+                this.router.navigate(['/auth/psicologo']).then();
                 break;
             }
         }
@@ -62,23 +60,22 @@ export class CabeceraComponent implements OnInit {
         e.target.value = ""
     }
 
+
+
     ngOnInit(): void {
+
         this.authService.getRoles().subscribe({
             next: value => {
-                console.log('CABECERA VALUE', value);
-                this.admin = true
+                console.log('ROL USUARIO:', value);
                 for (const rol of value) {
                     switch (rol) {
                         case 'admin':
-                            console.log('entra 1');
                             this.admin = true;
                             break;
                         case 'psicologo':
-                            console.log('entra 2');
                             this.psicologo = true;
                             break;
                         case 'user':
-                            console.log('entra 3');
                             this.user = true;
                             break;
                     }
