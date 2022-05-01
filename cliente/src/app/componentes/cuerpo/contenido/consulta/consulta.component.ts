@@ -37,6 +37,11 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     suscripcion: any
     datos: any
 
+    t_psicologo = [
+        {nombre: "Juan Perez"},
+        {nombre: "Monica Quinteiro"}
+    ];
+    
     cargarPantalla() {
 
         this.suscripcion = this.dataShare._valoracion$.subscribe({
@@ -46,6 +51,10 @@ export class ConsultaComponent implements OnInit, OnDestroy {
                         next: value => {
                             this.consultaForm.controls['procedencia'].setValue(value.datosMedicos.valoracion[_valoracion].procedencia)
                             this.consultaForm.controls['fecha_diagnostico'].setValue(String(value.datosMedicos.valoracion[_valoracion].diagnostico_medico.fecha_diagnostico).split('T')[0])
+                            this.consultaForm.controls['con_motivo'].setValue(value.datosMedicos.valoracion[_valoracion].motivo_consulta)
+                            this.consultaForm.controls['con_sintomas'].setValue(value.datosMedicos.valoracion[_valoracion].sintomas)
+                            this.consultaForm.controls['posologia'].setValue(value.datosMedicos.valoracion[_valoracion].diagnostico_medico.posologia)
+                            this.consultaForm.controls['patologia_medica'].setValue(value.datosMedicos.valoracion[_valoracion].diagnostico_medico.patologia_medica)
                         }
                     }
                 )

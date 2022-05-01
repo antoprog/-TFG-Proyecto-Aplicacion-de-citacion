@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {BbddService} from 'src/app/servicios/bbdd.service';
+import {DataShareService} from "../../../../servicios/data-share.service";
 
 @Component({
     selector: 'app-pruebas',
@@ -9,7 +10,9 @@ import {BbddService} from 'src/app/servicios/bbdd.service';
 })
 export class PruebasComponent implements OnInit {
 
-    constructor(private fb: FormBuilder, private serv: BbddService) {
+    constructor(private fb: FormBuilder,
+        private dataShare: DataShareService,
+         private serv: BbddService) {
     }
 
     formulario = this.fb.group({
@@ -19,8 +22,36 @@ export class PruebasComponent implements OnInit {
         prueba3: ['']
     })
 
+    suscripcion: any
+   
+
     ngOnInit(): void {
+        this.cargarPantalla();
+        
     }
+
+    cargarPantalla() {
+
+        this.suscripcion = this.dataShare._valoracion$.subscribe({
+            next: _valoracion => {
+                this.serv.getDatosMedicosPaciente(localStorage.getItem('idPaciente')).subscribe(
+                    {
+                        next: value => {
+                            this.formulario.controls['dco_psicologico'].setValue(value.datosMedicos.valoracion[_valoracion].diagnostico_psicologico.diagnostico)
+                            this.formulario.controls['prueba1'].setValue(value.datosMedicos.valoracion[_valoracion].test_diagnosticos.cognitiva)
+                            this.formulario.controls['prueba2'].setValue(value.datosMedicos.valoracion[_valoracion].test_diagnosticos.emocional)
+                            this.formulario.controls['prueba3'].setValue(value.datosMedicos.valoracion[_valoracion].test_diagnosticos.pruebasPsicodiagnostico)
+                        }
+                    }
+                )
+            }
+        })
+    }
+
+    ngOnDestroy(): void {
+        this.suscripcion.unsubscribe();
+    }
+
 
     onSubmit() {
         const datos = {
