@@ -1,6 +1,7 @@
 import { variable } from '@angular/compiler/src/output/output_ast';
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms"
+import { stringify } from 'querystring';
 import {BbddService} from "../../../../../servicios/bbdd.service";
 
 @Component({
@@ -121,8 +122,23 @@ export class AltaPacienteComponent implements OnInit {
     }
     //funcion para calcular numero de historia
     nHistoria():string{
+        let numHistoria:string;
+        let paciente:any;
+        numHistoria=this.generarNHistoria();
+        this.serv.getNumHistoria(numHistoria);
+        do{
+            numHistoria=this.generarNHistoria();
+            console.log("1",numHistoria)
+            paciente=this.serv.getNumHistoria(numHistoria);
+
+        }while(paciente!=null)
+        console.log("2",numHistoria)
+        return numHistoria;
+    }
+    generarNHistoria():string{
         let letra:string;
         let numero:number;
+        
         switch(this.insClienteForm.controls['aseguradora'].value){
             case "COMPAÑIA":{
                 letra="C";
@@ -140,7 +156,6 @@ export class AltaPacienteComponent implements OnInit {
         numero=Math.floor(Math.random() * (999999999-1)) + 1;
         return letra + numero;
     }
-
 
     //funcion de control de errores
     getError(field: string): string {

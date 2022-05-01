@@ -12,5 +12,5 @@ router.delete('/:pacienteId', [authJwt.verifyToken] ,pacienteCtrl.deletePaciente
 router.get('/nombreNav/:nombre',pacienteCtrl.getPacientesNombre)
 router.put('/altaConsulta/:pacienteId', [authJwt.verifyToken], pacienteCtrl.altaConsultaPaciente)
 router.put('/modificacionConsulta/:pacienteId', [authJwt.verifyToken], pacienteCtrl.modificacionConsulta)
-
+router.get('/historiaPaciente/:numHistoria',  [authJwt.verifyToken], pacienteCtrl.getNumHistoria)
 export default router;
