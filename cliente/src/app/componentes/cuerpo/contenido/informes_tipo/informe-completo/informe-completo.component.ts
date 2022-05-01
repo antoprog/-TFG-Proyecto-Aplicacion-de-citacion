@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import * as format from 'date-fns/format';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-informe-completo',
@@ -19,7 +20,7 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
     edad = 0;
     _datos: Paciente | undefined;
     _valoracion: any;
-    hoy!: Date;
+    hoy!: String;
     motivoForm: String = '';
     conclusiones:String='';
     imagen: String = './assets/img/logoEjemplo.jpg';
@@ -34,7 +35,6 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
     constructor(
         private servicio: BbddService,
         private dataShare: DataShareService,
-        private datepipe: DatePipe
     ) {
         (window as any).pdfMake.vfs = pdfFonts.pdfMake.vfs;
     }
@@ -43,10 +43,10 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
         this.suscripcion = this.dataShare._idPaciente$.subscribe((value) => {
             if (value !== '') {
                 this.obtenerDatosPaciente(value);
-                this.hoy = new Date();
+                this.hoy = moment(new Date()).format('DD/MM/yyy');
             } else if (localStorage.getItem('idPaciente')) {
                 this.obtenerDatosPaciente(localStorage.getItem('idPaciente'));
-                this.hoy = new Date();
+                this.hoy = moment(new Date()).format('DD/MM/yyy');
             }
         });
     }
@@ -113,9 +113,9 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                         ' de edad ',
                         this.edad,
                         ' y fecha de nacimiento ',
-                        this._datos!.fecha_nacimiento,
+                        moment(this._datos!.fecha_nacimiento).format('DD/MM/yyyy'),
                         ' acude al centro el día ',
-                        this._valoracion?.fecha_inicio,
+                        moment(this._valoracion?.fecha_inicio).format('DD/MM/yyyy'),
                         ' con motivo de ',
                         this._valoracion?.motivo_consulta,
                         '\n\n',
