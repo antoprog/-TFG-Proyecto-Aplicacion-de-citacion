@@ -121,3 +121,6 @@ export const modificacionConsulta = async (req, res) => {
         console.log(e);
     }
 }
+export const getNumHistoria= async (req, res) => { // GET
+    const paciente = await Paciente.findOne({numero_historia:req.params.numHistoria});
+}

@@ -1,6 +1,7 @@
 import { variable } from '@angular/compiler/src/output/output_ast';
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms"
+import { stringify } from 'querystring';
 import {BbddService} from "../../../../../servicios/bbdd.service";
 
 @Component({
@@ -52,7 +53,7 @@ export class AltaPacienteComponent implements OnInit {
         telefonoContacto: ['', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{9}$')]],
         permisoGrabacion: [false],
         firmaProteccionDatos: [false,[Validators.requiredTrue]],
-        psicologo: ['', [Validators.required]]
+       // psicologo: ['', [Validators.required]]
     })
 
     devolverDoc() {
@@ -73,9 +74,9 @@ export class AltaPacienteComponent implements OnInit {
             if(this.insClienteForm.controls['tipo_doc'].value==""){
                 this.tipo_doc_err = "requerido"
             } 
-            if(this.insClienteForm.controls['psicologo'].value==""){
+           /*  if(this.insClienteForm.controls['psicologo'].value==""){
                 this.psicologo_err = "requerido"
-            } 
+            }  */
             if(this.insClienteForm.controls['aseguradora'].value==""){
                 this.aseguradora_err = "requerido"
             } 
@@ -103,7 +104,7 @@ export class AltaPacienteComponent implements OnInit {
             },
             aseguradora: this.insClienteForm.controls['aseguradora'].value,
             company: this.insClienteForm.controls['company'].value,
-            numero_historia: '1234',
+            numero_historia: this.nHistoria(),
             contacto: {
                 nombre: this.insClienteForm.controls['nombreContacto'].value,
                 telefono: this.insClienteForm.controls['telefonoContacto'].value,
@@ -118,6 +119,42 @@ export class AltaPacienteComponent implements OnInit {
             },
 
         })
+    }
+    //funcion para calcular numero de historia
+    nHistoria():string{
+        let numHistoria:string;
+        let paciente:any;
+        numHistoria=this.generarNHistoria();
+        this.serv.getNumHistoria(numHistoria);
+        do{
+            numHistoria=this.generarNHistoria();
+            console.log("1",numHistoria)
+            paciente=this.serv.getNumHistoria(numHistoria);
+
+        }while(paciente!=null)
+        console.log("2",numHistoria)
+        return numHistoria;
+    }
+    generarNHistoria():string{
+        let letra:string;
+        let numero:number;
+        
+        switch(this.insClienteForm.controls['aseguradora'].value){
+            case "COMPAÑIA":{
+                letra="C";
+                break;
+            }
+            case "JUDICIAL":{
+                letra="J";
+                break;
+            }
+            default: {
+                letra="P";
+                break; 
+            }
+        }
+        numero=Math.floor(Math.random() * (999999999-1)) + 1;
+        return letra + numero;
     }
 
     //funcion de control de errores
