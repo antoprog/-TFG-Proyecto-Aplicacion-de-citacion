@@ -9,7 +9,7 @@ import { DataShareService } from 'src/app/servicios/data-share.service';
     styleUrls: ['./seguimiento.component.css']
 })
 export class SeguimientoComponent implements OnInit {
-    constructor(private fb: FormBuilder, 
+    constructor(private fb: FormBuilder,
         private dsDatos: DataShareService,
         private serv: BbddService) {
     }
@@ -26,14 +26,14 @@ export class SeguimientoComponent implements OnInit {
 
         this.suscripcion = this.dsDatos._valoracion$.subscribe({
             next: _valoracion => {
-                this.serv.getDatosMedicosPaciente(localStorage.getItem('idPaciente')).subscribe(
+                this.serv.getPaciente(localStorage.getItem('idPaciente')).subscribe(
                     {
                         next: value => {
                             this.seguimientoForm.controls['procedencia'].setValue(value.datosMedicos.valoracion[_valoracion].procedencia)
                             this.seguimientoForm.controls['fecha_diagnostico'].setValue(String(value.datosMedicos.valoracion[_valoracion].diagnostico_medico.fecha_diagnostico).split('T')[0])
                             this.seguimientoForm.controls['con_motivo'].setValue(value.datosMedicos.valoracion[_valoracion].motivo_consulta)
                             this.seguimientoForm.controls['con_sintomas'].setValue(value.datosMedicos.valoracion[_valoracion].sintomas)
-                           
+
                         }
                     }
                 )

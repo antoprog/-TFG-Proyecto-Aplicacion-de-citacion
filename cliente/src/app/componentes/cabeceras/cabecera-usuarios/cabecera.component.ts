@@ -19,7 +19,7 @@ export class CabeceraComponent implements OnInit {
     listaPantalla: any
     datos: any
 
-    constructor(private servicio: NavbarClientesService,
+    constructor(private servicioNavbar: NavbarClientesService,
                 private authService: AuthService,
                 private dataShare: DataShareService,
                 private router: Router) {
@@ -27,7 +27,7 @@ export class CabeceraComponent implements OnInit {
 
     buscarCliente(val: any) {
         if (val.length > 2) {
-            this.servicio.getDatos(val).subscribe((nombre) => {
+            this.servicioNavbar.getDatos(val).subscribe((nombre) => {
                 this.listaPantalla = []
                 this.datos = []
                 nombre.forEach((element: Dat) => {
@@ -42,6 +42,7 @@ export class CabeceraComponent implements OnInit {
     }
 
     selectEvent(item: any) {
+        console.log(item);
         for (let i = 0; i < this.datos.length; i++) {
             if (this.datos[i].nomApe1Ape2 === item) {
                 this.dataShare._idPaciente$.next(this.datos[i]._id);
@@ -60,10 +61,7 @@ export class CabeceraComponent implements OnInit {
         e.target.value = ""
     }
 
-
-
     ngOnInit(): void {
-
         this.authService.getRoles().subscribe({
             next: value => {
                 console.log('ROL USUARIO:', value);

@@ -32,7 +32,7 @@ export class BbddService {
         return this.http.put(url, consultaDatos)
     }
 
-    getDatosMedicosPaciente(paciente: any): Observable<Paciente> {
+    getPaciente(paciente: any): Observable<Paciente> {
         return this.http.get<Paciente>('http://localhost:4001/paciente/' + paciente)
     }
 

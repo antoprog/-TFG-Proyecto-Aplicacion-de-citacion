@@ -27,7 +27,6 @@ export class MisDatosComponent implements OnInit {
         this.servicio.getDatosPsicologo(this.authService.getToken()).subscribe(
             (respuesta: Psicologo) => {
                 this.psico = respuesta
-                console.log(respuesta)
             }
         )
     }

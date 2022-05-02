@@ -23,18 +23,18 @@ export class PruebasComponent implements OnInit {
     })
 
     suscripcion: any
-   
+
 
     ngOnInit(): void {
         this.cargarPantalla();
-        
+
     }
 
     cargarPantalla() {
 
         this.suscripcion = this.dataShare._valoracion$.subscribe({
             next: _valoracion => {
-                this.serv.getDatosMedicosPaciente(localStorage.getItem('idPaciente')).subscribe(
+                this.serv.getPaciente(localStorage.getItem('idPaciente')).subscribe(
                     {
                         next: value => {
                             this.formulario.controls['dco_psicologico'].setValue(value.datosMedicos.valoracion[_valoracion].diagnostico_psicologico.diagnostico)

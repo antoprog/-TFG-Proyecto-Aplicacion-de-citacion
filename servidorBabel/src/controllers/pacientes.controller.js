@@ -96,25 +96,40 @@ export const altaConsultaPaciente = async (req, res) => {
         const idPaciente = req.params.pacienteId;
         const datos = req.body;
 
-        await Paciente.updateOne(
-            {_id: idPaciente,},
-            {
-                $push:
-                    {
-                        "datosMedicos.valoracion": {
-                            procedencia: datos.procedencia,
-                            motivo_consulta: datos.con_motivo,
-                            sintomas: datos.con_sintomas,
-                            fecha_inicio: datos.fecha_inicio,
-                            diagnostico_medico: {
-                                fecha_diagnostico: datos.fecha_diagnostico,
-                                patologia_medica: datos.patologia_medica,
-                                posologia: datos.posologia
+        if (!datos.fecha_diagnostico) {
+            await Paciente.updateOne(
+                {_id: idPaciente,},
+                {
+                    $push:
+                        {
+                            "datosMedicos.valoracion": {
+                                procedencia: datos.procedencia,
+                                motivo_consulta: datos.con_motivo,
+                                sintomas: datos.con_sintomas,
+                                fecha_inicio: datos.fecha_inicio,
+                                diagnostico_medico: {
+                                    fecha_diagnostico: datos.fecha_diagnostico,
+                                    patologia_medica: datos.patologia_medica,
+                                    posologia: datos.posologia
+                                }
                             }
                         }
-                    }
-            })
-
+                })
+        }else{
+            await Paciente.updateOne(
+                {_id: idPaciente,},
+                {
+                    $push:
+                        {
+                            "datosMedicos.valoracion": {
+                                procedencia: datos.procedencia,
+                                motivo_consulta: datos.con_motivo,
+                                sintomas: datos.con_sintomas,
+                                fecha_inicio: datos.fecha_inicio,
+                            }
+                        }
+                })
+        }
         return res.status(200).json({message: 'Alta consulta realizada.'})
 
     } catch (e) {
