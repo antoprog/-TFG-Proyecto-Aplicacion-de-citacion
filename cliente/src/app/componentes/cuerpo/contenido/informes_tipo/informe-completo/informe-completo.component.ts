@@ -56,7 +56,7 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
     }
 
     obtenerDatosPaciente(id: any) {
-        this.servicio.getDatosMedicosPaciente(id).subscribe({
+        this.servicio.getPaciente(id).subscribe({
             next: (value) => {
                 this._datos = value;
                 this.edad = this.calcularEdad(this._datos?.fecha_nacimiento);
@@ -200,7 +200,7 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                 {
                     text: [
                         {
-                            text: 'Conclusiones:', bold: true 
+                            text: 'Conclusiones:', bold: true
                         },
                         { text: this.conclusiones },
                         '\n\n\n\n\n\n',
@@ -210,7 +210,7 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                     text: [
                         {
                             text: 'Fecha del informe:'
-                        }, 
+                        },
                         {   text:this.hoy
                         },
                         '\n\n',

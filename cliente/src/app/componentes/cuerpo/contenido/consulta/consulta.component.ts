@@ -61,31 +61,47 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
     cargarPantalla() {
         this.cargarPsicologos();
-        this.suscripcion = this.dataShare._valoracion$.subscribe({
-                next: _valoracion => {
-                    if (_valoracion) {
-                        this.bbdd.getDatosMedicosPaciente(localStorage.getItem('idPaciente')).subscribe(
-                            {
-                                next: value => {
-                                    this.consultaForm.controls['psicologo'].setValue(value.datosMedicos.valoracion[_valoracion].psicologo)
-                                    this.consultaForm.controls['procedencia'].setValue(value.datosMedicos.valoracion[_valoracion].procedencia)
-                                    this.consultaForm.controls['fecha_diagnostico'].setValue(String(value.datosMedicos.valoracion[_valoracion].diagnostico_medico?.fecha_diagnostico).split('T')[0])
-                                    this.consultaForm.controls['con_motivo'].setValue(value.datosMedicos.valoracion[_valoracion].motivo_consulta)
-                                    this.consultaForm.controls['con_sintomas'].setValue(value.datosMedicos.valoracion[_valoracion].sintomas)
-                                    this.consultaForm.controls['posologia'].setValue(value.datosMedicos.valoracion[_valoracion].diagnostico_medico?.posologia)
-                                    this.consultaForm.controls['patologia_medica'].setValue(value.datosMedicos.valoracion[_valoracion].diagnostico_medico?.patologia_medica)
-                                }
-                            }
-                        )
-                    }
-                }
+        // this.suscripcion = this.dataShare._valoracion$.subscribe({
+        //         next: _valoracion => {
+        //             console.log('valoracion', _valoracion);
+        //             if (_valoracion>=0) {
+        //                 console.log('entra a valoracion');
+        //                 this.bbdd.getDatosMedicosPaciente(localStorage.getItem('idPaciente')).subscribe(
+        //                     {
+        //                         next: value => {
+        //                             this.consultaForm.controls['psicologo'].setValue(value.datosMedicos.valoracion[_valoracion].psicologo)
+        //                             this.consultaForm.controls['procedencia'].setValue(value.datosMedicos.valoracion[_valoracion].procedencia)
+        //                             this.consultaForm.controls['fecha_diagnostico'].setValue(String(value.datosMedicos.valoracion[_valoracion].diagnostico_medico?.fecha_diagnostico).split('T')[0])
+        //                             this.consultaForm.controls['con_motivo'].setValue(value.datosMedicos.valoracion[_valoracion].motivo_consulta)
+        //                             this.consultaForm.controls['con_sintomas'].setValue(value.datosMedicos.valoracion[_valoracion].sintomas)
+        //                             this.consultaForm.controls['posologia'].setValue(value.datosMedicos.valoracion[_valoracion].diagnostico_medico?.posologia)
+        //                             this.consultaForm.controls['patologia_medica'].setValue(value.datosMedicos.valoracion[_valoracion].diagnostico_medico?.patologia_medica)
+        //                         }
+        //                     }
+        //                 )
+        //             }else{
+        //                 console.log('no etnra valoracion');
+        //             }
+        //         }
+        //     }
+        // )
+        this.suscripcion = this.dataShare.paciente$.subscribe({
+            next: value => {
+                console.log('ha cambiado de paciente')
             }
-        )
+        })
     }
 
     guardar() {
         this.consultaForm.value.fecha_inicio = moment(new Date()).format('YYYY-MM-DD[T00:00:00.000Z]');
         this.bbdd.altaConsultaPaciente(this.consultaForm.value).subscribe()
+
+
+        console.log('ENTRA FUERA TIMER');
+        setTimeout( ()=>{
+            console.log('EJECUTA TIMER');
+            this.dataShare._idPaciente$.next(String(localStorage.getItem('idPaciente')))
+        }, 1500)
     }
 
     modificar() {
