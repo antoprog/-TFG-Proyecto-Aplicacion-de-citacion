@@ -60,7 +60,8 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                 this._valoracion =value.datosMedicos.valoracion[parseInt(localStorage.getItem('valoracionId')!)];
                 console.log("_valoracion 2",this._valoracion);
                 console.log("psicologo 2",this._valoracion.psicologo);
-                this.obtenerDatosPsicologo(this._valoracion.psicologo);
+                let usupsico=this._valoracion.psicologo
+                this.obtenerDatosPsicologo(usupsico);
             },
             
             error: (err) => {
