@@ -7,7 +7,7 @@ const router = Router();
 
 router.get('/', psicologoCtrl.getPsicologo)
 router.get('/uno', psicologoCtrl.getPsicologoByToken)
-router.get('/byUser',psicologoCtrl.getPsicologoByUserName)
+router.get('/byUser/:username',psicologoCtrl.getPsicologoByUserName)
 router.post('/altaDatos', psicologoCtrl.createPsicologo)
 router.post('/', psicologoCtrl.createPsicologo)
 router.put('/:psicologoId', [authJwt.verifyToken], psicologoCtrl.updatePsicologoById)

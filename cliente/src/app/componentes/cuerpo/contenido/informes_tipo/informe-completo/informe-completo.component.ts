@@ -57,11 +57,7 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                 this._datos = value;
                 this.edad = this.calcularEdad(this._datos?.fecha_nacimiento);
                 this.edad = this.edad || 0;
-                this._valoracion =value.datosMedicos.valoracion[parseInt(localStorage.getItem('valoracionId')!)];
-                console.log("_valoracion 2",this._valoracion);
-                console.log("psicologo 2",this._valoracion.psicologo);
-                let usupsico=this._valoracion.psicologo
-                this.obtenerDatosPsicologo(usupsico);
+                this.obtenerValoracion();
             },
             
             error: (err) => {
@@ -70,8 +66,19 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
             complete: () => {},
         });
     }
+    obtenerValoracion(){
+        this._valoracion =this._datos!.datosMedicos.valoracion[parseInt(localStorage.getItem('valoracionId')!)];
+                console.log("paciente 2",this._datos);
+                console.log("valoracionId 2",parseInt(localStorage.getItem('valoracionId')!));
+                console.log("_valoracion 2",this._valoracion); 
+                let usupsico=this._valoracion.psicologo
+                console.log("psicologo 2",usupsico);
+                this.obtenerDatosPsicologo(usupsico);
+                
+    }
     obtenerDatosPsicologo(username:string){
         console.log("3")
+        console.log("psicologo 2",username);
         this.servicio.getPsicologoByUser(username).subscribe({
             next: dato=>{
                 this._psicologo=dato;
@@ -96,7 +103,8 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
             } else if (localStorage.getItem('idPaciente')) {
                 console.log("1")
                 this.obtenerDatosPaciente(localStorage.getItem('idPaciente'));
-                console.log("psicologo 2 _valoracion",this._valoracion);
+                console.log("psicologo 1 idPaciente",localStorage.getItem('idPaciente'));
+                console.log("psicologo 1 _valoracion",this._valoracion);
                 this.hoy = moment(new Date()).format('DD/MM/yyy');
                 
             }
