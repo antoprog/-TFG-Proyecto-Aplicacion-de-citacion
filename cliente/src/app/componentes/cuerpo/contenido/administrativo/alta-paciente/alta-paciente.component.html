@@ -2,21 +2,21 @@
     <form [formGroup]="insClienteForm" (submit)="onSubmit()">
         <div class="container">
             <h3 class="titulos my-2 bordet shadow-sm h3">DATOS PACIENTE</h3>
-            <div class="row justify-content mb-2 g-3">
+            <div class="row justify-content-start mb-2">
                 <!--Nombre-->
-                <div class="col-md-4 form-group">
+                <div class="col-4 form-group">
                     <label for="nombre" class="text-primary texto">Nombre:</label>
-                    <input type="text" class="mx-2 py-1 px-2 borde shadow-sm texto2" id="nombre" formControlName="nombre">
+                    <input type="text" class="mx-1 py-1 px-1 borde shadow-sm texto2" id="nombre" formControlName="nombre">
                 </div>
                 <!--Primer Apellido-->
-                <div class="col-md-4 form-group">
+                <div class="col-4 form-group">
                     <label for="apellido1" class="text-primary texto">Primer Apellido:</label>
-                    <input type="text" class="mx-2 py-1 px-2 borde shadow-sm texto2" id="apellido1" formControlName="apellido1">
+                    <input type="text" class="mx-1 py-1 px-1 borde shadow-sm texto2" id="apellido1" formControlName="apellido1">
                 </div>
                 <!--Segundo Apellido-->
-                <div class="col-md-4 form-group">
+                <div class="col-4 form-group">
                     <label for="apellido2" class="text-primary texto">Segundo Apellido:</label>
-                    <input type="text" class="mx-2 py-1 px-2 borde shadow-sm texto2" id="apellido2" formControlName="apellido2">
+                    <input type="text" class="mx-1 py-1 px-1 borde shadow-sm texto2" id="apellido2" formControlName="apellido2">
                 </div>
             </div>
             <div class="row justify-content-around mb-2 g-3">
@@ -59,12 +59,10 @@
                 </div>
             </div>
             <div class="row justify-content mb-2">
-                <!--Tipo Documento Error-->
-<!--                <div class="col-md-auto form-group">-->
-<!--                    <span *ngIf="tipo_doc_err as message" class="text-danger texto"><strong>{{message}}</strong></span>-->
-<!--                </div>-->
+                <div class="col-3"></div>
+                <div class="col-3"></div>
                 <!--Teléfono Error-->
-                <div class="col-md-auto form-group">
+                <div class="col-2 form-group">
                     <span *ngIf="getError('telefono') as message" class="text-danger texto"><strong>{{message}}</strong></span>
                 </div>
             </div>
@@ -145,21 +143,14 @@
                 <div class="col-md-2 form-group align-self-center">
                     <input type="tel" id="telefonoContacto" class="form-control borde shadow-sm texto2" formControlName="telefonoContacto">
                 </div>
-                <!--Asignar Psicólogo-->
-                <!-- <div class="col-md-4 form-group align-self-center">
-                     <label for="psicologo" class="text-primary texto">Asignar Psicólogo</label>
-                     <select id="psicologo" class="mx-2 py-1 px-2 borde shadow-sm texto2" formControlName="psicologo" style=" margin-right:1%; margin-left:1%;">
-                         <option *ngFor="let p of t_psicologo" [value]="p.nombre">{{p.nombre}}</option>
-                     </select>
-                 </div>-->
             </div>
             <div class="row justify-content mb-2">
                 <!--Nombre de Contacto Error-->
-                <div class="col-md-4 form-group">
+                <div class="col-6 form-group">
                     <span *ngIf="getError('nombreContacto') as message" class="text-danger texto"><strong>{{message}}</strong></span>
                 </div>
                 <!--Teléfono de Contacto Error-->
-                <div class="col-md-4 form-group">
+                <div class="col-4 form-group">
                     <span *ngIf="getError('telefonoContacto') as message" class="text-danger texto"><strong>{{message}}</strong></span>
                 </div>
                 <!--Asignar Psicólogo Error-->
@@ -194,14 +185,14 @@
                 </div>
             </div>
             <div class="row justify-content mb-2">
-                <div class="col-md-3 form-group"></div>
+                <div class="col-3 form-group"></div>
                 <!--Protección de Datos Firmado Error-->
-                <div class="col-md-3 form-group">
+                <div class="col-2 form-group">
                     <span *ngIf="getError('firmaProteccionDatos') as message" class="text-danger texto"><strong>{{message}}</strong></span>
                     <span *ngIf="firma as message" class="text-danger texto"><strong>{{message}}</strong></span>
                 </div>
                 <!--Aseguradora Error-->
-                <div class="col-md-3 form-group">
+                <div class="col-3 form-group">
                     <span *ngIf="aseguradora_err as message" class="text-danger texto"><strong>{{message}}</strong></span>
                 </div>
             </div>
