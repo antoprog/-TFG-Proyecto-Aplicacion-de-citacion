@@ -104,7 +104,6 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                 console.log("psicologo 1 idPaciente", localStorage.getItem('idPaciente'));
                 console.log("psicologo 1 _valoracion", this._valoracion);
                 this.hoy = moment(new Date()).format('DD/MM/yyy');
-
             }
         });
     }
