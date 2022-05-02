@@ -86,7 +86,7 @@ export class AltaPsicologoComponent implements OnInit {
 
         console.log(datos);
 
-        if (this.psicologoForm.invalid) {
+        if (this.psicologoForm.valid) {
             this.service.signup(login).subscribe({
                 next: value => {
                     this.serv.altaPsicologo(datos).subscribe();
