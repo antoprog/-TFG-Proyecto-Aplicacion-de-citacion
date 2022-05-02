@@ -25,6 +25,8 @@ export const getPsicologoByToken = async (req, res) => { // GET
         const tokenString = token.split(' ')[1];
         const decoded = jwt.verify(tokenString, config.SECRET, null, null);
 
+        console.log('ID PSICO',decoded.id);
+
         const id = await User.findById(decoded.id)
         const psicologo = await Psicologo.findOne({username: id.username})
         console.log(psicologo);

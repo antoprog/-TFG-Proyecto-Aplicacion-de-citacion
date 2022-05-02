@@ -10,10 +10,8 @@ import {Router} from "@angular/router";
     styleUrls: ['./mis-datos.component.css']
 })
 export class MisDatosComponent implements OnInit {
-    constructor(private servicio: BbddService, private authService: AuthService, private router:Router) {
+    constructor(private servicio: BbddService) {
     }
-
-
 
     visible: any
 
@@ -24,7 +22,7 @@ export class MisDatosComponent implements OnInit {
     psico: any
 
     ngOnInit(): void {
-        this.servicio.getDatosPsicologo(this.authService.getToken()).subscribe(
+        this.servicio.getDatosPsicologo().subscribe(
             (respuesta: Psicologo) => {
                 this.psico = respuesta
             }

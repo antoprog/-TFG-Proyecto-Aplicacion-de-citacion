@@ -36,13 +36,14 @@ export class BbddService {
         return this.http.get<Paciente>('http://localhost:4001/paciente/' + paciente)
     }
 
-    getDatosPsicologo(psicologo: any): Observable<Psicologo> {
+    getDatosPsicologo(): Observable<Psicologo> {
         return this.http.get<Psicologo>('http://localhost:4001/psicologo/uno/')
     }
 
     getPsicologos(){
         return this.http.get<Psicologo[]>('http://localhost:4001/psicologo/')
     }
+
     getPsicologoByUser(username:string): Observable<Psicologo> {
         return this.http.get<Psicologo>('http://localhost:4001/psicologo/byUser/' + username)
     }
