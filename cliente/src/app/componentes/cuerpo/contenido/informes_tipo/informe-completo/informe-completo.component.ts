@@ -1,16 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
-import { BbddService } from 'src/app/servicios/bbdd.service';
-import { Paciente } from 'src/app/modelo/paciente';
-import { DataShareService } from 'src/app/servicios/data-share.service';
-import { DatePipe } from '@angular/common';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {BbddService} from 'src/app/servicios/bbdd.service';
+import {Paciente} from 'src/app/modelo/paciente';
+import {DataShareService} from 'src/app/servicios/data-share.service';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import * as format from 'date-fns/format';
 import * as moment from 'moment';
-import { Psicologo } from 'src/app/modelo/psicologo';
-import { Console } from 'console';
+import {Psicologo} from 'src/app/modelo/psicologo';
 
 @Component({
     selector: 'app-informe-completo',
@@ -21,18 +16,18 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
     suscripcion: any;
     edad = 0;
     _datos: Paciente | undefined;
-    _psicologo: Psicologo|undefined;
+    _psicologo: Psicologo | undefined;
     _valoracion: any;
     hoy!: String;
     motivoForm: String = '';
-    conclusiones:String='';
+    conclusiones: String = '';
     imagen: String = './assets/img/logoEjemplo.jpg';
     m_doc = [
-        { nombre: 'Revisión medica' },
-        { nombre: 'Solicitud del juzgado' },
-        { nombre: 'Alta' },
-        { nombre: 'Seguimiento' },
-        { nombre: 'Petición del paciente' },
+        {nombre: 'Revisión medica'},
+        {nombre: 'Solicitud del juzgado'},
+        {nombre: 'Alta'},
+        {nombre: 'Seguimiento'},
+        {nombre: 'Petición del paciente'},
     ];
 
     constructor(
@@ -43,7 +38,7 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        
+
     }
 
     ngOnDestroy(): void {
@@ -58,36 +53,40 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                 this.edad = this.edad || 0;
                 this.obtenerValoracion();
             },
-            
+
             error: (err) => {
                 console.log('MENU-PACIENTE', err);
             },
-            complete: () => {},
+            complete: () => {
+            },
         });
     }
-    obtenerValoracion(){
-        this._valoracion =this._datos!.datosMedicos.valoracion[parseInt(localStorage.getItem('valoracionId')!)];
-                console.log("paciente 2",this._datos);
-                console.log("valoracionId 2",parseInt(localStorage.getItem('valoracionId')!));
-                console.log("_valoracion 2",this._valoracion); 
-                let usupsico=this._valoracion.psicologo
-                console.log("psicologo 2",usupsico);
-                this.obtenerDatosPsicologo(usupsico);
-                
+
+    obtenerValoracion() {
+        this._valoracion = this._datos!.datosMedicos.valoracion[parseInt(localStorage.getItem('valoracionId')!)];
+        console.log("paciente 2", this._datos);
+        console.log("valoracionId 2", parseInt(localStorage.getItem('valoracionId')!));
+        console.log("_valoracion 2", this._valoracion);
+        let usupsico = this._valoracion.psicologo
+        console.log("psicologo 2", usupsico);
+        this.obtenerDatosPsicologo(usupsico);
+
     }
-    obtenerDatosPsicologo(username:string){
+
+    obtenerDatosPsicologo(username: string) {
         console.log("3")
-        console.log("psicologo 2",username);
+        console.log("psicologo 2", username);
         this.servicio.getPsicologoByUser(username).subscribe({
-            next: dato=>{
-                this._psicologo=dato;
-                console.log("usuario",username)
-                console.log("dato",dato)
-                console.log("_psicologo",this._psicologo)
+            next: dato => {
+                this._psicologo = dato;
+                console.log("usuario", username)
+                console.log("dato", dato)
+                console.log("_psicologo", this._psicologo)
                 this.pdfOpen();
             }
         })
     }
+
     calcularEdad(fxNacimiento: any): number {
         let timeDiff = Math.abs(Date.now() - new Date(fxNacimiento).getTime());
         return Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
@@ -97,18 +96,20 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
         this.suscripcion = this.dataShare._idPaciente$.subscribe((value) => {
             if (value !== '') {
                 this.obtenerDatosPaciente(value);
-                console.log("psicologo 1 _valoracion",this._valoracion);              
+                console.log("psicologo 1 _valoracion", this._valoracion);
                 this.hoy = moment(new Date()).format('DD/MM/yyy');
             } else if (localStorage.getItem('idPaciente')) {
                 console.log("1")
                 this.obtenerDatosPaciente(localStorage.getItem('idPaciente'));
-                console.log("psicologo 1 idPaciente",localStorage.getItem('idPaciente'));
-                console.log("psicologo 1 _valoracion",this._valoracion);
+                console.log("psicologo 1 idPaciente", localStorage.getItem('idPaciente'));
+                console.log("psicologo 1 _valoracion", this._valoracion);
                 this.hoy = moment(new Date()).format('DD/MM/yyy');
-                
+
             }
-        });}
-    pdfOpen(){
+        });
+    }
+
+    pdfOpen() {
         console.log()
         const pdfDefinition: any = {
             content: [
@@ -124,8 +125,8 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
 
                 {
                     text: [
-                        { text: 'Motivo del informe: ', bold: true },
-                        { text: this.motivoForm },
+                        {text: 'Motivo del informe: ', bold: true},
+                        {text: this.motivoForm},
                         '\n\n',
                     ],
                 },
@@ -155,8 +156,8 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                 {
                     text: [
                         'Es atendido por ',
-                        this._psicologo?.nombre, ' ',this._psicologo?.apellido1,' ',this._psicologo?.apellido2,
-                        ' con número de colegiado ',this._psicologo?.num_colegiado,
+                        this._psicologo?.nombre, ' ', this._psicologo?.apellido1, ' ', this._psicologo?.apellido2,
+                        ' con número de colegiado ', this._psicologo?.num_colegiado,
                         ' ',
                         '\n\n',
                     ],
@@ -170,28 +171,28 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                 },
                 {
                     text: [
-                        { text: 'Sintomas que presenta:', bold: true },
-                        { text: this._valoracion?.sintomas },
+                        {text: 'Sintomas que presenta:', bold: true},
+                        {text: this._valoracion?.sintomas},
                         '\n\n',
                     ],
                 },
                 {
                     text: [
-                        { text: 'Antecedentes personales:', bold: true },
-                        { text: this._valoracion?.antecendentes?.personales },
+                        {text: 'Antecedentes personales:', bold: true},
+                        {text: this._valoracion?.antecendentes?.personales},
                         '\n\n',
                     ],
                 },
                 {
                     text: [
-                        { text: 'Antecedentes familiares:', bold: true },
-                        { text: this._valoracion?.antecendentes?.familiares },
+                        {text: 'Antecedentes familiares:', bold: true},
+                        {text: this._valoracion?.antecendentes?.familiares},
                         '\n\n',
                     ],
                 },
                 {
                     text: [
-                        { text: 'Diagnostico Medico:', bold: true },
+                        {text: 'Diagnostico Medico:', bold: true},
                         {
                             text: this._valoracion?.diagnostico_medico
                                 ?.patologia_medica,
@@ -204,7 +205,7 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                         {
                             text: 'Pruebas psicológicas realizadas:',
                             style: 'header',
-                        },'\n\n',
+                        }, '\n\n',
                         {
                             text: 'Test Cognitivo:', bold: true
                         },
@@ -233,7 +234,7 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                         {
                             text: 'Conclusiones:', bold: true
                         },
-                        { text: this.conclusiones },
+                        {text: this.conclusiones},
                         '\n\n\n\n\n\n',
                     ]
                 },
@@ -242,16 +243,17 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                         {
                             text: 'Fecha del informe:'
                         },
-                        {   text:this.hoy
+                        {
+                            text: this.hoy
                         },
                         '\n\n',
                         {
-                            text:'Firma:__________________'
+                            text: 'Firma:__________________'
                         },
                         '\n\n',
                         {
-                            text:' N. Col.:'
-                        },this._psicologo?.num_colegiado
+                            text: ' N. Col.:'
+                        }, this._psicologo?.num_colegiado
                     ]
 
                 }
