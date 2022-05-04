@@ -47,4 +47,8 @@ export class BbddService {
     getPsicologoByUser(username:string): Observable<Psicologo> {
         return this.http.get<Psicologo>('http://localhost:4001/psicologo/byUser/' + username)
     }
+    modificarAntecedentes(consultaDatos:any) {
+        let url = 'http://localhost:4001/paciente/modificarAntecedentes/' + localStorage.getItem('idPaciente')
+        return this.http.put(url, consultaDatos)
+    }
 }
