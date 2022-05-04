@@ -171,20 +171,14 @@ export const modificarAntecedentes = async (req, res) => {
     try {
         const idPaciente = req.params.pacienteId;
         const datos = req.body;
-        console.log(datos)
-        console.log(idPaciente)
-        await Paciente.updateOne(
+
+        await Paciente.findByIdAndUpdate({_id: idPaciente,},
             {
-                _id: idPaciente,
-            },
-            {
-                $push:
+                $set:
                     {
-                        "datosMedicos.antecedentes.familiares.observaciones": datos.ant_personales,
-                        "datosMedicos.antecedentes.personales.observaciones": datos.ant_familiares,
-                        
-                    },
-                    new:true
+                        "datosMedicos.antecedentes.familiares.observaciones": datos.ant_familiares,
+                        "datosMedicos.antecedentes.personales.observaciones": datos.ant_personales,
+                    }
             })
 
         return res.status(200).json({message: 'Antecedentes modificados'})

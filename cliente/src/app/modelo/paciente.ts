@@ -31,7 +31,7 @@ export interface Paciente {
     permiso_grabacion: Boolean,
     firma_proteccion_datos: Boolean,
     datosMedicos: {
-        antecendentes: {
+        antecedentes: {
             familiares: {
                 observaciones: String,
                 usu: String,
