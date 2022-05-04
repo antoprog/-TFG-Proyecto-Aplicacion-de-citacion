@@ -85,14 +85,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
 
                     if (!this.primeravez) {
                         this.primeravez = true
-                        if (this.data.datosMedicos.valoracion.length > 0) {
-                            const tam = this.data.datosMedicos.valoracion.length - 1;
-                            console.log('MANDAMOS PRIMERA VEZ > 0', this.data.datosMedicos.valoracion[tam]);
-                            this.dataShare.paciente$.next(this.data.datosMedicos.valoracion[tam])
-                        }else {
-                            console.log('MANDAMOS PRIMERA VEZ == 0', this.data.datosMedicos.valoracion[0]);
-                            this.dataShare.paciente$.next(this.data.datosMedicos.valoracion[0])
-                        }
+                        this.dataShare.paciente$.next(this.data)
                     }
                     // Recuperar las valoraciones del paciente
                 }
@@ -103,6 +96,6 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
     cambiarValoracion(evento: any) {
         const indice = (evento.length - 1) - evento.selectedIndex
         localStorage.setItem('valoracionId', String(indice))
-        this.dataShare.paciente$.next(this.data?.datosMedicos.valoracion[indice])
+        this.dataShare.paciente$.next(this.data)
     }
 }

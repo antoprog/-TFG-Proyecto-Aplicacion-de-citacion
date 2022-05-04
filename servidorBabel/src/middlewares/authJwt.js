@@ -9,15 +9,11 @@ export const verifyToken = async (req, res, next) => {
         const token = req.headers["authorization"]
         const tokenString = token.split(' ')[1];
 
-        if (tokenString === 'null') {
-            return res.status(200).json([{message: 'No token'}])
-        }
-
         let decoded;
         try{
             decoded = jwt.verify(tokenString, config.SECRET, null, null);
         }catch (e) {
-            return res.status(200).json([{message: 'Token caducado'}])
+            return res.status(200).json([{message: 'No tienes permiso'}])
         }
 
         req.userId = decoded.id;
@@ -28,7 +24,21 @@ export const verifyToken = async (req, res, next) => {
         next()
     } catch (e) {
         console.log('error VERIFY TOKEN', e);
-        return res.status(200).json({message: 'Unauthorized'})
+        return res.status(200).json({message: 'No token'})
+    }
+}
+
+export const isAdmin = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.userId)
+        const rolesBD = await Role.find({_id: {$in: user.roles}})
+
+        if (rolesBD.findIndex(i => i.name === 'admin') === -1) return res.status(500).json({message: 'No admin'})
+
+        next()
+    } catch (e) {
+        console.log(e);
+        return res.status(200).json('error');
     }
 }
 

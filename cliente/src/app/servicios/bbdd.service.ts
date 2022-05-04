@@ -13,7 +13,7 @@ export class BbddService {
     }
 
     altaPsicologo(datos: any) {
-        return this.http.post('http://localhost:4001/psicologo/altaDatos/', datos);
+        return this.http.post('http://localhost:4001/psicologo/', datos);
     }
 
     altaPaciente(datos: any) {
