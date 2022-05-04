@@ -165,3 +165,31 @@ export const modificacionConsulta = async (req, res) => {
         console.log(e);
     }
 }
+
+export const modificarAntecedentes = async (req, res) => {
+    console.log('modificarAntecedentes');
+    try {
+        const idPaciente = req.params.pacienteId;
+        const datos = req.body;
+        console.log(datos)
+        console.log(idPaciente)
+        await Paciente.updateOne(
+            {
+                _id: idPaciente,
+            },
+            {
+                $push:
+                    {
+                        "datosMedicos.antecedentes.familiares.observaciones": datos.ant_personales,
+                        "datosMedicos.antecedentes.personales.observaciones": datos.ant_familiares,
+                        
+                    },
+                    new:true
+            })
+
+        return res.status(200).json({message: 'Antecedentes modificados'})
+
+    } catch (e) {
+        console.log(e);
+    }
+}
