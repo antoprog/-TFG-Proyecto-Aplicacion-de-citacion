@@ -3,6 +3,7 @@ import {FormBuilder, Validators} from "@angular/forms"
 import {BbddService} from "../../../../../servicios/bbdd.service";
 import {AuthService} from "../../../../../servicios/auth.service";
 import {ToastrService} from "ngx-toastr";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'app-alta-psicologo',
@@ -52,7 +53,6 @@ export class AltaPsicologoComponent implements OnInit {
             return this.psicologoForm.controls['documentoNie'].value
         }
     }
-
 
     //funcion de envio
     onSubmit() {

@@ -10,10 +10,10 @@
                 <li class="nav-item" [routerLinkActive]="['active']">
                     <a class="nav-link" routerLink="/auth/misDatos">Mis datos</a>
                 </li>
-                <li class="nav-item" *ngIf="admin || psicologo" [routerLinkActive]="['active']">
+                <li class="nav-item" *ngIf="admin || psicologo">
                     <a class="nav-link" routerLink="/auth/altaPaciente">Nuevo paciente</a>
                 </li>
-                <li class="nav-item" *ngIf="admin"  [routerLinkActive]="['active']">
+                <li class="nav-item" *ngIf="admin">
                     <a class="nav-link" routerLink="/auth/altaPsicologo">Nuevo psicologo</a>
                 </li>
                 <li class="nav-item dropdown">

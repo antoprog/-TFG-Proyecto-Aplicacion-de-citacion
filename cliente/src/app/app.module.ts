@@ -10,7 +10,6 @@ import {PieComponent} from "./componentes/pie/pie.component";
 import {MenuConsultaComponent} from "./componentes/cuerpo/menu/menu-consulta.component";
 import {AntecedentesComponent} from "./componentes/cuerpo/contenido/antecedentes/antecedentes.component";
 import {PruebasComponent} from "./componentes/cuerpo/contenido/pruebas/pruebas.component";
-import {InformesComponent} from "./componentes/cuerpo/contenido/informes/informes.component";
 import {AltaPacienteComponent} from "./componentes/cuerpo/contenido/administrativo/alta-paciente/alta-paciente.component";
 import {AltaPsicologoComponent} from './componentes/cuerpo/contenido/administrativo/alta-psicologo/alta-psicologo.component';
 import {ConsultaComponent} from "./componentes/cuerpo/contenido/consulta/consulta.component";
@@ -52,7 +51,6 @@ import {
         AntecedentesComponent,
         ConsultaComponent,
         PruebasComponent,
-        InformesComponent,
         AltaPacienteComponent,
         AltaPsicologoComponent,
         SeguimientoComponent,

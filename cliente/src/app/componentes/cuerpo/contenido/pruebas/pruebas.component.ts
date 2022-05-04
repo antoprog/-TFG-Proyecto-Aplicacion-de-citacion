@@ -9,10 +9,13 @@ import {DataShareService} from "../../../../servicios/data-share.service";
     styleUrls: ['./pruebas.component.css']
 })
 export class PruebasComponent implements OnInit {
+// this.formulario.controls['dco_psicologico'].setValue(value.datosMedicos.valoracion[_valoracion].diagnostico_psicologico.diagnostico)
+// this.formulario.controls['prueba1'].setValue(value.datosMedicos.valoracion[_valoracion].test_diagnosticos.cognitiva)
+// this.formulario.controls['prueba2'].setValue(value.datosMedicos.valoracion[_valoracion].test_diagnosticos.emocional)
+// this.formulario.controls['prueba3'].setValue(value.datosMedicos.valoracion[_valoracion].test_diagnosticos.pruebasPsicodiagnostico)
 
-    constructor(private fb: FormBuilder,
-        private dataShare: DataShareService,
-         private serv: BbddService) {
+
+    constructor(private fb: FormBuilder) {
     }
 
     formulario = this.fb.group({
@@ -22,36 +25,11 @@ export class PruebasComponent implements OnInit {
         prueba3: ['']
     })
 
-    suscripcion: any
-
-
     ngOnInit(): void {
-        this.cargarPantalla();
-
-    }
-
-    cargarPantalla() {
-
-        this.suscripcion = this.dataShare._valoracion$.subscribe({
-            next: _valoracion => {
-                this.serv.getPaciente(localStorage.getItem('idPaciente')).subscribe(
-                    {
-                        next: value => {
-                            this.formulario.controls['dco_psicologico'].setValue(value.datosMedicos.valoracion[_valoracion].diagnostico_psicologico.diagnostico)
-                            this.formulario.controls['prueba1'].setValue(value.datosMedicos.valoracion[_valoracion].test_diagnosticos.cognitiva)
-                            this.formulario.controls['prueba2'].setValue(value.datosMedicos.valoracion[_valoracion].test_diagnosticos.emocional)
-                            this.formulario.controls['prueba3'].setValue(value.datosMedicos.valoracion[_valoracion].test_diagnosticos.pruebasPsicodiagnostico)
-                        }
-                    }
-                )
-            }
-        })
     }
 
     ngOnDestroy(): void {
-        this.suscripcion.unsubscribe();
     }
-
 
     onSubmit() {
         const datos = {

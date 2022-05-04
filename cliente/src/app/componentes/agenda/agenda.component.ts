@@ -41,8 +41,8 @@ export class AgendaComponent implements OnInit {
         this.servicioAgenda.getAgendaByPsicologo('aa').subscribe({
             next: value => {
                 for (const valor of value) {
-                    valor.start = subDays(startOfDay(parseISO(String(valor.start))), 0)
-                    valor.end = subDays(startOfDay(parseISO(String(valor.end))), 0)
+                    valor.start = subDays(parseISO(String(valor.start)), 0)
+                    valor.end = subDays(parseISO(String(valor.end)), 0)
                     this.events.push(valor)
                 }
                 this.refresh.next()

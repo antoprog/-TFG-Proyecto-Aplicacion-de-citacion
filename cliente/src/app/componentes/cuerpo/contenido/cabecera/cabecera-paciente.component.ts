@@ -20,7 +20,6 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
     constructor(private servicio: BbddService,
                 private dataShare: DataShareService,
                 private datepipe: DatePipe) {
-
     }
 
     primeravez: any;
@@ -28,17 +27,11 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
     suscripcionCambiaValoracion: any
 
     ngOnInit(): void {
-        this.primeravez = true
-        console.log('ENTRA ONINIT CABECERA PACIENTE', this.primeravez);
-
         this.tablaDiagnosticos = []
         this.suscripcion = this.dataShare._idPaciente$.subscribe(value => {
-            console.log('entra a la suscripcion');
             if (value !== '') {
-                console.log('entra suscripcion 1');
                 this.obtenerDiagnosticos(value)
             } else if (localStorage.getItem('idPaciente')) {
-                console.log('entra suscripcion 2');
                 this.obtenerDiagnosticos(localStorage.getItem('idPaciente'))
             }
         });
@@ -49,7 +42,6 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
         if (this.suscripcionCambiaValoracion) {
             this.suscripcionCambiaValoracion.unsubscribe()
         }
-        this.primeravez = false
     }
 
     tablaDiagnosticos: Valoracion[] = []
@@ -89,17 +81,18 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
                         }
 
                         this.tablaDiagnosticos.push(registro)
-                        console.log('ANTES DEL NUEVO DATA SHARE PACIENTE');
-                        this.dataShare.paciente$.next(this.data)
                     }
 
-                    if (this.primeravez) {
-                        this.primeravez = false
-                        console.log('ENTRA A PRIMERA VEZ');
-                        if (this.data.datosMedicos.valoracion.length > 0)
-                            this.dataShare._valoracion$.next(this.data.datosMedicos.valoracion.length - 1);
-                        else
-                            this.dataShare._valoracion$.next(0)
+                    if (!this.primeravez) {
+                        this.primeravez = true
+                        if (this.data.datosMedicos.valoracion.length > 0) {
+                            const tam = this.data.datosMedicos.valoracion.length - 1;
+                            console.log('MANDAMOS PRIMERA VEZ > 0', this.data.datosMedicos.valoracion[tam]);
+                            this.dataShare.paciente$.next(this.data.datosMedicos.valoracion[tam])
+                        }else {
+                            console.log('MANDAMOS PRIMERA VEZ == 0', this.data.datosMedicos.valoracion[0]);
+                            this.dataShare.paciente$.next(this.data.datosMedicos.valoracion[0])
+                        }
                     }
                     // Recuperar las valoraciones del paciente
                 }
@@ -109,7 +102,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
 
     cambiarValoracion(evento: any) {
         const indice = (evento.length - 1) - evento.selectedIndex
-        this.dataShare._valoracion$.next(indice);
         localStorage.setItem('valoracionId', String(indice))
+        this.dataShare.paciente$.next(this.data?.datosMedicos.valoracion[indice])
     }
 }
