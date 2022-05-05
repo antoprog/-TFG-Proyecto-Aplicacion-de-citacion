@@ -1,4 +1,5 @@
 export interface Psicologo {
+  _id: String,
   username: String,
   nombre: String,
   apellido1: String,
