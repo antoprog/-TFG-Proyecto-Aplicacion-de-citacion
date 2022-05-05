@@ -3,6 +3,11 @@ import jwt from "jsonwebtoken";
 import config from "../config";
 import User from "../models/User";
 
+/**
+ * Consulta para dar de alta a un psicologo
+ * @param {*} req 
+ * @param {*} res 
+ */
 export const createPsicologo = async (req, res) => {
     const {username, nombre, apellido1, apellido2, tipo_doc,documento,titulacion,especialidad,credenciales_adic,
         num_colegiado,telefono,email,direccion} = req.body;
@@ -16,7 +21,12 @@ export const getPsicologo = async (req, res) => {
     const psicologo = await Psicologo.find();
     res.json(psicologo);
 }
-
+/**
+ * Recupera un psicologo por token
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 export const getPsicologoByToken = async (req, res) => { // GET
     try {
         const token = req.headers["authorization"]
@@ -35,12 +45,18 @@ export const getPsicologoByToken = async (req, res) => { // GET
         console.log(e);
     }
 }
+/**
+ * Recupera un psicologo por nombre de usuario
+ * @param {*} req 
+ * @param {*} res 
+ */
 export const getPsicologoByUserName = async (req, res) => { // GET
     console.log(req.params.username);
     const psicologo = await Psicologo.findOne({username: req.params.username})
     console.log(psicologo);
     res.status(200).json(psicologo)
 }
+
 export const updatePsicologoById = async (req, res) => { // PUT
 
     try{

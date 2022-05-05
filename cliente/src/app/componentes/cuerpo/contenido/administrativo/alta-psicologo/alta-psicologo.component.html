@@ -1,10 +1,23 @@
 <section>
-    <form [formGroup]="psicologoForm" (submit)="onSubmit()">
-        <div class="container">
-            <h3 class="titulos my-2 bordet shadow-sm h3">DATOS PSICOLOGO</h3>
+    <div class="container">
+        <div class="row justify-content align-items-center my-2 bordet shadow-sm">
+            <div class="col-5">
+                <h3 class="titulos h3">DATOS PSICOLOGO</h3>
+            </div>
+            <div *ngIf="tipo=='modificar'" class="col-2 ">
+                <label class="my-2 text-primary texto" for="psicologo">Buscar psicologo:</label>
+            </div>
+            <div *ngIf="tipo=='modificar'" class="col">
+                <select class="borde shadow-sm texto2" (change)="obtenerDatosPsicologo($event.target)">
+                    <option *ngFor="let p of t_psicologo" [value]="p._valor">{{p._nombre}}</option>
+                </select>
+            </div>
+        </div>
+
+        <form [formGroup]="psicologoForm" (submit)="onSubmit()">
             <div class="row justify-content-between mb-2 g-3">
                 <!--Usuario-->
-                <div class="col-4 form-group">
+                <div *ngIf="tipo=='alta'" class="col-4 form-group">
                     <label for="username" class="text-primary texto">Usuario:</label>
                     <input type="text" class="col-sm-9 mx-2 py-1 px-2 borde shadow-sm texto2" id="username"
                         formControlName="username">
@@ -12,7 +25,7 @@
                 <!--Correo electónico-->
                 <div class="col-8 form-group">
                     <label for="email" class="text-primary texto ">Correo electónico:</label>
-                    <input type="email" id="email" class="col-sm-8 mx-2 py-1 px-2 borde shadow-sm texto2"
+                    <input type="email" id="email"  class="col-sm-8 mx-2 py-1 px-2 borde shadow-sm texto2"
                         formControlName="email">
                 </div>
             </div>
@@ -196,23 +209,27 @@
                 <div class="row justify-content-evenly mb-2">
                     <!--Código postal Error-->
                     <div class="col-md-4 form-group">
-                        <span *ngIf="getError('cod_postal') as message" class="text-danger texto"><strong>{{message}}</strong></span>
+                        <span *ngIf="getError('cod_postal') as message"
+                            class="text-danger texto"><strong>{{message}}</strong></span>
                     </div>
                     <!--Ciudad Error-->
                     <div class="col-md-4 form-group">
-                        <span *ngIf="getError('ciudad') as message" class="text-danger texto"><strong>{{message}}</strong></span>
+                        <span *ngIf="getError('ciudad') as message"
+                            class="text-danger texto"><strong>{{message}}</strong></span>
                     </div>
                     <!--Provincia Error-->
                     <div class="col-md-4 form-group">
-                        <span *ngIf="getError('provincia') as message" class="text-danger texto"><strong>{{message}}</strong></span>
+                        <span *ngIf="getError('provincia') as message"
+                            class="text-danger texto"><strong>{{message}}</strong></span>
                     </div>
                 </div>
                 <input type="hidden" formControlName="pais" value="España">
             </fieldset>
             <button class="btn btn-primary my-2 float-end" type="submit">Guardar</button>
-        </div>
-    </form>
-   <!--  <div class="wrapper">
+        </form>
+    </div>
+
+    <!--  <div class="wrapper">
         <div>
             <strong>Es valido el fomulario?: </strong>
             <span *ngIf="psicologoForm.valid">✔</span>
