@@ -1,4 +1,4 @@
-<form [formGroup]="seguimientoForm">
+<form [formGroup]="seguimientoForm" (submit)="guardar()">
 
   <div class="container">
     <div>
@@ -28,7 +28,7 @@
           <label class="text-primary texto" for="inicio_p_cita">Hora inicio cita:</label><input class="mx-2 py-1 px-2 borde shadow-sm texto2" id="inicio_p_cita" formControlName="inicio_p_cita"name="inicio_p_cita" type="time">
           <label class="text-primary texto" for="fin_p_cita">Hora fin cita:</label><input class="mx-2 py-1 px-2 borde shadow-sm texto2" id="fin_p_cita" formControlName="fin_p_cita"name="fin_p_cita" type="time">
         </div>
-        <button class="btn btn-primary" style="float:right" type="submit" value="Guardar">Guardar</button>
+        <button class="btn btn-primary" style="float:right" type="submit">Guardar</button>
     </div>
 </div>
 </form>

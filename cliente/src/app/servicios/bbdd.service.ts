@@ -47,8 +47,19 @@ export class BbddService {
     getPsicologoByUser(username:string): Observable<Psicologo> {
         return this.http.get<Psicologo>('http://localhost:4001/psicologo/byUser/' + username)
     }
+
     modificarAntecedentes(consultaDatos:any) {
-        let url = 'http://localhost:4001/paciente/modificarAntecedentes/' + localStorage.getItem('idPaciente')
+        let url = 'http://localhost:4001/paciente/modificarAntecedentes/:valoracionId' + localStorage.getItem('idPaciente')
+        return this.http.put(url, consultaDatos)
+    }
+
+    modificarPruebas(consultaDatos:any) {
+        let url = 'http://localhost:4001/paciente/modificarPruebas/:valoracionId' + localStorage.getItem('idPaciente')
+        return this.http.put(url, consultaDatos)
+    }
+
+    modificarSeguimiento(consultaDatos:any) {
+        let url = 'http://localhost:4001/paciente/modificarSeguimiento/:valoracionId' + localStorage.getItem('idPaciente')
         return this.http.put(url, consultaDatos)
     }
 }

@@ -146,7 +146,7 @@ export const modificacionConsulta = async (req, res) => {
         await Paciente.updateOne(
             {
                 _id: idPaciente,
-                "datosMedicos.valoracion.procedencia": datos.procedencia
+                "datosMedicos.valoracion.procedencia": req.params.valoracion
             },
             {
                 $set:
@@ -182,6 +182,63 @@ export const modificarAntecedentes = async (req, res) => {
             })
 
         return res.status(200).json({message: 'Antecedentes modificados'})
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const modificarPruebas = async (req, res) => {
+    console.log('modificarPruebas');
+    try {
+        const idPaciente = req.params.pacienteId;
+        const datos = req.body;
+
+        await Paciente.updateOne(
+            {
+                _id: idPaciente,
+                "datosMedicos.valoracion.test_Diagnosticos": datos.test_Diagnosticos
+            },
+            {
+                $set:
+                    {
+                        "datosMedicos.valoracion.$.diagnostico_psicologico.diagnostico": datos.dco_psicologico,
+                        "datosMedicos.valoracion.$.cognitivo": datos.prueba1,
+                        "datosMedicos.valoracion.$.emocional": datos.prueba2,
+                        "datosMedicos.valoracion.$.pruebasPsicodiagnostico": datos.prueba3
+                    }
+            })
+
+        return res.status(200).json({message: 'Pruebas modificadas.'})
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+export const modificarSeguimiento = async (req, res) => {
+    console.log('modificacionSeguimiento');
+    try {
+        const idPaciente = req.params.pacienteId;
+        const datos = req.body;
+
+        await Paciente.updateOne(
+            {
+                _id: idPaciente,
+                "datosMedicos.valoracion": datos
+                
+            },
+            {
+                $set:
+                    {
+                        "datosMedicos.valoracion.$.seguimiento.observaciones": datos.seguimiento.observaciones,
+                        "datosMedicos.valoracion.$.seguimiento": datos.con_sintomas,
+                        "datosMedicos.valoracion.$.seguimiento.fecha_diagnostico": datos.fecha_diagnostico,
+                        "datosMedicos.valoracion.$.diagnosseguimientotico_medico.patologia_medica": datos.patologia_medica,
+                        "datosMedicos.valoracion.$.seguimiento.posologia": datos.posologia
+                    }
+            })
+
+        return res.status(200).json({message: 'Alta consulta realizada.'})
 
     } catch (e) {
         console.log(e);

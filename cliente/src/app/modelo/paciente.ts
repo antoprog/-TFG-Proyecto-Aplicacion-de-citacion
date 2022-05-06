@@ -82,7 +82,7 @@ export interface Paciente {
                             acion_usu: String
                         },
                         pruebasPsicodiagnostico: {
-                            fecha_prueba: Date,
+                            fecha_valoracion: Date,
                             observaciones: String,
                             usu: String,
                             f_usu: Date,
@@ -105,6 +105,7 @@ export interface Paciente {
                         hora_inicio_cita: String,
                         hora_fin_cita: String,
                         observaciones: String,
+                        anotaciones: String,
                         fecha_prox_cita: Date,
                         hora_prox_cita: String,
                         conducta_a_seguir: String,
