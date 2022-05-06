@@ -142,20 +142,20 @@ export const modificacionConsulta = async (req, res) => {
     try {
         const idPaciente = req.params.pacienteId;
         const datos = req.body;
+        const indiceValoracion = req.params.valoracion
 
-        await Paciente.updateOne(
+        await Paciente.findByIdAndUpdate(
             {
-                _id: idPaciente,
-                "datosMedicos.valoracion.procedencia": req.params.valoracion
+                _id: idPaciente
             },
             {
                 $set:
                     {
-                        "datosMedicos.valoracion.$.motivo_consulta": datos.con_motivo,
-                        "datosMedicos.valoracion.$.sintomas": datos.con_sintomas,
-                        "datosMedicos.valoracion.$.diagnostico_medico.fecha_diagnostico": datos.fecha_diagnostico,
-                        "datosMedicos.valoracion.$.diagnostico_medico.patologia_medica": datos.patologia_medica,
-                        "datosMedicos.valoracion.$.diagnostico_medico.posologia": datos.posologia
+                        [`datosMedicos.valoracion.${indiceValoracion}.motivo_consulta`]: datos.con_motivo,
+                        [`datosMedicos.valoracion.${indiceValoracion}.sintomas`]: datos.con_sintomas,
+                        [`datosMedicos.valoracion.${indiceValoracion}.diagnostico_medico.fecha_diagnostico`]: datos.fecha_diagnostico,
+                        [`datosMedicos.valoracion.${indiceValoracion}.diagnostico_medico.patologia_medica`]: datos.patologia_medica,
+                        [`datosMedicos.valoracion.${indiceValoracion}.diagnostico_medico.posologia`]: datos.posologia
                     }
             })
 
