@@ -62,4 +62,8 @@ export class BbddService {
         let url = 'http://localhost:4001/paciente/modificarSeguimiento/:valoracionId' + localStorage.getItem('idPaciente')
         return this.http.put(url, consultaDatos)
     }
+    modificarPsicologoById(datos:any, psicologoId:String){
+        let url = 'http://localhost:4001/psicologo/' + psicologoId
+        return this.http.put(url, datos)  
+    }
 }
