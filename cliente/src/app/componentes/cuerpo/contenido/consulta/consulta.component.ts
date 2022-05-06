@@ -91,7 +91,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     }
 
     modificar() {
-        this.bbdd.modificarConsultaPaciente(this.consultaForm.value).subscribe()
+        this.bbdd.modificarConsultaPaciente(this.consultaForm.value, localStorage.getItem('valoracionId')).subscribe()
     }
 
 // control de errores

@@ -27,8 +27,8 @@ export class BbddService {
         return this.http.put(url, consultaDatos)
     }
 
-    modificarConsultaPaciente(consultaDatos:any) {
-        let url = 'http://localhost:4001/paciente/modificacionConsulta/' + localStorage.getItem('idPaciente')
+    modificarConsultaPaciente(consultaDatos:any, valoracion:any) {
+        let url = 'http://localhost:4001/paciente/modificacionConsulta/' + localStorage.getItem('idPaciente') + '/' + valoracion
         return this.http.put(url, consultaDatos)
     }
 
