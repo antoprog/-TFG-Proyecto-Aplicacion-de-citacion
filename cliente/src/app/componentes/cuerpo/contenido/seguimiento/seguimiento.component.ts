@@ -14,10 +14,19 @@ export class SeguimientoComponent implements OnInit {
 // this.seguimientoForm.controls['con_motivo'].setValue(value.datosMedicos.valoracion[_valoracion].motivo_consulta)
 // this.seguimientoForm.controls['con_sintomas'].setValue(value.datosMedicos.valoracion[_valoracion].sintomas)
 
-    constructor(private fb: FormBuilder) {
+constructor(private fb: FormBuilder,
+    private bbdd: BbddService,
+    private dataShare: DataShareService) { 
+
+    }
+    
+    sus2: any
+    ngOnInit(): void {
+        this.cargarPantalla();
     }
 
-    ngOnInit(): void {
+    ngOnDestroy(): void {
+        this.sus2.unsubscribe();
     }
 
     datos: any
@@ -31,17 +40,33 @@ export class SeguimientoComponent implements OnInit {
         fin_p_cita: ['']
     })
 
-    onSubmit() {
-        const datos = {
-            observaciones_cita: this.seguimientoForm.controls['observaciones_cita'].value,
-            observaciones_propias: this.seguimientoForm.controls['observaciones_propias'].value,
-            conducta_a_seguir: this.seguimientoForm.controls['conducta_a_seguir'].value,
-            fecha_p_cita: this.seguimientoForm.controls['fecha_p_cita'].value,
-            inicio_p_cita: this.seguimientoForm.controls['inicio_p_cita'].value,
-            fin_p_cita: this.seguimientoForm.controls['fin_p_cita'].value
+    
+cargarPantalla() {
+    this.sus2 = this.dataShare.paciente$.subscribe(
+        {
+            next: value => {
+                if (value) {
 
+                    const ruta = value.datosMedicos?.valoracion[parseInt(localStorage.getItem('valoracionId')!)]
+                    this.seguimientoForm.controls['observaciones_cita'].setValue(ruta?.seguimiento.observaciones)
+                    this.seguimientoForm.controls['observaciones_propias'].setValue(ruta?.seguimiento.anotaciones)
+                    this.seguimientoForm.controls['conducta_a_seguir'].setValue(ruta?.seguimiento.conducta_a_seguir)
+                    this.seguimientoForm.controls['fecha_p_cita'].setValue(ruta?.seguimiento.fecha_prox_cita)
+                    this.seguimientoForm.controls['inicio_p_cita'].setValue(ruta?.seguimiento.hora_inicio_cita)
+                    this.seguimientoForm.controls['fin_p_cita'].setValue(ruta?.seguimiento.hora_fin_cita)
+
+                }
+            }
         }
-    }
+    )
+  }
 
+    guardar() {
+        this.bbdd.modificarSeguimiento(this.seguimientoForm.value).subscribe()
+      
+        setTimeout(() => {
+            this.dataShare._idPaciente$.next(String(localStorage.getItem('idPaciente')))
+        }, 1500)
+    }
 
 }

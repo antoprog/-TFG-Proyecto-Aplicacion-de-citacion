@@ -5,12 +5,9 @@ import * as authCtrl from "../controllers/auth.controller";
 
 const router = Router();
 
-router.get('/', psicologoCtrl.getPsicologo)
-router.get('/uno', psicologoCtrl.getPsicologoByToken)
-router.get('/byUser/:username',psicologoCtrl.getPsicologoByUserName)
-router.post('/altaDatos', psicologoCtrl.createPsicologo)
-router.post('/', psicologoCtrl.createPsicologo)
-router.put('/:psicologoId', [authJwt.verifyToken], psicologoCtrl.updatePsicologoById)
-router.delete('/:psicologoId', [authJwt.verifyToken] ,psicologoCtrl.deletePsicologoById)
+router.get('/', [authJwt.verifyToken, authJwt.isAdmin], psicologoCtrl.getPsicologo)
+router.get('/uno', [authJwt.verifyToken, authJwt.isAdmin], psicologoCtrl.getPsicologoByToken)
+router.get('/byUser/:username', [authJwt.verifyToken, authJwt.isAdmin], psicologoCtrl.getPsicologoByUserName)
+router.post('/', [authJwt.verifyToken, authJwt.isAdmin], psicologoCtrl.createPsicologo)
 
 export default router;

@@ -34,7 +34,7 @@ const DatosSchema = mongoose.Schema(
         permiso_grabacion: {type: Boolean},
         firma_proteccion_datos: {type: Boolean},
         datosMedicos: {
-            antecendentes: {
+            antecedentes: {
                 familiares: {
                     observaciones: {type: String}, usu: {type: String}, f_usu: {type: Date}, acion_usu: {type: String}
                 },

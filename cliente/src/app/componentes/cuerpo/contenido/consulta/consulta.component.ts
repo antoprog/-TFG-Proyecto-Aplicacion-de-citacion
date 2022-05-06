@@ -67,13 +67,14 @@ export class ConsultaComponent implements OnInit, OnDestroy {
             {
                 next: value => {
                     if (value) {
-                        this.consultaForm.controls['psicologo'].setValue(value.psicologo)
-                        this.consultaForm.controls['procedencia'].setValue(value.procedencia)
-                        this.consultaForm.controls['fecha_diagnostico'].setValue(String(value.diagnostico_medico?.fecha_diagnostico).split('T')[0])
-                        this.consultaForm.controls['con_motivo'].setValue(value.motivo_consulta)
-                        this.consultaForm.controls['con_sintomas'].setValue(value.sintomas)
-                        this.consultaForm.controls['posologia'].setValue(value.diagnostico_medico?.posologia)
-                        this.consultaForm.controls['patologia_medica'].setValue(value.diagnostico_medico?.patologia_medica)
+                        const ruta = value.datosMedicos?.valoracion[parseInt(localStorage.getItem('valoracionId')!)]
+                        this.consultaForm.controls['psicologo'].setValue(ruta.psicologo)
+                        this.consultaForm.controls['procedencia'].setValue(ruta?.procedencia)
+                        this.consultaForm.controls['fecha_diagnostico'].setValue(String(ruta!.diagnostico_medico?.fecha_diagnostico).split('T')[0])
+                        this.consultaForm.controls['con_motivo'].setValue(ruta!.motivo_consulta)
+                        this.consultaForm.controls['con_sintomas'].setValue(ruta!.sintomas)
+                        this.consultaForm.controls['posologia'].setValue(ruta!.diagnostico_medico?.posologia)
+                        this.consultaForm.controls['patologia_medica'].setValue(ruta!.diagnostico_medico?.patologia_medica)
                     }
                 }
             }
