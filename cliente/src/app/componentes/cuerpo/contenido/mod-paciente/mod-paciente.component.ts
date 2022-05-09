@@ -4,6 +4,7 @@ import {ToastrService} from "ngx-toastr";
 import { Paciente } from 'src/app/modelo/paciente';
 import { BbddService } from 'src/app/servicios/bbdd.service';
 import { DataShareService } from 'src/app/servicios/data-share.service';
+import {DatePipe} from '@angular/common'
 
 @Component({
   selector: 'app-mod-paciente',
@@ -26,7 +27,7 @@ export class ModPacienteComponent implements OnInit {
   sus2: any
   datoP: any
 
-  constructor(private fb: FormBuilder, private serv: BbddService, private toastr: ToastrService,private dataShare: DataShareService) { }
+  constructor(private fb: FormBuilder, private serv: BbddService, private toastr: ToastrService,private dataShare: DataShareService, private datepipe: DatePipe) { }
 
   ngOnInit(): void {
     this.obtenerDatosPaciente();
@@ -166,7 +167,7 @@ getError(field: string): string {
             this.insClienteForm.controls['apellido1'].setValue(this._paciente!.apellido1)
             this.insClienteForm.controls['apellido2'].setValue(this._paciente!.apellido2)
             this.insClienteForm.controls['tipo_doc'].setValue(this._paciente!.tipo_doc)
-            this.insClienteForm.controls['fecha_nacimiento'].setValue(this._paciente!.fecha_nacimiento)
+            this.insClienteForm.controls['fecha_nacimiento'].setValue(this.datepipe.transform(this._paciente!.fecha_nacimiento,'dd/MM/yyyy'))
             this.insClienteForm.controls['telefono'].setValue(this._paciente!.telefono)
             this.insClienteForm.controls['email'].setValue(this._paciente!.email)
             this.insClienteForm.controls['calle'].setValue(this._paciente!.direccion.calle)
