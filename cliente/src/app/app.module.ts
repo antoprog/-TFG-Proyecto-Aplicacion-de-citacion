@@ -40,6 +40,7 @@ import { DetalleComponent } from './componentes/agenda/detalle/detalle.component
 import {
     InformeCompletoComponent
 } from "./componentes/cuerpo/contenido/informes_tipo/informe-completo/informe-completo.component";
+import { ModPacienteComponent } from './componentes/cuerpo/contenido/mod-paciente/mod-paciente.component';
 
 @NgModule({
     declarations: [
@@ -62,7 +63,8 @@ import {
         CabeceraNoUserComponent,
         AgendaComponent,
         DetalleComponent,
-        InformeCompletoComponent
+        InformeCompletoComponent,
+        ModPacienteComponent
     ],
     imports: [
         BrowserModule,

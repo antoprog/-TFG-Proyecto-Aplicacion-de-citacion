@@ -1,4 +1,5 @@
 export interface Paciente {
+    _id: String
     nomApe1Ape2: String,
     nombre: String,
     apellido1: String,
