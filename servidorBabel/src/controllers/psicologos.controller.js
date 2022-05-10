@@ -60,7 +60,7 @@ export const getPsicologoByUserName = async (req, res) => { // GET
 export const updatePsicologoById = async (req, res) => { // PUT
 
     try{
-        const psicologo = await Psicologo.findOneAndUpdate({name:req.params.psicologoId}, req.body, {
+        const psicologo = await Psicologo.findOneAndUpdate({_id:req.params.psicologoId}, req.body, {
             new: true
         });
         res.status(200).json(psicologo);
@@ -70,6 +70,6 @@ export const updatePsicologoById = async (req, res) => { // PUT
 }
 
 export const deletePsicologoById = async (req, res) => { // DELETE
-    await Psicologo.findOneAndDelete({name:req.params.psicologoId});
+    await Psicologo.findOneAndDelete({_id:req.params.psicologoId});
     res.status(204).json();
 }

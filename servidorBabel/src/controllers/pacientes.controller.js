@@ -66,7 +66,8 @@ export const getPacienteNombre = async (req, res) => { // GET
 
 export const updatePacienteById = async (req, res) => { // PUT
     console.log('updatePacienteById');
-    const paciente = await Paciente.findOneAndUpdate({name: req.params.pacienteId}, req.body, {
+    console.log(req.params.pacienteId);
+    const paciente = await Paciente.findOneAndUpdate({_id: req.params.pacienteId}, req.body, {
         new: true
     });
     res.status(200).json(paciente);
