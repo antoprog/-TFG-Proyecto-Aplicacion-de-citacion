@@ -15,6 +15,7 @@ import { AgendaComponent } from './componentes/agenda/agenda.component';
 import {InformeCompletoComponent} from "./componentes/cuerpo/contenido/informes_tipo/informe-completo/informe-completo.component";
 import {InicioPaginaComponent} from "./componentes/pagina-inicio/pagina-inicio";
 import {CabeceraComponent} from "./componentes/cabeceras/cabecera-usuarios/cabecera.component";
+import { ModPacienteComponent } from './componentes/cuerpo/contenido/mod-paciente/mod-paciente.component';
 
 const routes: Routes = [
     {
@@ -74,6 +75,10 @@ const routes: Routes = [
                         path: 'informes',
                         component: InformeCompletoComponent
                     },
+                    {
+                        path: 'modificar',
+                        component: ModPacienteComponent
+                    }
                     /* {
                       path: 'facturas',
                       outlet: 'prueba',

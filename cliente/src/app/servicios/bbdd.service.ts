@@ -67,4 +67,8 @@ export class BbddService {
         let url = 'http://localhost:4001/psicologo/' + psicologoId
         return this.http.put(url, datos)
     }
+    modificarPacienteById(datos:any,pacienteId:String){
+        let url = 'http://localhost:4001/paciente/actualizarPaciente/' + pacienteId
+        return this.http.put(url, datos)
+    }
 }
