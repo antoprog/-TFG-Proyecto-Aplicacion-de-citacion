@@ -3,6 +3,7 @@ import {FormBuilder} from '@angular/forms';
 import {BbddService} from 'src/app/servicios/bbdd.service';
 import * as moment from 'moment';
 import {DataShareService} from "../../../../servicios/data-share.service";
+import {ToastrService} from "ngx-toastr";
 
 export interface listaPsicologos {
     _nombre: String
@@ -16,7 +17,7 @@ export interface listaPsicologos {
 })
 export class ConsultaComponent implements OnInit, OnDestroy {
     constructor(private fb: FormBuilder,
-                private bbdd: BbddService,
+                private bbdd: BbddService,private toastr: ToastrService,
                 private dataShare: DataShareService) {
     }
 
@@ -91,7 +92,14 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     }
 
     modificar() {
-        this.bbdd.modificarConsultaPaciente(this.consultaForm.value, localStorage.getItem('valoracionId')).subscribe()
+        this.bbdd.modificarConsultaPaciente(this.consultaForm.value, localStorage.getItem('valoracionId')).subscribe({
+            next: value => {
+                this.toastr.success('','Modificación realizada correctamente')
+            },
+            error: err => {
+                this.toastr.error('Modificación no realizada', '[ERROR SERVIDOR]: ' + err.status)
+            }
+        })
     }
 
 // control de errores

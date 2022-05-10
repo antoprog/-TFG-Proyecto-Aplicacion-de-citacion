@@ -26,10 +26,11 @@ export class CambiarPassComponent implements OnInit {
         if (this.user.passNew === this.user.passNew2) {
             this.authService.changePassword(this.user).subscribe({
                 next: value => {
-                    this.toastr.success("pepe", "pepe1")
+                    this.toastr.success('',"Contraseña modificada correctamente")
                     console.log(value);
                 },
                 error: err => {
+                    this.toastr.error('Error', "Contraseña no modificada . Código: "+err.status )
                     console.log(err.error.message);
                 }
             })

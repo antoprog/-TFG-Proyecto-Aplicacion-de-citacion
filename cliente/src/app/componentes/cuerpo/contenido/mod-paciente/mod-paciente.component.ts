@@ -91,13 +91,13 @@ export class ModPacienteComponent implements OnInit {
             return
         }
 
-        console.log("uno")
+        
         this.modificarPaciente();
 
-        console.log("dos")
-        // this.insClienteForm.reset()
-        // this.insClienteForm.controls['tipo_doc'].setValue('DNI')
-        // this.obtenerDatosPaciente();
+        
+        this.insClienteForm.reset()
+        this.insClienteForm.controls['tipo_doc'].setValue('DNI')
+        this.obtenerDatosPaciente();
 
     }
 
@@ -161,8 +161,15 @@ export class ModPacienteComponent implements OnInit {
             numero_historia: this.insClienteForm.controls['numero_historia'].value
         }
 
-        console.log('AAAAAAAA',this._paciente?._id);
-        this.serv.modificarPacienteById(datos, this._paciente!._id).subscribe();
+        
+        this.serv.modificarPacienteById(datos, this._paciente!._id).subscribe({
+            next: value => {
+                this.toastr.success('','Modificación realizada correctamente')
+            },
+            error: err => {
+                this.toastr.error('Modificación no realizada', '[ERROR SERVIDOR]: ' + err.status)
+            }
+        });
     }
 
     obtenerDatosPaciente() {

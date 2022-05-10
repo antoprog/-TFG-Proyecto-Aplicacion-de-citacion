@@ -117,7 +117,7 @@ export class AltaPacienteComponent implements OnInit {
 
         this.serv.altaPaciente(datos).subscribe({
             next: value => {
-                this.toastr.success('Alta realizada correctamente')
+                this.toastr.success('','Alta realizada correctamente')
             },
             error: err => {
                 this.toastr.error('Alta no realizada', '[ERROR SERVIDOR]: ' + err.status)

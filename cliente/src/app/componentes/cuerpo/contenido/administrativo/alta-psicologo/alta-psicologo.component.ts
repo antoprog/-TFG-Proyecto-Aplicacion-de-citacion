@@ -151,11 +151,11 @@ export class AltaPsicologoComponent implements OnInit {
             this.service.signup(login).subscribe({
                 next: value => {
                     this.serv.altaPsicologo(datos).subscribe();
-                    this.toastr.success('Administración', "Psicólogo creado correctamente.")
+                    this.toastr.success('',"Psicólogo creado correctamente.")
                 },
                 error: err => {
                     console.log(err);
-                    this.toastr.error('Administración', "Error en servidor. Código: "+err.status)
+                    this.toastr.error('Error', "Error en servidor. Código: "+err.status)
                 }
             });
         }
@@ -182,7 +182,14 @@ export class AltaPsicologoComponent implements OnInit {
                 pais: this.psicologoForm.controls['pais'].value,
             },
         };
-        this.serv.modificarPsicologoById(datos, this._psicologo!._id,).subscribe()
+        this.serv.modificarPsicologoById(datos, this._psicologo!._id,).subscribe({
+            next: value => {
+                this.toastr.success('','Modificación realizada correctamente')
+            },
+            error: err => {
+                this.toastr.error('Modificación no realizada', '[ERROR SERVIDOR]: ' + err.status)
+            }
+        })
     }
 
     /**
