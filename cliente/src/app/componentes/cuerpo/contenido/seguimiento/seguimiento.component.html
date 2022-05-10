@@ -1,36 +1,45 @@
 <form [formGroup]="seguimientoForm" (submit)="guardar()">
+    <div class="container">
+        <div>
+            <h3 class="titulos my-2 bordet shadow-sm h3">SEGUIMIENTO</h3>
+            <select name="diagnostico" id="diagnostico" (change)="cambiarValoracion($event.target)">
+                <option *ngFor="let a of tablaSeguimientos.reverse()">{{a}}</option>
+            </select>
+            <div class="row mb-2 mx-auto my-4">
+                <div class="col-md-4 form-group"><span class="text-primary texto">Fecha de la cita:</span></div>
+                <div class="col-md-4 form-group"><span class="text-primary texto">Hora inicio cita:</span></div>
+                <div class="col-md-4 form-group"><span class="text-primary texto">Hora fin cita:</span></div>
+            </div>
+            <div class="row justify-content-around my-2 w-100">
+                <div class="form-outline1 w-100 my-3">
+                    <label class="text-primary texto" for="observaciones_cita">Observaciones: </label>
+                    <textarea class="form-control borde shadow-sm" formControlName="observaciones_cita"
+                              id="observaciones_cita" rows="4"></textarea>
+                </div>
 
-  <div class="container">
-    <div>
-      <h3 class="titulos my-2 bordet shadow-sm h3">SEGUIMIENTO</h3>
-      <div class="row mb-2 mx-auto my-4">
-        <div class="col-md-4 form-group"><span class="text-primary texto">Fecha de la cita:</span></div>
-        <div class="col-md-4 form-group"><span class="text-primary texto">Hora inicio cita:</span></div>
-        <div class="col-md-4 form-group"><span class="text-primary texto">Hora fin cita:</span></div>
-      </div>
-      <div class="row justify-content-around my-2 w-100">
-        <div class="form-outline1 w-100 my-3">
-          <label class="text-primary texto" for="observaciones_cita">Observaciones: </label>
-          <textarea class="form-control borde shadow-sm"  formControlName="observaciones_cita" id="observaciones_cita" rows="4"></textarea>
+                <div class="form-outline1 w-100 mb-3">
+                    <label class="text-primary texto" for="observaciones_propias">Anotaciones: </label>
+                    <textarea class="form-control borde shadow-sm" formControlName="observaciones_propias"
+                              id="observaciones_propias" rows="4"></textarea>
+                </div>
+                <div class="form-outline2 w-100 mb-3">
+                    <label class="text-primary texto" for="conducta_a_seguir">Conducta a seguir: </label>
+                    <textarea class="form-control borde shadow-sm" formControlName="conducta_a_seguir"
+                              id="conducta_a_seguir" rows="4"></textarea>
+                </div>
+            </div>
+            <div class="seguimiento2  my-3">
+                <label class="text-primary texto" for="fecha_p_cita">Fecha próxima cita:</label><input
+                class="mx-2 py-1 px-2 borde shadow-sm texto2" id="fecha_p_cita" formControlName="fecha_p_cita"
+                name="fecha_p_cita" type="date" min="2022-01-01">
+                <label class="text-primary texto" for="inicio_p_cita">Hora inicio cita:</label><input
+                class="mx-2 py-1 px-2 borde shadow-sm texto2" id="inicio_p_cita" formControlName="inicio_p_cita"
+                name="inicio_p_cita" type="time">
+                <label class="text-primary texto" for="fin_p_cita">Hora fin cita:</label><input
+                class="mx-2 py-1 px-2 borde shadow-sm texto2" id="fin_p_cita" formControlName="fin_p_cita"
+                name="fin_p_cita" type="time">
+            </div>
+            <button class="btn btn-primary" style="float:right" type="submit">Guardar</button>
         </div>
-
-        <div class="form-outline1 w-100 mb-3">
-          <label class="text-primary texto" for="observaciones_propias">Anotaciones: </label>
-          <textarea class="form-control borde shadow-sm"formControlName="observaciones_propias" id="observaciones_propias" rows="4"></textarea>
-        </div>
-        <div class="form-outline2 w-100 mb-3">
-          <label class="text-primary texto" for="conducta_a_seguir">Conducta a seguir: </label>
-          <textarea class="form-control borde shadow-sm"formControlName="conducta_a_seguir" id="conducta_a_seguir" rows="4"></textarea>
-        </div>
-      </div>
-      <div class="seguimiento2  my-3">
-          <label class="text-primary texto" for="fecha_p_cita">Fecha próxima cita:</label><input class="mx-2 py-1 px-2 borde shadow-sm texto2" id="fecha_p_cita" formControlName="fecha_p_cita" name="fecha_p_cita" type="date" min="2022-01-01">
-          <label class="text-primary texto" for="inicio_p_cita">Hora inicio cita:</label><input class="mx-2 py-1 px-2 borde shadow-sm texto2" id="inicio_p_cita" formControlName="inicio_p_cita"name="inicio_p_cita" type="time">
-          <label class="text-primary texto" for="fin_p_cita">Hora fin cita:</label><input class="mx-2 py-1 px-2 borde shadow-sm texto2" id="fin_p_cita" formControlName="fin_p_cita"name="fin_p_cita" type="time">
-        </div>
-        <button class="btn btn-primary" style="float:right" type="submit">Guardar</button>
     </div>
-</div>
 </form>
-
-
