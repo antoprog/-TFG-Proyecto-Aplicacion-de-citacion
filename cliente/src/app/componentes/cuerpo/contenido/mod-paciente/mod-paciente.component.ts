@@ -49,7 +49,7 @@ export class ModPacienteComponent implements OnInit {
     pais: ['España'],
     aseguradora: ['', [Validators.required]],
     company: [''],
-    nombreContacto: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(40), Validators.pattern('[a-zA-Z ]*')]],
+    nombreContacto: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
     telefonoContacto: ['', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{9}$')]],
     permisoGrabacion: [false],
     firmaProteccionDatos: [false, [Validators.requiredTrue]],
@@ -71,7 +71,7 @@ export class ModPacienteComponent implements OnInit {
 }
   //funcion de envio
   onSubmit() {
-    
+    console.log("uno f")
     if (this.insClienteForm.invalid) {
         if (this.insClienteForm.controls['aseguradora'].value == "") {
             this.aseguradora_err = "requerido"
@@ -86,14 +86,13 @@ export class ModPacienteComponent implements OnInit {
         return
     }
     
-    this.insClienteForm.value.documento = this.devolverDoc()
-    this.insClienteForm.value.nomApe1Ape2 = this.insClienteForm.value.nombre + ' ' +
-        this.insClienteForm.value.apellido1 + ' ' + this.insClienteForm.value.apellido2
+     console.log("uno")
     this.modificarPaciente();
     
-
+    console.log("dos")
     this.insClienteForm.reset()
     this.insClienteForm.controls['tipo_doc'].setValue('DNI')
+    this.obtenerDatosPaciente();
 
 }
 
@@ -129,7 +128,7 @@ getError(field: string): string {
   }
   modificarPaciente(){
     const datos = {
-      nomApe1Ape2:this.insClienteForm.controls['nomApe1Ape2'].value,
+      nomApe1Ape2:this.insClienteForm.value.nombre + ' ' + this.insClienteForm.value.apellido1 + ' ' + this.insClienteForm.value.apellido2,
       nombre: this.insClienteForm.controls['nombre'].value,
       apellido1: this.insClienteForm.controls['apellido1'].value,
       apellido2: this.insClienteForm.controls['apellido2'].value,
@@ -148,14 +147,15 @@ getError(field: string): string {
       aseguradora: this.insClienteForm.controls['aseguradora'].value,
       company: this.insClienteForm.controls['company'].value,
       contacto: {
-        nombreContacto: this.insClienteForm.controls['nombreContacto'].value,
-        telefonoContacto: this.insClienteForm.controls['telefonoContacto'].value,
+        nombre: this.insClienteForm.controls['nombreContacto'].value,
+        telefono: this.insClienteForm.controls['telefonoContacto'].value,
       },
-      permisoGrabacion: this.insClienteForm.controls['permisoGrabacion'].value,
-      firmaProteccionDatos: this.insClienteForm.controls['firmaProteccionDatos'].value,
+      permiso_grabacion: this.insClienteForm.controls['permisoGrabacion'].value,
+      firma_proteccion_datos: this.insClienteForm.controls['firmaProteccionDatos'].value,
       numero_historia: this.insClienteForm.controls['numero_historia'].value
     }
-    this.serv.modificarPacienteById(datos,this._paciente!._id).subscribe;
+    
+    this.serv.modificarPacienteById(datos,this._paciente!._id).subscribe();
   }
   obtenerDatosPaciente() {
     this.resertearFormulario();
@@ -167,18 +167,18 @@ getError(field: string): string {
             this.insClienteForm.controls['apellido1'].setValue(this._paciente!.apellido1)
             this.insClienteForm.controls['apellido2'].setValue(this._paciente!.apellido2)
             this.insClienteForm.controls['tipo_doc'].setValue(this._paciente!.tipo_doc)
-            this.insClienteForm.controls['fecha_nacimiento'].setValue(this.datepipe.transform(this._paciente!.fecha_nacimiento,'dd/MM/yyyy'))
+            this.insClienteForm.controls['fecha_nacimiento'].setValue(String(this._paciente!.fecha_nacimiento).split('T')[0])
             this.insClienteForm.controls['telefono'].setValue(this._paciente!.telefono)
             this.insClienteForm.controls['email'].setValue(this._paciente!.email)
-            this.insClienteForm.controls['calle'].setValue(this._paciente!.direccion.calle)
-            this.insClienteForm.controls['cod_postal'].setValue(this._paciente!.direccion.cod_postal)
-            this.insClienteForm.controls['ciudad'].setValue(this._paciente!.direccion.ciudad)
-            this.insClienteForm.controls['provincia'].setValue(this._paciente!.direccion.provincia)
-            this.insClienteForm.controls['pais'].setValue(this._paciente!.direccion.pais)
+            this.insClienteForm.controls['calle'].setValue(this._paciente!.direccion?.calle)
+            this.insClienteForm.controls['cod_postal'].setValue(this._paciente!.direccion?.cod_postal)
+            this.insClienteForm.controls['ciudad'].setValue(this._paciente!.direccion?.ciudad)
+            this.insClienteForm.controls['provincia'].setValue(this._paciente!.direccion?.provincia)
+            this.insClienteForm.controls['pais'].setValue(this._paciente!.direccion?.pais)
             this.insClienteForm.controls['aseguradora'].setValue(this._paciente!.aseguradora)
             this.insClienteForm.controls['company'].setValue(this._paciente!.company)
-            this.insClienteForm.controls['nombreContacto'].setValue(this._paciente!.contacto.nombre)
-            this.insClienteForm.controls['company'].setValue(this._paciente!.contacto.telefono)
+            this.insClienteForm.controls['nombreContacto'].setValue(this._paciente!.contacto?.nombre)
+            this.insClienteForm.controls['telefonoContacto'].setValue(this._paciente!.contacto?.telefono)
             this.insClienteForm.controls['permisoGrabacion'].setValue(this._paciente!.permiso_grabacion)
             this.insClienteForm.controls['firmaProteccionDatos'].setValue(this._paciente!.firma_proteccion_datos)
             this.insClienteForm.controls['numero_historia'].setValue(this._paciente!.numero_historia)
