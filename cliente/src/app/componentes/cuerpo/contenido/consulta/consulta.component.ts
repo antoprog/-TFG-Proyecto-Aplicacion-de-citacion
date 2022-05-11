@@ -22,7 +22,6 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.sus1.unsubscribe();
-        this.sus2.unsubscribe();
     }
 
     ngOnInit(): void {
@@ -41,7 +40,6 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     })
 
     sus1: any
-    sus2: any
     datos: any
 
     t_psicologo: listaPsicologos[] = [];
@@ -63,18 +61,18 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
     cargarPantalla() {
         this.cargarPsicologos();
-        this.sus2 = this.dataShare.paciente$.subscribe(
+        this.sus1 = this.dataShare.paciente$.subscribe(
             {
                 next: value => {
                     if (value) {
                         const ruta = value.datosMedicos?.valoracion[parseInt(localStorage.getItem('valoracionId')!)]
-                        this.consultaForm.controls['psicologo'].setValue(ruta.psicologo)
+                        this.consultaForm.controls['psicologo'].setValue(ruta?.psicologo)
                         this.consultaForm.controls['procedencia'].setValue(ruta?.procedencia)
-                        this.consultaForm.controls['fecha_diagnostico'].setValue(String(ruta!.diagnostico_medico?.fecha_diagnostico).split('T')[0])
-                        this.consultaForm.controls['con_motivo'].setValue(ruta!.motivo_consulta)
-                        this.consultaForm.controls['con_sintomas'].setValue(ruta!.sintomas)
-                        this.consultaForm.controls['posologia'].setValue(ruta!.diagnostico_medico?.posologia)
-                        this.consultaForm.controls['patologia_medica'].setValue(ruta!.diagnostico_medico?.patologia_medica)
+                        this.consultaForm.controls['fecha_diagnostico'].setValue(String(ruta?.diagnostico_medico?.fecha_diagnostico).split('T')[0])
+                        this.consultaForm.controls['con_motivo'].setValue(ruta?.motivo_consulta)
+                        this.consultaForm.controls['con_sintomas'].setValue(ruta?.sintomas)
+                        this.consultaForm.controls['posologia'].setValue(ruta?.diagnostico_medico?.posologia)
+                        this.consultaForm.controls['patologia_medica'].setValue(ruta?.diagnostico_medico?.patologia_medica)
                     }
                 }
             }

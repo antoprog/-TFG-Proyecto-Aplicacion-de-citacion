@@ -47,36 +47,51 @@ export const createPaciente = async (req, res) => {
 
 export const getPaciente = async (req, res) => {
     console.log('getPaciente');
+try{
     const paciente = await Paciente.find();
     res.json(paciente);
+}catch (e) {
+    console.log(e);
+}
 }
 
 export const getPacienteById = async (req, res) => { // GET
     console.log('getPacienteById');
-    const paciente = await Paciente.findById(req.params.pacienteId);
-    res.json(paciente);
+    try {
+        const paciente = await Paciente.findById(req.params.pacienteId);
+        res.json(paciente);
+    } finally {
+    }
 }
 
 export const getPacienteNombre = async (req, res) => { // GET
     console.log('getPacienteNombre');
-    //const paciente = await Paciente.findOne({nombre: req.params.nombre}, {datosMedicos:1})
-    const paciente = await Paciente.findOne({nombre: req.params.nombre})
-    res.json(paciente);
+    try { //const paciente = await Paciente.findOne({nombre: req.params.nombre}, {datosMedicos:1})
+        const paciente = await Paciente.findOne({nombre: req.params.nombre})
+        res.json(paciente);
+    } catch (e) {
+    }
 }
 
 export const updatePacienteById = async (req, res) => { // PUT
-    console.log('updatePacienteById');
-    console.log(req.params.pacienteId);
-    const paciente = await Paciente.findOneAndUpdate({_id: req.params.pacienteId}, req.body, {
-        new: true
-    });
-    res.status(200).json(paciente);
+    try {
+        console.log('updatePacienteById');
+        console.log(req.params.pacienteId);
+        const paciente = await Paciente.findOneAndUpdate({_id: req.params.pacienteId}, req.body, {
+            new: true
+        });
+        res.status(200).json(paciente);
+    } catch (e) {
+    }
 }
 
 export const deletePacienteById = async (req, res) => { // DELETE
-    console.log('deletePacienteById');
-    await Paciente.findOneAndDelete({name: req.params.pacienteId});
-    res.status(204).json();
+    try {
+        console.log('deletePacienteById');
+        await Paciente.findOneAndDelete({name: req.params.pacienteId});
+        res.status(204).json();
+    } catch (e) {
+    }
 }
 
 export const getPacientesNombre = async (req, res) => {
@@ -97,7 +112,8 @@ export const altaConsultaPaciente = async (req, res) => {
         const idPaciente = req.params.pacienteId;
         const datos = req.body;
 
-        if (!datos.fecha_diagnostico) {
+        if (datos.fecha_diagnostico) {
+            console.log('entra 1');
             await Paciente.updateOne(
                 {_id: idPaciente,},
                 {
@@ -117,6 +133,7 @@ export const altaConsultaPaciente = async (req, res) => {
                         }
                 })
         }else{
+            console.log('entra 2');
             await Paciente.updateOne(
                 {_id: idPaciente,},
                 {

@@ -1,6 +1,6 @@
 import {Router} from "express";
 import * as pacienteCtrl from '../controllers/pacientes.controller';
-import {authJwt} from "../middlewares";
+import * as authJwt from "../middlewares/authJwt";
 
 const router = Router();
 

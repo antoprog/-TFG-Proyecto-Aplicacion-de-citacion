@@ -5,8 +5,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
-import {CabeceraComponent} from "./componentes/cabeceras/cabecera-usuarios/cabecera.component";
-import {PieComponent} from "./componentes/pie/pie.component";
+import {CabeceraComponent} from "./componentes/cabeceras/cabecera.component";
 import {MenuConsultaComponent} from "./componentes/cuerpo/menu/menu-consulta.component";
 import {AntecedentesComponent} from "./componentes/cuerpo/contenido/antecedentes/antecedentes.component";
 import {PruebasComponent} from "./componentes/cuerpo/contenido/pruebas/pruebas.component";
@@ -15,16 +14,12 @@ import {AltaPsicologoComponent} from './componentes/cuerpo/contenido/administrat
 import {ConsultaComponent} from "./componentes/cuerpo/contenido/consulta/consulta.component";
 import {SeguimientoComponent} from "./componentes/cuerpo/contenido/seguimiento/seguimiento.component";
 import {AdminGuard} from "./guards/admin.guard";
-import {UserGuard} from "./guards/user.guard";
 import {TokenInterceptorService} from "./servicios/token-interceptor.service";
-import {SignupComponent} from "./componentes/login/signup/signup.component";
-import {SigninComponent} from "./componentes/login/signin/signin.component";
-import {InicioPaginaComponent} from './componentes/pagina-inicio/pagina-inicio';
+import {SigninComponent} from "./componentes/login/signin.component";
 import {MisDatosComponent} from './componentes/cuerpo/contenido/mis-datos/mis-datos.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CambiarPassComponent} from './componentes/cuerpo/contenido/administrativo/cambiar-pass/cambiar-pass.component';
 import {ToastrModule} from "ngx-toastr";
-import {CabeceraNoUserComponent} from './componentes/cabeceras/cabecera-no-user/cabecera-no-user.component';
 import { AgendaComponent } from './componentes/agenda/agenda.component';
 import {CabeceraPacienteComponent} from "./componentes/cuerpo/contenido/cabecera/cabecera-paciente.component";
 import { DatePipe } from '@angular/common';
@@ -46,7 +41,6 @@ import { ModPacienteComponent } from './componentes/cuerpo/contenido/mod-pacient
     declarations: [
         AppComponent,
         CabeceraComponent,
-        PieComponent,
         MenuConsultaComponent,
         CabeceraPacienteComponent,
         AntecedentesComponent,
@@ -55,12 +49,9 @@ import { ModPacienteComponent } from './componentes/cuerpo/contenido/mod-pacient
         AltaPacienteComponent,
         AltaPsicologoComponent,
         SeguimientoComponent,
-        SignupComponent,
         SigninComponent,
-        InicioPaginaComponent,
         MisDatosComponent,
         CambiarPassComponent,
-        CabeceraNoUserComponent,
         AgendaComponent,
         DetalleComponent,
         InformeCompletoComponent,
@@ -87,11 +78,10 @@ import { ModPacienteComponent } from './componentes/cuerpo/contenido/mod-pacient
         MatInputModule,
         FormsModule,
         ReactiveFormsModule,
-        MatIconModule
+        MatIconModule,
     ],
     providers: [
         AdminGuard,
-        UserGuard,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptorService,
