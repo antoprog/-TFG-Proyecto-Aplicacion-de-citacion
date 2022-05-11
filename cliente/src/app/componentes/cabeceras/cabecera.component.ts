@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {NavbarClientesService} from "../../../servicios/navbar-clientes.service";
-import {AuthService} from "../../../servicios/auth.service";
+import {NavbarClientesService} from "../../servicios/navbar-clientes.service";
+import {AuthService} from "../../servicios/auth.service";
 import {Router} from "@angular/router";
-import {DataShareService} from "../../../servicios/data-share.service";
+import {DataShareService} from "../../servicios/data-share.service";
 
 export interface Dat {
     _id: string,

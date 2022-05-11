@@ -7,10 +7,10 @@ export const createRoles = async () => {
 
         if (count > 0) return;
 
-        const values = await Promise.all([
+        await Promise.all([
             new Role({name: 'user'}).save(),
             new Role({name: 'admin'}).save(),
-            new Role({name: 'moderator'}).save()
+            new Role({name: 'psicologo'}).save()
         ])
     } catch (error) {
         console.log(error);
@@ -23,7 +23,7 @@ export const createAgenda = async () => {
 
         if (count > 0) return;
 
-        const values = await Promise.all([
+        await Promise.all([
             new Agenda(
                 {
                     id: 'String',

@@ -1,7 +1,6 @@
 import {Router} from "express";
 import * as psicologoCtrl from '../controllers/psicologos.controller';
-import {authJwt, verifySignup} from "../middlewares";
-import * as authCtrl from "../controllers/auth.controller";
+import * as authJwt from "../middlewares/authJwt";
 
 const router = Router();
 

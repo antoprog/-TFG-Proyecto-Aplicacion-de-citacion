@@ -5,8 +5,8 @@ import User from "../models/User";
 
 /**
  * Consulta para dar de alta a un psicologo
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req
+ * @param {*} res
  */
 export const createPsicologo = async (req, res) => {
     console.log('ENTRA A CREAR PSICOLOGO');
@@ -14,20 +14,23 @@ export const createPsicologo = async (req, res) => {
         const newPsicologo = new Psicologo(req.body);
         const psicologoSaved = await newPsicologo.save();
         res.status(200).json(psicologoSaved);
-    }catch (e) {
+    } catch (e) {
         res.status(300).json({message: 'ERROR AL CREAR EL PSICOLOGO'})
     }
 }
 
 export const getPsicologo = async (req, res) => {
-    const psicologo = await Psicologo.find();
-    res.json(psicologo);
+    try {
+        const psicologo = await Psicologo.find();
+        res.json(psicologo);
+    } catch (e) {
+    }
 }
 /**
  * Recupera un psicologo por token
- * @param {*} req 
- * @param {*} res 
- * @returns 
+ * @param {*} req
+ * @param {*} res
+ * @returns
  */
 export const getPsicologoByToken = async (req, res) => { // GET
     try {
@@ -41,35 +44,42 @@ export const getPsicologoByToken = async (req, res) => { // GET
         const psicologo = await Psicologo.findOne({username: id.username})
         console.log(psicologo);
         res.status(200).json(psicologo)
-    }catch (e) {
+    } catch (e) {
         console.log(e);
     }
 }
+
 /**
  * Recupera un psicologo por nombre de usuario
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req
+ * @param {*} res
  */
 export const getPsicologoByUserName = async (req, res) => { // GET
     console.log(req.params.username);
-    const psicologo = await Psicologo.findOne({username: req.params.username})
-    console.log(psicologo);
-    res.status(200).json(psicologo)
+    try {
+        const psicologo = await Psicologo.findOne({username: req.params.username})
+        console.log(psicologo);
+        res.status(200).json(psicologo)
+    } catch (e) {
+    }
 }
 
 export const updatePsicologoById = async (req, res) => { // PUT
 
-    try{
-        const psicologo = await Psicologo.findOneAndUpdate({_id:req.params.psicologoId}, req.body, {
+    try {
+        const psicologo = await Psicologo.findOneAndUpdate({_id: req.params.psicologoId}, req.body, {
             new: true
         });
         res.status(200).json(psicologo);
-    }catch (e) {
+    } catch (e) {
         console.log(e);
     }
 }
 
 export const deletePsicologoById = async (req, res) => { // DELETE
-    await Psicologo.findOneAndDelete({_id:req.params.psicologoId});
-    res.status(204).json();
+    try {
+        await Psicologo.findOneAndDelete({_id: req.params.psicologoId});
+        res.status(204).json();
+    } catch (e) {
+    }
 }

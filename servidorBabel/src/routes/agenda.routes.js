@@ -1,6 +1,6 @@
 import {Router} from "express";
 const router = Router();
-import {authJwt} from '../middlewares'
+import * as authJwt from "../middlewares/authJwt";
 import * as agendaCtrl from "../controllers/agenda.controller";
 
 router.get('/getByPsicologo/:idPsicologo', [authJwt.verifyToken], agendaCtrl.getByPsicologo)
