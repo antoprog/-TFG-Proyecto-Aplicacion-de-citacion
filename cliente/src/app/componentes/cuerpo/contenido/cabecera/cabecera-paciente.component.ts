@@ -98,4 +98,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
         localStorage.setItem('valoracionId', String(indice))
         this.dataShare.paciente$.next(this.data)
     }
+    cerrarValidacion(){
+
+    }
 }
