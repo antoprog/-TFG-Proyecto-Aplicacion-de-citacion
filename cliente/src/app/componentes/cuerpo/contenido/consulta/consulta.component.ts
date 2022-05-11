@@ -84,7 +84,14 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
     guardar() {
         this.consultaForm.value.fecha_inicio = moment(new Date()).format('YYYY-MM-DD[T00:00:00.000Z]');
-        this.bbdd.altaConsultaPaciente(this.consultaForm.value).subscribe()
+        this.bbdd.altaConsultaPaciente(this.consultaForm.value).subscribe({
+            next: value => {
+                this.toastr.success('','Se ha guardado correctamente')
+            },
+            error: err => {
+                this.toastr.error('Error no se ha guardado', '[ERROR SERVIDOR]: ' + err.status)
+        }
+    })
 
         setTimeout(() => {
             this.dataShare._idPaciente$.next(String(localStorage.getItem('idPaciente')))

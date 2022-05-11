@@ -1,13 +1,17 @@
 <div class="card">
     <div class="row">
         <div class="col-sm-auto">
-            <label class="text-capitalize" name="paciente">Paciente: {{data?.nombre}} {{data?.apellido1}} {{data?.apellido2}}</label>
+            <label class="text-capitalize" name="paciente">Paciente: {{data?.nombre}} {{data?.apellido1}}
+                {{data?.apellido2}}</label>
         </div>
         <div class="col-sm-auto">
             <label class="text-capitalize" name="tipoSesion">Tipo de sesión: </label>
         </div>
         <div class="col-sm-auto">
             <label name="edad">Edad: {{ edad }}</label>
+        </div>
+        <div *ngIf="tablaDiagnosticos.length>0" class="col-sm-auto">
+            <label class="switclbl">Situacion del Paciente</label>
         </div>
     </div>
     <div class="row">
@@ -16,12 +20,21 @@
         </div>
 
         <div class="col-sm-auto">
-            Cons. Grabación: <input type="checkbox" class="form-check-input" [checked]="data?.permiso_grabacion" name="consentimientoGrabacion" disabled>
+            Cons. Grabación: <input type="checkbox" class="form-check-input" [checked]="data?.permiso_grabacion"
+                name="consentimientoGrabacion" disabled>
         </div>
         <div class="col-sm-auto">
             <select name="diagnostico" id="diagnostico" (change)="cambiarValoracion($event.target)">
                 <option *ngFor="let a of tablaDiagnosticos.reverse()">{{a.diagnosticoI}} - {{a.fechaInicioI}}</option>
             </select>
         </div>
+        
+        <div *ngIf="tablaDiagnosticos.length>0" class="col-sm-auto">   
+            <label class="switchBtn">
+                <input type="checkbox" name="cerrarValidacion" (change)="cerrarValidacion()">
+                <div class="slide round">  
+                </div>
+            </label>
+        </div>        
     </div>
 </div>
