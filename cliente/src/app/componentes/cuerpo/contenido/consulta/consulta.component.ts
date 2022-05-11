@@ -23,7 +23,6 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.sus1.unsubscribe();
-        this.sus2.unsubscribe();
     }
 
     ngOnInit(): void {
@@ -42,7 +41,6 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     })
 
     sus1: any
-    sus2: any
     datos: any
 
     t_psicologo: listaPsicologos[] = [];
@@ -64,7 +62,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
     cargarPantalla() {
         this.cargarPsicologos();
-        this.sus2 = this.dataShare.paciente$.subscribe(
+        this.sus1 = this.dataShare.paciente$.subscribe(
             {
                 next: value => {
                     if (value) {
