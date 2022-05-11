@@ -49,17 +49,17 @@ export class BbddService {
     }
 
     modificarAntecedentes(consultaDatos:any) {
-        let url = 'http://localhost:4001/paciente/modificarAntecedentes/:valoracionId' + localStorage.getItem('idPaciente')
+        let url = 'http://localhost:4001/paciente/modificarAntecedentes/' + localStorage.getItem('idPaciente')
         return this.http.put(url, consultaDatos)
     }
 
-    modificarPruebas(consultaDatos:any) {
-        let url = 'http://localhost:4001/paciente/modificarPruebas/:valoracionId' + localStorage.getItem('idPaciente')
+    modificarPruebas(consultaDatos:any, valoracion: any) {     
+        let url = 'http://localhost:4001/paciente/modificarPruebas/' + localStorage.getItem('idPaciente') + '/'+ valoracion
         return this.http.put(url, consultaDatos)
     }
 
     modificarSeguimiento(consultaDatos:any) {
-        let url = 'http://localhost:4001/paciente/modificarSeguimiento/:valoracionId' + localStorage.getItem('idPaciente')
+        let url = 'http://localhost:4001/paciente/modificarSeguimiento/' + localStorage.getItem('idPaciente')
         return this.http.put(url, consultaDatos)
     }
 
@@ -67,8 +67,7 @@ export class BbddService {
         let url = 'http://localhost:4001/psicologo/' + psicologoId
         return this.http.put(url, datos)
     }
-
-    modificarPacienteById(datos:any,pacienteId:String){
+    modificarPacienteById(datos:any, pacienteId:String){
         let url = 'http://localhost:4001/paciente/actualizarPaciente/' + pacienteId
         return this.http.put(url, datos)
     }

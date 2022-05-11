@@ -113,7 +113,6 @@ export const altaConsultaPaciente = async (req, res) => {
         const datos = req.body;
 
         if (datos.fecha_diagnostico) {
-            console.log('entra 1');
             await Paciente.updateOne(
                 {_id: idPaciente,},
                 {
@@ -207,27 +206,27 @@ export const modificarAntecedentes = async (req, res) => {
 }
 
 export const modificarPruebas = async (req, res) => {
-    console.log('modificarPruebas');
     try {
         const idPaciente = req.params.pacienteId;
         const datos = req.body;
+        const valoracion= req.params.valoracion;
+        console.log('modificarpruebas11111', datos);
+        
+            await Paciente.updateOne(
+                {_id: idPaciente,},
+                {
 
-        await Paciente.updateOne(
-            {
-                _id: idPaciente,
-                "datosMedicos.valoracion.test_Diagnosticos": datos.test_Diagnosticos
-            },
-            {
-                $set:
+                    $set:
                     {
-                        "datosMedicos.valoracion.$.diagnostico_psicologico.diagnostico": datos.dco_psicologico,
-                        "datosMedicos.valoracion.$.cognitivo": datos.prueba1,
-                        "datosMedicos.valoracion.$.emocional": datos.prueba2,
-                        "datosMedicos.valoracion.$.pruebasPsicodiagnostico": datos.prueba3
+                        [`datosMedicos.valoracion.${valoracion}.diagnostico_psicologico.diagnostico`]: datos.dco_psicologico,
+                        [`datosMedicos.valoracion.${valoracion}.test_diagnosticos.cognitiva.observaciones`]: datos.cognitiva,
+                        [`datosMedicos.valoracion.${valoracion}.test_diagnosticos.emocional.observaciones`]: datos.emocional,
+                        [`datosMedicos.valoracion.${valoracion}.test_diagnosticos.pruebasPsicodiagnostico.observaciones`]: datos.pruebasPsicodiagnostico,
+                       
                     }
-            })
-
-        return res.status(200).json({message: 'Pruebas modificadas.'})
+                })
+        
+        return res.status(200).json({message: 'Modificar pruebas.'})
 
     } catch (e) {
         console.log(e);
