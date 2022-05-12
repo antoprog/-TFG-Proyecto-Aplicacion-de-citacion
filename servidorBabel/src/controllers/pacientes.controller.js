@@ -210,7 +210,7 @@ export const modificarPruebas = async (req, res) => {
         const idPaciente = req.params.pacienteId;
         const datos = req.body;
         const valoracion= req.params.valoracion;
-        console.log('modificarpruebas11111', datos);
+       
         
             await Paciente.updateOne(
                 {_id: idPaciente,},
@@ -237,25 +237,62 @@ export const modificarSeguimiento = async (req, res) => {
     try {
         const idPaciente = req.params.pacienteId;
         const datos = req.body;
-
+        const valoracion= req.params.valoracion;
+        const seguimiento= req.params.seguimiento;
+        console.log('modificacionSeguimiento11111', datos)
         await Paciente.updateOne(
             {
                 _id: idPaciente,
-                "datosMedicos.valoracion": datos
-                
+                //"datosMedicos.valoracion": datos
             },
             {
-                $set:
+                $push:
                     {
-                        "datosMedicos.valoracion.$.seguimiento.observaciones": datos.seguimiento.observaciones,
-                        "datosMedicos.valoracion.$.seguimiento": datos.con_sintomas,
-                        "datosMedicos.valoracion.$.seguimiento.fecha_diagnostico": datos.fecha_diagnostico,
-                        "datosMedicos.valoracion.$.diagnosseguimientotico_medico.patologia_medica": datos.patologia_medica,
-                        "datosMedicos.valoracion.$.seguimiento.posologia": datos.posologia
+                        
+                        [`datosMedicos.valoracion.${valoracion}.seguimiento.${seguimiento}.observaciones`]: datos.observaciones,
+                        [`datosMedicos.valoracion.${valoracion}.seguimiento.${seguimiento}.conducta_a_seguir`]: datos.conducta_a_seguir,
+                        [`datosMedicos.valoracion.${valoracion}.seguimiento.${seguimiento}.anotaciones`]: datos.anotaciones,
+                        [`datosMedicos.valoracion.${valoracion}.seguimiento.${seguimiento}.fecha_prox_cita`]: datos.fecha_prox_cita,
+                        [`datosMedicos.valoracion.${valoracion}.seguimiento.${seguimiento}.hora_prox_cita`]: datos.hora_prox_cita,
+                        [`datosMedicos.valoracion.${valoracion}.seguimiento.${seguimiento}.fin_prox_cita`]: datos.fin_prox_cita,
+                        
                     }
             })
 
-        return res.status(200).json({message: 'Alta consulta realizada.'})
+        return res.status(200).json({message: 'Modificacion segumiento realizada.'})
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const altaSeguimiento = async (req, res) => {
+    console.log('altaSeguimiento');
+    try {
+        const idPaciente = req.params.pacienteId;
+        const datos = req.body;
+        const valoracion= req.params.valoracion;
+        console.log('altaseguimiento111111111', datos, idPaciente, valoracion)
+        await Paciente.updateOne(
+            {
+                _id: idPaciente,
+                //"datosMedicos.valoracion": datos
+            },
+            {
+                $push:
+                    {
+                        
+                        [`datosMedicos.valoracion.${valoracion}.seguimiento.observaciones`]: datos.observaciones,
+                        [`datosMedicos.valoracion.${valoracion}.seguimiento.conducta_a_seguir`]: datos.conducta_a_seguir,
+                        [`datosMedicos.valoracion.${valoracion}.seguimiento.anotaciones`]: datos.anotaciones,
+                        [`datosMedicos.valoracion.${valoracion}.seguimiento.fecha_prox_cita`]: datos.fecha_prox_cita,
+                        [`datosMedicos.valoracion.${valoracion}.seguimiento.hora_prox_cita`]: datos.hora_prox_cita,
+                        [`datosMedicos.valoracion.${valoracion}.seguimiento.fin_prox_cita`]: datos.fin_prox_cita,
+                        
+                    }
+            })
+
+        return res.status(200).json({message: 'alta segumiento realizada.'})
 
     } catch (e) {
         console.log(e);

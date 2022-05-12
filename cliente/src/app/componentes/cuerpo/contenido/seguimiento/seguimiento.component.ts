@@ -3,8 +3,7 @@ import {FormBuilder} from '@angular/forms';
 import {BbddService} from 'src/app/servicios/bbdd.service';
 import {DataShareService} from 'src/app/servicios/data-share.service';
 import {DatePipe} from "@angular/common";
-import {Paciente} from "../../../../modelo/paciente";
-import * as moment from "moment";
+
 
 @Component({
     selector: 'app-seguimiento',
@@ -33,32 +32,36 @@ export class SeguimientoComponent implements OnInit {
     datosPaciente: any
 
     seguimientoForm = this.fb.group({
-        observaciones_cita: [''],
-        observaciones_propias: [''],
+        observaciones: [''],
+        anotaciones: [''],
         conducta_a_seguir: [''],
-        fecha_p_cita: [''],
-        inicio_p_cita: [''],
-        fin_p_cita: ['']
+        fecha_prox_cita: [''],
+        hora_prox_cita: [''],
+        fin_prox_cita: ['']
     })
 
 
     cargarPantalla() {
+        console.log("a");
+        
         this.sus2 = this.dataShare.paciente$.subscribe(
             {
+                               
                 next: value => {
                     if (value) {
                         const ruta = value.datosMedicos?.valoracion[parseInt(localStorage.getItem('valoracionId')!)]
-                        // this.seguimientoForm.controls['observaciones_cita'].setValue(ruta?.seguimiento.observaciones)
-                        // this.seguimientoForm.controls['observaciones_propias'].setValue(ruta?.seguimiento.anotaciones)
-                        // this.seguimientoForm.controls['conducta_a_seguir'].setValue(ruta?.seguimiento.conducta_a_seguir)
-                        // this.seguimientoForm.controls['fecha_p_cita'].setValue(ruta?.seguimiento.fecha_prox_cita)
-                        // this.seguimientoForm.controls['inicio_p_cita'].setValue(ruta?.seguimiento.hora_inicio_cita)
-                        // this.seguimientoForm.controls['fin_p_cita'].setValue(ruta?.seguimiento.hora_fin_cita)
+                        this.seguimientoForm.controls['observaciones'].setValue(ruta?.seguimiento.observaciones)
+                        this.seguimientoForm.controls['anotaciones'].setValue(ruta?.seguimiento.anotaciones)
+                        this.seguimientoForm.controls['conducta_a_seguir'].setValue(ruta?.seguimiento.conducta_a_seguir)
+                        this.seguimientoForm.controls['fecha_prox_cita'].setValue(ruta?.seguimiento.fecha_prox_cita)
+                        this.seguimientoForm.controls['hora_prox_cita'].setValue(ruta?.seguimiento.hora_prox_cita)
+                        this.seguimientoForm.controls['fin_prox_cita'].setValue(ruta?.seguimiento.fin_prox_cita)
 
                         this.datosPaciente = ruta
 
                         let fechaFormateada: string | null;
 
+                        console.log(ruta.seguimiento.length);
                         console.log(ruta.seguimiento.length);
 
                         this.tablaSeguimientos = []
@@ -70,6 +73,7 @@ export class SeguimientoComponent implements OnInit {
                         }
 
                         this.cargarDatos(ruta.seguimiento[ruta.seguimiento.length - 1])
+                        console.log("b");
                     }
                 }
             }
@@ -77,11 +81,13 @@ export class SeguimientoComponent implements OnInit {
     }
 
     guardar() {
-        this.bbdd.modificarSeguimiento(this.seguimientoForm.value).subscribe()
+        console.log("guardar", this.seguimientoForm.value);
+        this.bbdd.altaSeguimiento(this.seguimientoForm.value, localStorage.getItem('valoracionId')).subscribe()
+    }
 
-        setTimeout(() => {
-            this.dataShare._idPaciente$.next(String(localStorage.getItem('idPaciente')))
-        }, 1500)
+    modificar() {
+        console.log("modificar", this.seguimientoForm.value);
+        this.bbdd.modificarSeguimiento(this.seguimientoForm.value, localStorage.getItem('valoracionId')).subscribe()
     }
 
     cambiarValoracion(evento: any) {
@@ -93,11 +99,12 @@ export class SeguimientoComponent implements OnInit {
     }
 
     cargarDatos(seguimiento:any){
-        this.seguimientoForm.controls['observaciones_cita'].setValue(seguimiento.observaciones)
-        this.seguimientoForm.controls['observaciones_propias'].setValue(seguimiento.anotaciones)
+        seguimiento=this.datosPaciente
+        this.seguimientoForm.controls['observaciones'].setValue(seguimiento.observaciones)
+        this.seguimientoForm.controls['anotaciones'].setValue(seguimiento.anotaciones)
         this.seguimientoForm.controls['conducta_a_seguir'].setValue(seguimiento.conducta_a_seguir)
-        this.seguimientoForm.controls['fecha_p_cita'].setValue(seguimiento.fecha_prox_cita)
-        this.seguimientoForm.controls['inicio_p_cita'].setValue(seguimiento.hora_inicio_cita)
-        this.seguimientoForm.controls['fin_p_cita'].setValue(seguimiento.hora_fin_cita)
+        this.seguimientoForm.controls['fecha_prox_cita'].setValue(seguimiento.fecha_prox_cita)
+        this.seguimientoForm.controls['hora_prox_cita'].setValue(seguimiento.hora_prox_cita)
+        this.seguimientoForm.controls['fin_prox_cita'].setValue(seguimiento.fin_prox_cita)
     }
 }

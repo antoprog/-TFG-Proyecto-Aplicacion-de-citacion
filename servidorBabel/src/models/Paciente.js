@@ -101,7 +101,9 @@ const DatosSchema = mongoose.Schema(
                                 observaciones: {type: String},
                                 fecha_prox_cita: {type: Date},
                                 hora_prox_cita: {type: String},
+                                fin_prox_cita: {type: String},
                                 conducta_a_seguir: {type: String},
+                                anotaciones: {type: String},
                                 usu: {type: String},
                                 f_usu: {type: Date},
                                 acion_usu: {type: String}

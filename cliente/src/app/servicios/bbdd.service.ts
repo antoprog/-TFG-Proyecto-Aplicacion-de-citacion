@@ -58,8 +58,13 @@ export class BbddService {
         return this.http.put(url, consultaDatos)
     }
 
-    modificarSeguimiento(consultaDatos:any) {
-        let url = 'http://localhost:4001/paciente/modificarSeguimiento/' + localStorage.getItem('idPaciente')
+    modificarSeguimiento(consultaDatos:any, valoracion: any) {
+        let url = 'http://localhost:4001/paciente/modificarSeguimiento/' + localStorage.getItem('idPaciente') + '/'+ valoracion
+        return this.http.put(url, consultaDatos)
+    }
+
+    altaSeguimiento(consultaDatos:any, valoracion: any) {
+        let url = 'http://localhost:4001/paciente/altaSeguimiento/' + localStorage.getItem('idPaciente') + '/'+ valoracion
         return this.http.put(url, consultaDatos)
     }
 

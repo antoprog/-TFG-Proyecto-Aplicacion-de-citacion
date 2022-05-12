@@ -12,15 +12,15 @@
             </div>
             <div class="row justify-content-around my-2 w-100">
                 <div class="form-outline1 w-100 my-3">
-                    <label class="text-primary texto" for="observaciones_cita">Observaciones: </label>
-                    <textarea class="form-control borde shadow-sm" formControlName="observaciones_cita"
-                              id="observaciones_cita" rows="4"></textarea>
+                    <label class="text-primary texto" for="observaciones">Observaciones: </label>
+                    <textarea class="form-control borde shadow-sm" formControlName="observaciones"
+                              id="observaciones" rows="4"></textarea>
                 </div>
 
                 <div class="form-outline1 w-100 mb-3">
-                    <label class="text-primary texto" for="observaciones_propias">Anotaciones: </label>
-                    <textarea class="form-control borde shadow-sm" formControlName="observaciones_propias"
-                              id="observaciones_propias" rows="4"></textarea>
+                    <label class="text-primary texto" for="anotaciones">Anotaciones: </label>
+                    <textarea class="form-control borde shadow-sm" formControlName="anotaciones"
+                              id="anotaciones" rows="4"></textarea>
                 </div>
                 <div class="form-outline2 w-100 mb-3">
                     <label class="text-primary texto" for="conducta_a_seguir">Conducta a seguir: </label>
@@ -29,16 +29,17 @@
                 </div>
             </div>
             <div class="seguimiento2  my-3">
-                <label class="text-primary texto" for="fecha_p_cita">Fecha próxima cita:</label><input
-                class="mx-2 py-1 px-2 borde shadow-sm texto2" id="fecha_p_cita" formControlName="fecha_p_cita"
+                <label class="text-primary texto" for="fecha_prox_cita">Fecha próxima cita:</label><input
+                class="mx-2 py-1 px-2 borde shadow-sm texto2" id="fecha_prox_cita" formControlName="fecha_prox_cita"
                 name="fecha_p_cita" type="date" min="2022-01-01">
-                <label class="text-primary texto" for="inicio_p_cita">Hora inicio cita:</label><input
-                class="mx-2 py-1 px-2 borde shadow-sm texto2" id="inicio_p_cita" formControlName="inicio_p_cita"
+                <label class="text-primary texto" for="hora_prox_cita">Hora inicio cita:</label><input
+                class="mx-2 py-1 px-2 borde shadow-sm texto2" id="hora_prox_cita" formControlName="hora_prox_cita"
                 name="inicio_p_cita" type="time">
-                <label class="text-primary texto" for="fin_p_cita">Hora fin cita:</label><input
-                class="mx-2 py-1 px-2 borde shadow-sm texto2" id="fin_p_cita" formControlName="fin_p_cita"
+                <label class="text-primary texto" for="fin_prox_cita">Hora fin cita:</label><input
+                class="mx-2 py-1 px-2 borde shadow-sm texto2" id="fin_prox_cita" formControlName="fin_prox_cita"
                 name="fin_p_cita" type="time">
             </div>
+            <button class="btn btn-primary" style="float:right" type="submit">Modificar</button>
             <button class="btn btn-primary" style="float:right" type="submit">Guardar</button>
         </div>
     </div>

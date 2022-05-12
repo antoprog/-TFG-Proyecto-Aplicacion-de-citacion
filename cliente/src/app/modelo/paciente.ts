@@ -106,10 +106,11 @@ export interface Paciente {
                         hora_inicio_cita: String,
                         hora_fin_cita: String,
                         observaciones: String,
-                        anotaciones: String,
                         fecha_prox_cita: Date,
                         hora_prox_cita: String,
+                        fin_prox_cita: String,
                         conducta_a_seguir: String,
+                        anotaciones: String,
                         usu: String,
                         f_usu: Date,
                         acion_usu: String
