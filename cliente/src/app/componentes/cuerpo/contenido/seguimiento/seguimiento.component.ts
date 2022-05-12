@@ -3,6 +3,9 @@ import {FormBuilder} from '@angular/forms';
 import {BbddService} from 'src/app/servicios/bbdd.service';
 import {DataShareService} from 'src/app/servicios/data-share.service';
 import {DatePipe} from "@angular/common";
+import { ToastrService } from 'ngx-toastr';
+import * as moment from 'moment';
+
 
 @Component({
     selector: 'app-seguimiento',
