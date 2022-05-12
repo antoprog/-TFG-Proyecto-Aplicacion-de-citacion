@@ -4,7 +4,7 @@ import * as authJwt from "../middlewares/authJwt";
 
 const router = Router();
 
-router.get('/', [authJwt.verifyToken, authJwt.isAdmin], psicologoCtrl.getPsicologo)
+router.get('/', [authJwt.verifyToken], psicologoCtrl.getPsicologo)
 router.get('/uno', [authJwt.verifyToken], psicologoCtrl.getPsicologoByToken)
 router.get('/byUser/:username', [authJwt.verifyToken], psicologoCtrl.getPsicologoByUserName)
 router.post('/', [authJwt.verifyToken, authJwt.isAdmin], psicologoCtrl.createPsicologo)

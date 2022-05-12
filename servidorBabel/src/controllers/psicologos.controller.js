@@ -24,6 +24,7 @@ export const getPsicologo = async (req, res) => {
         const psicologo = await Psicologo.find();
         res.json(psicologo);
     } catch (e) {
+        console.log("error",e);
     }
 }
 /**
