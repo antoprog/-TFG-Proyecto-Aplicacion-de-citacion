@@ -96,8 +96,6 @@ const DatosSchema = mongoose.Schema(
                         seguimiento: [
                             {
                                 fecha_cita: {type: Date},
-                                hora_inicio_cita: {type: String},
-                                hora_fin_cita: {type: String},
                                 observaciones: {type: String},
                                 fecha_prox_cita: {type: Date},
                                 hora_prox_cita: {type: String},

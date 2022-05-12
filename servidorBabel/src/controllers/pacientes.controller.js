@@ -283,6 +283,7 @@ export const altaSeguimiento = async (req, res) => {
                     {
 
                         [`datosMedicos.valoracion.${valoracion}.seguimiento`]: {
+                            fecha_cita: datos.fecha_cita,
                             observaciones: datos.observaciones,
                             conducta_a_seguir: datos.conducta_a_seguir,
                             anotaciones: datos.anotaciones,
