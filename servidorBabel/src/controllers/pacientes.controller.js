@@ -112,7 +112,8 @@ export const altaConsultaPaciente = async (req, res) => {
         const idPaciente = req.params.pacienteId;
         const datos = req.body;
 
-        if (datos.fecha_diagnostico) {
+        if (!datos.fecha_diagnostico) {
+            console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
             await Paciente.updateOne(
                 {_id: idPaciente,},
                 {

@@ -63,10 +63,12 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
 
                     // Datos para la cabecera del paciente
                     this.data = value
+                    localStorage.setItem('valoracionId', String(this.data.datosMedicos.valoracion.length - 1))
                     this.edad = this.calcularEdad(this.data.fecha_nacimiento)
                     this.edad = this.edad || 0
                     // Datos para la cabecera del paciente
 
+                    console.log('PACIENTE CABECERA', value.nombre);
                     // Recuperar las valoraciones del paciente
                     for (const [index, dato] of value.datosMedicos.valoracion.entries()) {
                         let fechaFormateada;
@@ -83,10 +85,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
                         this.tablaDiagnosticos.push(registro)
                     }
 
-                    if (!this.primeravez) {
-                        this.primeravez = true
-                        this.dataShare.paciente$.next(this.data)
-                    }
+                    this.dataShare.paciente$.next(this.data)
                     // Recuperar las valoraciones del paciente
                 }
             }
@@ -98,7 +97,8 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
         localStorage.setItem('valoracionId', String(indice))
         this.dataShare.paciente$.next(this.data)
     }
-    cerrarValidacion(){
+
+    cerrarValidacion() {
 
     }
 }

@@ -21,9 +21,7 @@ export class BbddService {
     }
 
     altaConsultaPaciente(consultaDatos:any) {
-        console.log('entra servicio');
         let url = 'http://localhost:4001/paciente/altaConsulta/' + localStorage.getItem('idPaciente')
-        console.log(url);
         return this.http.put(url, consultaDatos)
     }
 
@@ -53,7 +51,7 @@ export class BbddService {
         return this.http.put(url, consultaDatos)
     }
 
-    modificarPruebas(consultaDatos:any, valoracion: any) {     
+    modificarPruebas(consultaDatos:any, valoracion: any) {
         let url = 'http://localhost:4001/paciente/modificarPruebas/' + localStorage.getItem('idPaciente') + '/'+ valoracion
         return this.http.put(url, consultaDatos)
     }
