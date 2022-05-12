@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {DataShareService} from "../../../../servicios/data-share.service";
 import {BbddService} from 'src/app/servicios/bbdd.service';
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-  selector: 'app-antecedentes',
-  templateUrl: './antecedentes.component.html',
-  styleUrls: ['./antecedentes.component.css']
+    selector: 'app-antecedentes',
+    templateUrl: './antecedentes.component.html',
+    styleUrls: ['./antecedentes.component.css']
 })
 export class AntecedentesComponent implements OnInit, OnDestroy {
 

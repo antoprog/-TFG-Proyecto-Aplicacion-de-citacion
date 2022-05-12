@@ -42,9 +42,8 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-
-        if(this.suscripcion)
-        this.suscripcion.unsubscribe();
+        if (this.suscripcion)
+            this.suscripcion.unsubscribe();
     }
 
     obtenerDatosPaciente(id: any) {

@@ -82,11 +82,14 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
     guardar() {
         this.consultaForm.value.fecha_inicio = moment(new Date()).format('YYYY-MM-DD[T00:00:00.000Z]');
+        console.log('asdadsa');
         this.bbdd.altaConsultaPaciente(this.consultaForm.value).subscribe({
             next: value => {
+                console.log('bien')
                 this.toastr.success('','Se ha guardado correctamente')
             },
             error: err => {
+                console.log(err);
                 this.toastr.error('Error no se ha guardado', '[ERROR SERVIDOR]: ' + err.status)
             }
         })

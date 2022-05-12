@@ -3,9 +3,6 @@ import {FormBuilder} from '@angular/forms';
 import {BbddService} from 'src/app/servicios/bbdd.service';
 import {DataShareService} from 'src/app/servicios/data-share.service';
 import {DatePipe} from "@angular/common";
-import * as moment from 'moment';
-import {ToastrService} from "ngx-toastr";
-
 
 @Component({
     selector: 'app-seguimiento',
@@ -68,9 +65,6 @@ export class SeguimientoComponent implements OnInit {
 
                         let fechaFormateada: string | null;
 
-                        console.log(ruta.seguimiento.length);
-                        console.log(ruta.seguimiento.length);
-
                         this.tablaSeguimientos = []
                         for (const rutaElement of ruta.seguimiento) {
                             if (rutaElement.fecha_cita !== undefined) {
@@ -117,21 +111,18 @@ export class SeguimientoComponent implements OnInit {
 
     cambiarValoracion(evento: any) {
         for (const seguimiento of this.datosPaciente.seguimiento) {
-            if (evento.value === this.pipedate.transform(seguimiento.fecha_cita, 'dd-MM-yyyy')){
+            if (evento.value === this.pipedate.transform(seguimiento.fecha_cita, 'dd-MM-yyyy')) {
                 this.cargarDatos(seguimiento)
             }
         }
     }
-   
-    cargarDatos(seguimiento:any){
-        
-        
-        this.seguimientoForm.controls['observaciones'].setValue(seguimiento?.observaciones)
-        this.seguimientoForm.controls['anotaciones'].setValue(seguimiento?.anotaciones)
+
+    cargarDatos(seguimiento: any) {
+        this.seguimientoForm.controls['observaciones_cita'].setValue(seguimiento?.observaciones)
+        this.seguimientoForm.controls['observaciones_propias'].setValue(seguimiento?.anotaciones)
         this.seguimientoForm.controls['conducta_a_seguir'].setValue(seguimiento?.conducta_a_seguir)
-        this.seguimientoForm.controls['fecha_prox_cita'].setValue(seguimiento?.fecha_prox_cita)
-        this.seguimientoForm.controls['hora_prox_cita'].setValue(seguimiento?.hora_prox_cita)
-        this.seguimientoForm.controls['fin_prox_cita'].setValue(seguimiento?.fin_prox_cita)
-        this.seguimientoForm.controls['fecha_cita'].setValue(String(seguimiento?.fecha_cita).split('T')[0])
+        this.seguimientoForm.controls['fecha_p_cita'].setValue(seguimiento?.fecha_prox_cita)
+        this.seguimientoForm.controls['inicio_p_cita'].setValue(seguimiento?.hora_inicio_cita)
+        this.seguimientoForm.controls['fin_p_cita'].setValue(seguimiento?.hora_fin_cita)
     }
 }
