@@ -25,6 +25,9 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
     primeravez: any;
     suscripcion: any
     suscripcionCambiaValoracion: any
+    sus1: any
+    valorCheckAlta:boolean=false
+    ncerrarValidacion:any
 
     ngOnInit(): void {
         this.tablaDiagnosticos = []
@@ -96,9 +99,16 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
         const indice = (evento.length - 1) - evento.selectedIndex
         localStorage.setItem('valoracionId', String(indice))
         this.dataShare.paciente$.next(this.data)
+        if (this.data?.datosMedicos.valoracion[indice].fecha_alta!=undefined) {
+            this.valorCheckAlta = true;
+            console.log(this.valorCheckAlta)
+        }
+            
+        
     }
-
-    cerrarValidacion() {
-
+    
+    cerrarValidacion(evento:any) {
+       console.log(this.valorCheckAlta)
+       console.log(evento.checked)
     }
 }

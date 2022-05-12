@@ -3,7 +3,7 @@
     margin-top: 0.7%;
     padding: 1%;
 }
-.switclbl{
+/*.switclbl{
     margin-left: 1em;
 }
 
@@ -21,10 +21,10 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image:url("/assets/img/ALTA.gif");
+    background-image:url("/assets/img/Baja.gif");
     background-repeat: no-repeat;
     background-position: center;
-    background-color: rgb(13, 110, 253);
+    background-color: #ccc;
     -webkit-transition: .4s;
     transition: .4s;
     padding: 8px;
@@ -35,7 +35,7 @@
     content: "";
     height: 24px;
     width: 24px;
-    left: 78px;
+    right: 78px;
     bottom: 4px;
     
     background-color: white;
@@ -44,9 +44,9 @@
     transition: .4s;
 }
 input:checked + .slide {
-    background-image:url("/assets/img/BAJA.gif");
+    background-image:url("/assets/img/ALTA.gif");
     background-repeat: no-repeat;
-    background-color: #ccc;
+    background-color: rgb(13, 110, 253);
     background-position: center;
     
 }
@@ -57,7 +57,7 @@ input:checked + .slide:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
-    left: -20px;
+    right: -20px;
 }
 .slide.round {
     border-radius: 24px;
@@ -68,5 +68,5 @@ input:checked + .slide:before {
 .slide.round
 .on{
     color:white
-}
+}*/
 
