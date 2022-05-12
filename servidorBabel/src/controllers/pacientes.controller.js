@@ -281,14 +281,15 @@ export const altaSeguimiento = async (req, res) => {
             {
                 $push:
                     {
-                        
-                        [`datosMedicos.valoracion.${valoracion}.seguimiento.observaciones`]: datos.observaciones,
-                        [`datosMedicos.valoracion.${valoracion}.seguimiento.conducta_a_seguir`]: datos.conducta_a_seguir,
-                        [`datosMedicos.valoracion.${valoracion}.seguimiento.anotaciones`]: datos.anotaciones,
-                        [`datosMedicos.valoracion.${valoracion}.seguimiento.fecha_prox_cita`]: datos.fecha_prox_cita,
-                        [`datosMedicos.valoracion.${valoracion}.seguimiento.hora_prox_cita`]: datos.hora_prox_cita,
-                        [`datosMedicos.valoracion.${valoracion}.seguimiento.fin_prox_cita`]: datos.fin_prox_cita,
-                        
+
+                        [`datosMedicos.valoracion.${valoracion}.seguimiento`]: {
+                            observaciones: datos.observaciones,
+                            conducta_a_seguir: datos.conducta_a_seguir,
+                            anotaciones: datos.anotaciones,
+                            fecha_prox_cita: datos.fecha_prox_cita,
+                            hora_prox_cita: datos.hora_prox_cita,
+                            fin_prox_cita: datos.fin_prox_cita,
+                        }
                     }
             })
 
