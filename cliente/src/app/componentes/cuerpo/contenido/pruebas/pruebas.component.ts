@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { BbddService } from 'src/app/servicios/bbdd.service';
 import { DataShareService } from '../../../../servicios/data-share.service';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-pruebas',
@@ -12,6 +13,7 @@ export class PruebasComponent implements OnInit, OnDestroy {
     constructor(
         private fb: FormBuilder,
         private bbdd: BbddService,
+        private toastr: ToastrService,
         private dataShare: DataShareService
     ) {}
 
@@ -72,6 +74,13 @@ export class PruebasComponent implements OnInit, OnDestroy {
                 this.pruebasForm.value,
                 localStorage.getItem('valoracionId')
             )
-            .subscribe();
+            .subscribe({
+                next: value => {
+                    this.toastr.success('','Modificación realizada correctamente')
+                },
+                error: err => {
+                    this.toastr.error('Modificación no realizada', '[ERROR SERVIDOR]: ' + err.status)
+                }
+            });
     }
 }

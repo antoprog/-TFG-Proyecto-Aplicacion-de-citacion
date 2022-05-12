@@ -103,8 +103,6 @@ export interface Paciente {
                 seguimiento: [
                     {
                         fecha_cita: Date,
-                        hora_inicio_cita: String,
-                        hora_fin_cita: String,
                         observaciones: String,
                         fecha_prox_cita: Date,
                         hora_prox_cita: String,

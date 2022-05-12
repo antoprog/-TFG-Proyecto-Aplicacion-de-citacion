@@ -88,8 +88,8 @@ export class ConsultaComponent implements OnInit, OnDestroy {
             },
             error: err => {
                 this.toastr.error('Error no se ha guardado', '[ERROR SERVIDOR]: ' + err.status)
-        }
-    })
+            }
+        })
 
         setTimeout(() => {
             this.dataShare._idPaciente$.next(String(localStorage.getItem('idPaciente')))

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {DataShareService} from "../../../../servicios/data-share.service";
 import {BbddService} from 'src/app/servicios/bbdd.service';
-import * as moment from 'moment';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-antecedentes',
@@ -13,6 +13,7 @@ export class AntecedentesComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
               private bbdd: BbddService,
+              private toastr: ToastrService,
               private dataShare: DataShareService) { 
 
               }
@@ -51,7 +52,14 @@ cargarPantalla() {
 }
 
 guardar() {
-  this.bbdd.modificarAntecedentes(this.antecedentesForm.value).subscribe()
+  this.bbdd.modificarAntecedentes(this.antecedentesForm.value).subscribe({
+    next: value => {
+      this.toastr.success('','Se ha guardado correctamente')
+  },
+  error: err => {
+      this.toastr.error('Error no se ha guardado', '[ERROR SERVIDOR]: ' + err.status)
+  }
+  })
 
   setTimeout(() => {
       this.dataShare._idPaciente$.next(String(localStorage.getItem('idPaciente')))
