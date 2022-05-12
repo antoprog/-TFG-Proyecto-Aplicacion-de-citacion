@@ -62,7 +62,7 @@ export class ModPacienteComponent implements OnInit {
         if (this.insClienteForm.controls['documentoDni'].value === '') {
             return this.insClienteForm.controls['documentoNie'].value;
         } else {
-            return this.insClienteForm.controls['documentoDni'].value
+            return this.insClienteForm.controls['documentoDni'].value;
         }
     }
 

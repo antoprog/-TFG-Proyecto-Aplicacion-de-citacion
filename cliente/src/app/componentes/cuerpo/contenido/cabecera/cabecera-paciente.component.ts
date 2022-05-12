@@ -68,15 +68,15 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
                     // Datos para la cabecera del paciente
 
                     // Recuperar las valoraciones del paciente
-                    for (const [index, dato] of value.datosMedicos.valoracion.entries()) {
+                    for (const [index, data] of value.datosMedicos.valoracion.entries()) {
                         let fechaFormateada;
-                        if (dato.fecha_inicio !== undefined) {
-                            fechaFormateada = this.datepipe.transform(dato.fecha_inicio, 'dd/MM/yyyy');
+                        if (data?.fecha_inicio !== undefined) {
+                            fechaFormateada = this.datepipe.transform(data.fecha_inicio, 'dd/MM/yyyy');
                         }
 
                         let registro: Valoracion = {
                             ordenI: index,
-                            diagnosticoI: dato.diagnostico_psicologico?.diagnostico || 'En valoración',
+                            diagnosticoI: data?.diagnostico_psicologico?.diagnostico || 'En valoración',
                             fechaInicioI: fechaFormateada || ''
                         }
 

@@ -53,17 +53,14 @@ cargarPantalla() {
 
 guardar() {
   this.bbdd.modificarAntecedentes(this.antecedentesForm.value).subscribe({
-    next: value => {
-      this.toastr.success('','Se ha guardado correctamente')
-  },
-  error: err => {
-      this.toastr.error('Error no se ha guardado', '[ERROR SERVIDOR]: ' + err.status)
-  }
+      next: value => {
+        this.toastr.success('','Se ha guardado correctamente')
+    },
+    error: err => {
+        this.toastr.error('Error no se ha guardado', '[ERROR SERVIDOR]: ' + err.status)
+    }
   })
 
-  setTimeout(() => {
-      this.dataShare._idPaciente$.next(String(localStorage.getItem('idPaciente')))
-  }, 1500)
 }
 
 
