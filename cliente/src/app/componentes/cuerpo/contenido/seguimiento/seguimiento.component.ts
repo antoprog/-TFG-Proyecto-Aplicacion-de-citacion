@@ -47,11 +47,8 @@ export class SeguimientoComponent implements OnInit {
 
 
     cargarPantalla() {
-        console.log("a");
-        
         this.sus2 = this.dataShare.paciente$.subscribe(
             {
-                               
                 next: value => {
                     if (value) {
                         const ruta = value.datosMedicos?.valoracion[parseInt(localStorage.getItem('valoracionId')!)]
@@ -62,8 +59,8 @@ export class SeguimientoComponent implements OnInit {
                         this.seguimientoForm.controls['hora_prox_cita'].setValue(ruta?.seguimiento.hora_prox_cita)
                         this.seguimientoForm.controls['fin_prox_cita'].setValue(ruta?.seguimiento.fin_prox_cita)
                         this.fechaCita=this.pipedate.transform(ruta?.seguimiento.fecha_cita, 'dd-MM-yyyy');
-                        
-                       
+
+
                         this.datosPaciente = ruta
 
                         let fechaFormateada: string | null;
@@ -77,7 +74,6 @@ export class SeguimientoComponent implements OnInit {
                         }
 
                         this.cargarDatos(ruta.seguimiento[ruta.seguimiento.length - 1])
-                        console.log("b");
                     }
                 }
             }
@@ -101,7 +97,7 @@ export class SeguimientoComponent implements OnInit {
     }
 
     modificar() {
-      
+
         this.bbdd.modificarSeguimiento(this.seguimientoForm.value, localStorage.getItem('valoracionId')).subscribe({
             next: value => {
                 this.toastr.success('','Modificación realizada correctamente')

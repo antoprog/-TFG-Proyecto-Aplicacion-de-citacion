@@ -22,7 +22,6 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
                 private datepipe: DatePipe) {
     }
 
-    primeravez: any;
     suscripcion: any
     suscripcionCambiaValoracion: any
 

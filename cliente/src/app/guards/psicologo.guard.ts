@@ -7,16 +7,16 @@ import {AuthService} from "../servicios/auth.service";
     providedIn: 'root'
 })
 
-export class AdminGuard implements CanActivate {
+export class PsicologoGuard implements CanActivate {
     constructor(private authService: AuthService,
-                private router:Router) {
+                private router: Router) {
     }
 
     canActivate() {
         return this.authService.getRoles().pipe(
             filter(member => !!member),  // Filter NULL value here before sending object further
             map(member => {
-                    const index = member.findIndex(rol => rol === "admin");
+                    const index = member.findIndex(rol => rol === 'psicologo');
                     if (index === -1) {
                         localStorage.clear()
                         this.router.navigate(['/login'])

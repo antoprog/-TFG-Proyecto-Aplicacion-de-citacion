@@ -33,7 +33,7 @@ export const createPaciente = async (req, res) => {
         } while (historia)
 
         newPaciente.numero_historia = buscar
-        console.log('NEW PACIENTE',newPaciente);
+        console.log('NEW PACIENTE', newPaciente);
         const pacienteSaved = await newPaciente.save();
 
         const nombreConcat = req.body.nombre + ' ' + req.body.apellido1 + ' ' + req.body.apellido2
@@ -47,12 +47,12 @@ export const createPaciente = async (req, res) => {
 
 export const getPaciente = async (req, res) => {
     console.log('getPaciente');
-try{
-    const paciente = await Paciente.find();
-    res.json(paciente);
-}catch (e) {
-    console.log(e);
-}
+    try {
+        const paciente = await Paciente.find();
+        res.json(paciente);
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 export const getPacienteById = async (req, res) => { // GET
@@ -131,7 +131,7 @@ export const altaConsultaPaciente = async (req, res) => {
                             }
                         }
                 })
-        }else{
+        } else {
             console.log('entra 2');
             await Paciente.updateOne(
                 {_id: idPaciente,},
@@ -209,23 +209,23 @@ export const modificarPruebas = async (req, res) => {
     try {
         const idPaciente = req.params.pacienteId;
         const datos = req.body;
-        const valoracion= req.params.valoracion;
-       
-        
-            await Paciente.updateOne(
-                {_id: idPaciente,},
-                {
+        const valoracion = req.params.valoracion;
 
-                    $set:
+
+        await Paciente.updateOne(
+            {_id: idPaciente,},
+            {
+
+                $set:
                     {
                         [`datosMedicos.valoracion.${valoracion}.diagnostico_psicologico.diagnostico`]: datos.dco_psicologico,
                         [`datosMedicos.valoracion.${valoracion}.test_diagnosticos.cognitiva.observaciones`]: datos.cognitiva,
                         [`datosMedicos.valoracion.${valoracion}.test_diagnosticos.emocional.observaciones`]: datos.emocional,
                         [`datosMedicos.valoracion.${valoracion}.test_diagnosticos.pruebasPsicodiagnostico.observaciones`]: datos.pruebasPsicodiagnostico,
-                       
+
                     }
-                })
-        
+            })
+
         return res.status(200).json({message: 'Modificar pruebas.'})
 
     } catch (e) {
@@ -237,8 +237,8 @@ export const modificarSeguimiento = async (req, res) => {
     try {
         const idPaciente = req.params.pacienteId;
         const datos = req.body;
-        const valoracion= req.params.valoracion;
-        const seguimiento= req.params.seguimiento;
+        const valoracion = req.params.valoracion;
+        const seguimiento = req.params.seguimiento;
         console.log('modificacionSeguimiento11111', datos)
         await Paciente.updateOne(
             {
@@ -248,14 +248,14 @@ export const modificarSeguimiento = async (req, res) => {
             {
                 $push:
                     {
-                        
+
                         [`datosMedicos.valoracion.${valoracion}.seguimiento.${seguimiento}.observaciones`]: datos.observaciones,
                         [`datosMedicos.valoracion.${valoracion}.seguimiento.${seguimiento}.conducta_a_seguir`]: datos.conducta_a_seguir,
                         [`datosMedicos.valoracion.${valoracion}.seguimiento.${seguimiento}.anotaciones`]: datos.anotaciones,
                         [`datosMedicos.valoracion.${valoracion}.seguimiento.${seguimiento}.fecha_prox_cita`]: datos.fecha_prox_cita,
                         [`datosMedicos.valoracion.${valoracion}.seguimiento.${seguimiento}.hora_prox_cita`]: datos.hora_prox_cita,
                         [`datosMedicos.valoracion.${valoracion}.seguimiento.${seguimiento}.fin_prox_cita`]: datos.fin_prox_cita,
-                        
+
                     }
             })
 
@@ -271,7 +271,7 @@ export const altaSeguimiento = async (req, res) => {
     try {
         const idPaciente = req.params.pacienteId;
         const datos = req.body;
-        const valoracion= req.params.valoracion;
+        const valoracion = req.params.valoracion;
         console.log('altaseguimiento111111111', datos, idPaciente, valoracion)
         await Paciente.updateOne(
             {

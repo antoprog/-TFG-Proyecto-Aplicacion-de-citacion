@@ -31,15 +31,15 @@ export class AltaPsicologoComponent implements OnInit {
     t_psicologo: listaPsicologos[] = [];
     tipo:any;
     _psicologo: Psicologo | undefined;
-    
+
     ngOnInit(): void {
         this.route.queryParams
-            .subscribe((params)=>{    
-                console.log("parametro",params)           
+            .subscribe((params)=>{
+                console.log("parametro",params)
                 this.tipo=params["tipo"];
-                this.resertearFormulario() 
+                this.resertearFormulario()
             })
-        
+
     }
 
     psicologoForm = this.fb.group({
@@ -85,7 +85,7 @@ export class AltaPsicologoComponent implements OnInit {
         }else{
             this.modificarPsicologo();
         }
-        
+
     }
 
     //funcion de control de errores
@@ -160,7 +160,7 @@ export class AltaPsicologoComponent implements OnInit {
             });
         }
     }
-    
+
     modificarPsicologo(){
         const datos = {
             nombre: this.psicologoForm.controls['nombre'].value,
@@ -193,7 +193,7 @@ export class AltaPsicologoComponent implements OnInit {
     }
 
     /**
-     * Carga la lista de psicologos 
+     * Carga la lista de psicologos
      */
     cargarPsicologos() {
         this.t_psicologo = [];
@@ -215,7 +215,7 @@ export class AltaPsicologoComponent implements OnInit {
     }
     /**
      * Recupera los datos del psicologo seleccionado y los muestra por pantalla
-     * @param username 
+     * @param username
      */
     obtenerDatosPsicologo(username: any) {
         this.resertearFormulario();
@@ -239,8 +239,6 @@ export class AltaPsicologoComponent implements OnInit {
                 this.psicologoForm.controls['provincia'].setValue(this._psicologo.direccion.provincia)
                 this.psicologoForm.controls['pais'].setValue(this._psicologo.direccion.pais)
                 this.recuperardoc()
-                
-
             }
         })
     }
@@ -248,6 +246,6 @@ export class AltaPsicologoComponent implements OnInit {
         this.psicologoForm.reset()
         if(this.tipo=="modificar"){
             this.cargarPsicologos();
-        }         
+        }
     }
 }
