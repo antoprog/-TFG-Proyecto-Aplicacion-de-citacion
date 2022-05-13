@@ -300,3 +300,23 @@ export const altaSeguimiento = async (req, res) => {
         console.log(e);
     }
 }
+/**
+ * Modifica la fecha de alta de una valoracion
+ * @param {*} req 
+ * @param {*} res 
+ */
+export const modificarFechaAlta= async (req, res) => {
+    const idPaciente = req.params.pacienteId;
+    const valoracion= req.params.valoracion;
+    const fechaAlta=new Date();
+    
+    await Paciente.findByIdAndUpdate( idPaciente,
+    
+        {
+            $set:
+                {
+                    [`datosMedicos.valoracion.${valoracion}.fecha_alta`]: fechaAlta
+                }
+        }
+    )
+}

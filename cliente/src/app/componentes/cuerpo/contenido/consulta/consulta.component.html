@@ -32,7 +32,7 @@
             </div>
         </div>
         <input class="btn btn-primary" style="float:right" type="submit" value="Guardar" (click)="guardar()">
-        <input class="btn btn-primary mx-2" style="float:right" type="submit" value="Modificar" (click)="modificar()">
+        <input class="btn btn-primary mx-2" style="float:right" type="submit" value="Modificar" (click)="modificar()" [disabled]="dehabilitarBtn">
     </div>
 </form>
 

@@ -31,7 +31,8 @@
         
         <div *ngIf="tablaDiagnosticos.length>0" class="col-sm-auto">   
             <label class="switchBtn">
-                <input type="checkbox" name="ncerrarValidacion" (change)="cerrarValidacion($event.target)" [checked]="valorCheckAlta" [value]="valorCheckAlta" >
+                <input type="checkbox" name="ncerrarValidacion" (change)="cerrarValidacion($event.target)"
+                [disabled]="valorCheckAlta" [checked]="valorCheckAlta" [value]="valorCheckAlta" >
                 <!-- <div class="slide round">  
                 </div> -->
             </label>

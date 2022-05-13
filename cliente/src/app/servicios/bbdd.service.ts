@@ -74,4 +74,10 @@ export class BbddService {
         let url = 'http://localhost:4001/paciente/actualizarPaciente/' + pacienteId
         return this.http.put(url, datos)
     }
+
+    modificarFechaAltaPaciente(){
+        let url = 'http://localhost:4001/paciente/modificarFechaAlta/' + localStorage.getItem('idPaciente') + 
+        '/' + localStorage.getItem('valoracionId') 
+        return this.http.put(url,null)
+    }
 }

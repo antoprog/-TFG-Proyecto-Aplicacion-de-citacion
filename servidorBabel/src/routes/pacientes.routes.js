@@ -16,4 +16,5 @@ router.put('/modificarAntecedentes/:pacienteId', [authJwt.verifyToken], paciente
 router.put('/modificarPruebas/:pacienteId/:valoracion', [authJwt.verifyToken], pacienteCtrl.modificarPruebas)
 router.put('/modificarSeguimiento/:pacienteId/:valoracion', [authJwt.verifyToken], pacienteCtrl.modificarSeguimiento)
 router.put('/altaSeguimiento/:pacienteId/:valoracion', [authJwt.verifyToken], pacienteCtrl.altaSeguimiento)
+router.put('/modificarFechaAlta/:pacienteId/:valoracion',[authJwt.verifyToken],pacienteCtrl.modificarFechaAlta)
 export default router;

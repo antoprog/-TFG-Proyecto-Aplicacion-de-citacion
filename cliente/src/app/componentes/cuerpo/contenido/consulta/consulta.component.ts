@@ -42,7 +42,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
     sus1: any
     datos: any
-
+    dehabilitarBtn:any
     t_psicologo: listaPsicologos[] = [];
 
     cargarPsicologos() {
@@ -62,6 +62,8 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
     cargarPantalla() {
         this.cargarPsicologos();
+        
+        console.log(this.dehabilitarBtn)
         this.sus1 = this.dataShare.paciente$.subscribe(
             {
                 next: value => {
@@ -74,6 +76,9 @@ export class ConsultaComponent implements OnInit, OnDestroy {
                         this.consultaForm.controls['con_sintomas'].setValue(ruta?.sintomas)
                         this.consultaForm.controls['posologia'].setValue(ruta?.diagnostico_medico?.posologia)
                         this.consultaForm.controls['patologia_medica'].setValue(ruta?.diagnostico_medico?.patologia_medica)
+                        this.dehabilitarBtn=localStorage.getItem('valorCheckAlta')==='true'
+                        console.log("dehabilitarBtn", localStorage.getItem('valorCheckAlta'))
+                        console.log("dehabilitarBtn2", this.dehabilitarBtn)
                     }
                 }
             }

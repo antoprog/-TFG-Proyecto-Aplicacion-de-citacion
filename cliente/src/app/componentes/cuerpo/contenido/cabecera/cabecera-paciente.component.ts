@@ -3,6 +3,8 @@ import {BbddService} from "../../../../servicios/bbdd.service";
 import {Paciente} from "../../../../modelo/paciente";
 import {DataShareService} from "../../../../servicios/data-share.service";
 import {DatePipe} from '@angular/common'
+import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 export interface Valoracion {
     ordenI: number,
@@ -18,7 +20,7 @@ export interface Valoracion {
 export class CabeceraPacienteComponent implements OnInit, OnDestroy {
 
     constructor(private servicio: BbddService,
-                private dataShare: DataShareService,
+                private dataShare: DataShareService, private toastr: ToastrService,
                 private datepipe: DatePipe) {
     }
 
@@ -27,7 +29,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
     suscripcionCambiaValoracion: any
     sus1: any
     valorCheckAlta:boolean=false
-    ncerrarValidacion:any
+    fechaAlta!: Date; 
 
     ngOnInit(): void {
         this.tablaDiagnosticos = []
@@ -48,7 +50,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
     }
 
     tablaDiagnosticos: Valoracion[] = []
-    data: Paciente | undefined
+    data!: Paciente 
     edad = 0
 
     calcularEdad(fxNacimiento: any): number {
@@ -61,7 +63,6 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
             {
                 next: value => {
                     this.tablaDiagnosticos = []
-                    this.data = undefined
                     this.edad = 0
 
                     // Datos para la cabecera del paciente
@@ -98,17 +99,50 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
     cambiarValoracion(evento: any) {
         const indice = (evento.length - 1) - evento.selectedIndex
         localStorage.setItem('valoracionId', String(indice))
-        this.dataShare.paciente$.next(this.data)
         if (this.data?.datosMedicos.valoracion[indice].fecha_alta!=undefined) {
             this.valorCheckAlta = true;
-            console.log(this.valorCheckAlta)
-        }
             
+            console.log("v",this.valorCheckAlta)
+        }else{
+            this.valorCheckAlta = false;
+            console.log("F",this.valorCheckAlta)
+        }
+        localStorage.setItem('valorCheckAlta',String(this.valorCheckAlta))
+        console.log("valorCheckAlta",this.valorCheckAlta)
+        this.dataShare.paciente$.next(this.data)
         
     }
     
     cerrarValidacion(evento:any) {
-       console.log(this.valorCheckAlta)
-       console.log(evento.checked)
+        if(evento.checked){
+            if(confirm('La valoración se cerrara y no podra volver a modificarse. ¿quiere continuar?')){
+                this.valorCheckAlta=true;
+
+                this.modificar();
+                this.data.datosMedicos.valoracion[parseInt(localStorage.getItem('valoracionId')!)].fecha_alta=new Date()
+                localStorage.setItem('valorCheckAlta',String(this.valorCheckAlta))
+                this.dataShare.paciente$.next(this.data)
+            }else{
+                this.valorCheckAlta=false;
+                evento.checked=false;
+                return
+            }
+            
+        }else{
+            this.valorCheckAlta=true;
+                evento.checked=true;
+        }
+       console.log("valorCheckAlta",this.valorCheckAlta)
+       console.log("evento",evento.checked)
+    }
+    modificar() {
+        this.servicio.modificarFechaAltaPaciente().subscribe({
+            next: value => {
+                this.toastr.success('','Modificación realizada correctamente')
+            },
+            error: err => {
+                this.toastr.error('Modificación no realizada', '[ERROR SERVIDOR]: ' + err.status)
+            }
+        })
     }
 }
