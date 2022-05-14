@@ -22,6 +22,7 @@ export class SeguimientoComponent implements OnInit {
     }
 
     sus2: any
+    dehabilitarBtn:any;
 
     ngOnInit(): void {
         this.cargarPantalla();
@@ -62,7 +63,7 @@ export class SeguimientoComponent implements OnInit {
                         this.seguimientoForm.controls['hora_prox_cita'].setValue(ruta?.seguimiento.hora_prox_cita)
                         this.seguimientoForm.controls['fin_prox_cita'].setValue(ruta?.seguimiento.fin_prox_cita)
                         this.fechaCita=this.pipedate.transform(ruta?.seguimiento.fecha_cita, 'dd-MM-yyyy');
-                        
+                        this.dehabilitarBtn=localStorage.getItem('valorCheckAlta')==='true'
                        
                         this.datosPaciente = ruta
 
@@ -75,8 +76,9 @@ export class SeguimientoComponent implements OnInit {
                             }
                             this.tablaSeguimientos.push(fechaFormateada!)
                         }
-
+                        
                         this.cargarDatos(ruta.seguimiento[ruta.seguimiento.length - 1])
+                        
                         console.log("b");
                     }
                 }

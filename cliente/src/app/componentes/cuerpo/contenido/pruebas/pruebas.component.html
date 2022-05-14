@@ -19,7 +19,7 @@
                 <label class="text-primary texto my-2"  for="pruebasPsicodiagnostico">Prueba psicodiagnóstica:</label>
                 <textarea class="form-control borde shadow-sm" formControlName="pruebasPsicodiagnostico" id="pruebasPsicodiagnostico" rows="3"></textarea>
             </div>
-            <button class="btn btn-primary" style="float:right" type="submit" value="modificar">Modificar</button>
+            <button class="btn btn-primary" style="float:right" type="submit" value="modificar" [disabled]="dehabilitarBtn">Modificar</button>
         </div>
     
 </form>

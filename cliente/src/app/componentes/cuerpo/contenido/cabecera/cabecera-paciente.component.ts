@@ -29,18 +29,21 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
     suscripcionCambiaValoracion: any
     sus1: any
     valorCheckAlta:boolean=false
-    fechaAlta!: Date; 
+    fechaAlta:any; 
 
     ngOnInit(): void {
         this.tablaDiagnosticos = []
+
         this.suscripcion = this.dataShare._idPaciente$.subscribe(value => {
             if (value !== '') {
                 this.obtenerDiagnosticos(value)
             } else if (localStorage.getItem('idPaciente')) {
                 this.obtenerDiagnosticos(localStorage.getItem('idPaciente'))
             }
+             
         });
-    }
+        
+    }    
 
     ngOnDestroy(): void {
         this.suscripcion.unsubscribe()
@@ -79,16 +82,20 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
                         if (data?.fecha_inicio !== undefined) {
                             fechaFormateada = this.datepipe.transform(data.fecha_inicio, 'dd/MM/yyyy');
                         }
+                        if (data?.fecha_alta !== undefined) {
+                            this.fechaAlta = this.datepipe.transform(data.fecha_alta, 'dd/MM/yyyy');
 
+                            this.valorCheckAlta = true;
+                        }
                         let registro: Valoracion = {
                             ordenI: index,
                             diagnosticoI: data?.diagnostico_psicologico?.diagnostico || 'En valoración',
                             fechaInicioI: fechaFormateada || ''
                         }
-
+                        
                         this.tablaDiagnosticos.push(registro)
                     }
-
+                    
                     this.dataShare.paciente$.next(this.data)
                     // Recuperar las valoraciones del paciente
                 }
@@ -101,7 +108,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
         localStorage.setItem('valoracionId', String(indice))
         if (this.data?.datosMedicos.valoracion[indice].fecha_alta!=undefined) {
             this.valorCheckAlta = true;
-            
+            this.fechaAlta = this.datepipe.transform(this.data?.datosMedicos.valoracion[indice].fecha_alta, 'dd/MM/yyyy');
             console.log("v",this.valorCheckAlta)
         }else{
             this.valorCheckAlta = false;
@@ -117,10 +124,11 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
         if(evento.checked){
             if(confirm('La valoración se cerrara y no podra volver a modificarse. ¿quiere continuar?')){
                 this.valorCheckAlta=true;
-
+                
                 this.modificar();
                 this.data.datosMedicos.valoracion[parseInt(localStorage.getItem('valoracionId')!)].fecha_alta=new Date()
                 localStorage.setItem('valorCheckAlta',String(this.valorCheckAlta))
+                this.fechaAlta = this.datepipe.transform(new Date(), 'dd/MM/yyyy');
                 this.dataShare.paciente$.next(this.data)
             }else{
                 this.valorCheckAlta=false;

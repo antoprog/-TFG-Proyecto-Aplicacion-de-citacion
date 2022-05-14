@@ -36,8 +36,8 @@
                 </div>
             </div>
            
-            <button class="btn btn-primary" style="float:right" type="submit" (click)="modificar()">Modificar</button>
-            <button class="btn btn-primary mx-2" style="float:right" type="submit" (click)="guardar()">Guardar</button>
+            <button class="btn btn-primary" style="float:right" type="submit" (click)="modificar()" [disabled]="dehabilitarBtn">Modificar</button>
+            <button class="btn btn-primary mx-2" style="float:right" type="submit" (click)="guardar()" [disabled]="dehabilitarBtn">Guardar</button>
         </div>
     </div>
 </form>

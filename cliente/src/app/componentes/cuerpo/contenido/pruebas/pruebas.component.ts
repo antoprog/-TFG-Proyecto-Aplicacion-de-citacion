@@ -25,6 +25,7 @@ export class PruebasComponent implements OnInit, OnDestroy {
     });
 
     sus2: any;
+    dehabilitarBtn:any;
 
     ngOnInit(): void {
         this.cargarPantalla();
@@ -61,8 +62,10 @@ export class PruebasComponent implements OnInit, OnDestroy {
                         'a en cargar pantalla',
                         ruta?.diagnostico_psicologico?.diagnostico
                     );
+                    this.dehabilitarBtn=localStorage.getItem('valorCheckAlta')==='true'
                 }
             },
+            
         });
     }
 
