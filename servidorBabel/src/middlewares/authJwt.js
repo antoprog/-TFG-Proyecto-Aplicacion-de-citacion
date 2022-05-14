@@ -55,7 +55,6 @@ export const getRoles = async (req, res) => {
 
         return res.status(200).json(roles);
     } catch (e) {
-        console.log(e);
-        return res.status(200).json('error');
+        return res.status(200).json(e);
     }
 }

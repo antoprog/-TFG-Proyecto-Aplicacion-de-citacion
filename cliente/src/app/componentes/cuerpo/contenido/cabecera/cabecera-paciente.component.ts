@@ -3,6 +3,7 @@ import {BbddService} from "../../../../servicios/bbdd.service";
 import {Paciente} from "../../../../modelo/paciente";
 import {DataShareService} from "../../../../servicios/data-share.service";
 import {DatePipe} from '@angular/common'
+import {ToastrService} from "ngx-toastr";
 
 export interface Valoracion {
     ordenI: number,
@@ -19,11 +20,12 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
 
     constructor(private servicio: BbddService,
                 private dataShare: DataShareService,
-                private datepipe: DatePipe) {
+                private datepipe: DatePipe,
+                private toastr:ToastrService) {
     }
 
     suscripcion: any
-    suscripcionCambiaValoracion: any
+    susGetPaciente: any
 
     ngOnInit(): void {
         this.tablaDiagnosticos = []
@@ -38,9 +40,9 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.suscripcion.unsubscribe()
-        if (this.suscripcionCambiaValoracion) {
-            this.suscripcionCambiaValoracion.unsubscribe()
-        }
+        // if (this.susGetPaciente) {
+        //     this.susGetPaciente.unsubscribe()
+        // }
     }
 
     tablaDiagnosticos: Valoracion[] = []
@@ -53,7 +55,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
     }
 
     obtenerDiagnosticos(id: any) {
-        this.servicio.getPaciente(id).subscribe(
+        this.susGetPaciente = this.servicio.getPaciente(id).subscribe(
             {
                 next: value => {
                     this.tablaDiagnosticos = []
@@ -62,12 +64,9 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
 
                     // Datos para la cabecera del paciente
                     this.data = value
-                    localStorage.setItem('valoracionId', String(this.data.datosMedicos.valoracion.length - 1))
-                    this.edad = this.calcularEdad(this.data.fecha_nacimiento)
-                    this.edad = this.edad || 0
+                    this.edad = this.calcularEdad(this.data.fecha_nacimiento) || 0
                     // Datos para la cabecera del paciente
 
-                    console.log('PACIENTE CABECERA', value.nombre);
                     // Recuperar las valoraciones del paciente
                     for (const [index, data] of value.datosMedicos.valoracion.entries()) {
                         let fechaFormateada;
@@ -84,8 +83,20 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
                         this.tablaDiagnosticos.push(registro)
                     }
 
+                    localStorage.setItem('valoracionId', String(this.data.datosMedicos.valoracion.length - 1))
                     this.dataShare.paciente$.next(this.data)
                     // Recuperar las valoraciones del paciente
+                },
+                error: err => {
+                    if (err.status === 0) {
+                        this.toastr.error('', "ERROR EN EL SERVIDOR")
+                        return;
+                    }
+
+                    this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+                },
+                complete: () => {
+                    this.susGetPaciente.unsubscribe()
                 }
             }
         )

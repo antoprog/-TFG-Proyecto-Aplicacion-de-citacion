@@ -7,6 +7,7 @@ import {DetalleComponent} from "./detalle/detalle.component";
 import {registerLocaleData} from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import {AgendaService} from "../../servicios/agenda.service";
+import {ToastrService} from "ngx-toastr";
 
 registerLocaleData(localeEs, 'es')
 
@@ -34,7 +35,10 @@ const colors: any = {
 export class AgendaComponent implements OnInit {
     @ViewChild('modalContent', {static: true}) modalContent!: TemplateRef<any>;
 
-    constructor(private modal: NgbModal, private servicioAgenda: AgendaService) {
+    constructor(private modal: NgbModal,
+                private servicioAgenda: AgendaService,
+                private toastr:ToastrService
+    ) {
     }
 
     ngOnInit(): void {
@@ -46,6 +50,14 @@ export class AgendaComponent implements OnInit {
                     this.events.push(valor)
                 }
                 this.refresh.next()
+            },
+            error: err => {
+                if (err.status === 0) {
+                    this.toastr.error('', "ERROR EN EL SERVIDOR")
+                    return;
+                }
+
+                this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
             }
         })
     }

@@ -30,10 +30,10 @@ export const signIn = async (req, res) => {
     try {
         // .populate('campo relacionado') -> se utiliza para sacar el objeto completo al estar relacionado
         const userFound = await User.findOne({username: req.body.username})//.populate("roles")
-        if (!userFound) return res.status(400).json({message: 'User not found'});
+        if (!userFound) return res.status(401).json({message: 'Error login'});
 
         const matchPassword = await User.comparePassword(req.body.password, userFound.password)
-        if (!matchPassword) return res.status(401).json({token: null, message: 'Invalid password'});
+        if (!matchPassword) return res.status(401).json({token: null, message: 'Error login'});
 
         const token = jwt.sign({id: userFound._id}, config.SECRET, {expiresIn: 10000}, null);
         res.json({token: token})

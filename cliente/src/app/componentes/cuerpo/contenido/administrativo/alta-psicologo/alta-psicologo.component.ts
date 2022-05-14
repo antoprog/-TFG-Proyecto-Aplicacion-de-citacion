@@ -187,7 +187,12 @@ export class AltaPsicologoComponent implements OnInit {
                 this.toastr.success('','Modificación realizada correctamente')
             },
             error: err => {
-                this.toastr.error('Modificación no realizada', '[ERROR SERVIDOR]: ' + err.status)
+                if (err.status === 0) {
+                    this.toastr.error('', "ERROR EN EL SERVIDOR")
+                    return;
+                }
+
+                this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
             }
         })
     }

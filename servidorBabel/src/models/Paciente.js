@@ -97,9 +97,6 @@ const DatosSchema = mongoose.Schema(
                             {
                                 fecha_cita: {type: Date},
                                 observaciones: {type: String},
-                                fecha_prox_cita: {type: Date},
-                                hora_prox_cita: {type: String},
-                                fin_prox_cita: {type: String},
                                 conducta_a_seguir: {type: String},
                                 anotaciones: {type: String},
                                 usu: {type: String},

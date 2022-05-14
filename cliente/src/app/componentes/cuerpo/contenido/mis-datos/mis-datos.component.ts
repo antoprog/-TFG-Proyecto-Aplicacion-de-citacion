@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Psicologo} from 'src/app/modelo/psicologo';
 import {BbddService} from "../../../../servicios/bbdd.service";
-import {AuthService} from "../../../../servicios/auth.service";
-import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-mis-datos',
@@ -10,7 +8,8 @@ import {Router} from "@angular/router";
     styleUrls: ['./mis-datos.component.css']
 })
 export class MisDatosComponent implements OnInit {
-    constructor(private servicio: BbddService) {
+    constructor(private servicio: BbddService,
+                private toastr:ToastrService) {
     }
 
     visible: any
@@ -23,8 +22,18 @@ export class MisDatosComponent implements OnInit {
 
     ngOnInit(): void {
         this.servicio.getDatosPsicologo().subscribe(
-            (respuesta: Psicologo) => {
-                this.psico = respuesta
+            {
+                next: value => {
+                    this.psico = value
+                },
+                error: err => {
+                    if (err.status === 0) {
+                        this.toastr.error('', "ERROR EN EL SERVIDOR")
+                        return;
+                    }
+
+                    this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+                }
             }
         )
     }

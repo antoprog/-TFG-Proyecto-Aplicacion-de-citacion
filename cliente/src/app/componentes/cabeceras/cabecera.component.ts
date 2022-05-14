@@ -3,6 +3,7 @@ import {NavbarClientesService} from "../../servicios/navbar-clientes.service";
 import {AuthService} from "../../servicios/auth.service";
 import {Router} from "@angular/router";
 import {DataShareService} from "../../servicios/data-share.service";
+import {ToastrService} from "ngx-toastr";
 
 export interface Dat {
     _id: string,
@@ -22,7 +23,8 @@ export class CabeceraComponent implements OnInit {
     constructor(private servicioNavbar: NavbarClientesService,
                 private authService: AuthService,
                 private dataShare: DataShareService,
-                private router: Router) {
+                private router: Router,
+                private toastr:ToastrService) {
     }
 
     buscarCliente(val: any) {
@@ -80,7 +82,12 @@ export class CabeceraComponent implements OnInit {
                 }
             },
             error: err => {
-                console.log('ERROR VERIFY ADMIN', err);
+                if (err.status === 0) {
+                    this.toastr.error('', "ERROR EN EL SERVIDOR")
+                    return;
+                }
+
+                this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
             }
         })
     }
