@@ -40,31 +40,23 @@ export class SeguimientoComponent implements OnInit {
         observaciones: [''],
         anotaciones: [''],
         conducta_a_seguir: [''],
-        fecha_prox_cita: [''],
         fecha_cita: [''],
-        hora_prox_cita: [''],
-        fin_prox_cita: ['']
     })
 
 
     cargarPantalla() {
-        console.log("a");
-        
-        this.sus2 = this.dataShare.paciente$.subscribe(
+        let suscripcion = this.dataShare.paciente$.subscribe(
             {
-                               
+
                 next: value => {
                     if (value) {
                         const ruta = value.datosMedicos?.valoracion[parseInt(localStorage.getItem('valoracionId')!)]
                         this.seguimientoForm.controls['observaciones'].setValue(ruta?.seguimiento.observaciones)
                         this.seguimientoForm.controls['anotaciones'].setValue(ruta?.seguimiento.anotaciones)
                         this.seguimientoForm.controls['conducta_a_seguir'].setValue(ruta?.seguimiento.conducta_a_seguir)
-                        this.seguimientoForm.controls['fecha_prox_cita'].setValue(ruta?.seguimiento.fecha_prox_cita)
-                        this.seguimientoForm.controls['hora_prox_cita'].setValue(ruta?.seguimiento.hora_prox_cita)
-                        this.seguimientoForm.controls['fin_prox_cita'].setValue(ruta?.seguimiento.fin_prox_cita)
                         this.fechaCita=this.pipedate.transform(ruta?.seguimiento.fecha_cita, 'dd-MM-yyyy');
                         this.dehabilitarBtn=localStorage.getItem('valorCheckAlta')==='true'
-                       
+
                         this.datosPaciente = ruta
 
                         let fechaFormateada: string | null;
@@ -76,11 +68,13 @@ export class SeguimientoComponent implements OnInit {
                             }
                             this.tablaSeguimientos.push(fechaFormateada!)
                         }
-                        
+
                         this.cargarDatos(ruta.seguimiento[ruta.seguimiento.length - 1])
-                        
-                        console.log("b");
+
                     }
+                },
+                complete: () => {
+                    suscripcion.unsubscribe()
                 }
             }
         )
@@ -90,11 +84,16 @@ export class SeguimientoComponent implements OnInit {
         console.log("guardar", this.seguimientoForm.value);
         this.seguimientoForm.value.fecha_cita = moment(new Date()).format('YYYY-MM-DD[T00:00:00.000Z]');
         this.bbdd.altaSeguimiento(this.seguimientoForm.value, localStorage.getItem('valoracionId')).subscribe({
-            next: value => {
-                this.toastr.success('','Se ha guardado correctamente')
+            next: () => {
+                this.toastr.success('', 'Se ha guardado correctamente')
             },
             error: err => {
-                this.toastr.error('Error no se ha guardado', '[ERROR SERVIDOR]: ' + err.status)
+                if (err.status === 0) {
+                    this.toastr.error('', "ERROR EN EL SERVIDOR")
+                    return;
+                }
+
+                this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
             }
         })
         setTimeout(() => {
@@ -103,10 +102,9 @@ export class SeguimientoComponent implements OnInit {
     }
 
     modificar() {
-      
         this.bbdd.modificarSeguimiento(this.seguimientoForm.value, localStorage.getItem('valoracionId')).subscribe({
-            next: value => {
-                this.toastr.success('','Modificación realizada correctamente')
+            next: () => {
+                this.toastr.success('', 'Modificación realizada correctamente')
             },
             error: err => {
                 this.toastr.error('Modificación no realizada', '[ERROR SERVIDOR]: ' + err.status)
@@ -118,16 +116,17 @@ export class SeguimientoComponent implements OnInit {
         for (const seguimiento of this.datosPaciente.seguimiento) {
             if (evento.value === this.pipedate.transform(seguimiento.fecha_cita, 'dd-MM-yyyy')) {
                 this.cargarDatos(seguimiento)
+                break;
             }
         }
     }
 
     cargarDatos(seguimiento: any) {
-        this.seguimientoForm.controls['observaciones_cita'].setValue(seguimiento?.observaciones)
-        this.seguimientoForm.controls['observaciones_propias'].setValue(seguimiento?.anotaciones)
-        this.seguimientoForm.controls['conducta_a_seguir'].setValue(seguimiento?.conducta_a_seguir)
-        this.seguimientoForm.controls['fecha_p_cita'].setValue(seguimiento?.fecha_prox_cita)
-        this.seguimientoForm.controls['inicio_p_cita'].setValue(seguimiento?.hora_inicio_cita)
-        this.seguimientoForm.controls['fin_p_cita'].setValue(seguimiento?.hora_fin_cita)
+        if (seguimiento) {
+            this.seguimientoForm.controls['observaciones'].setValue(seguimiento?.observaciones)
+            this.seguimientoForm.controls['anotaciones'].setValue(seguimiento?.anotaciones)
+            this.seguimientoForm.controls['conducta_a_seguir'].setValue(seguimiento?.conducta_a_seguir)
+            this.seguimientoForm.controls['fecha_cita'].setValue(seguimiento?.fecha_cita)
+        }
     }
 }

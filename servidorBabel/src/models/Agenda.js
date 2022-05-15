@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const agendaSchema = mongoose.Schema({
-    id: String,
+    idPsicologo: String,
     start: Date,
     end: Date,
     title: String,
@@ -18,11 +18,23 @@ const agendaSchema = mongoose.Schema({
     allDay: Boolean,
     cssClass: String,
     resizable: {
-        beforeStart: Boolean,
-        afterEnd: Boolean,
+        beforeStart: {type: Boolean, default: true},
+        afterEnd: {type: Boolean, default: true},
     },
-    draggable: Boolean,
+    draggable: {type: Boolean, default: true},
     meta: String
 })
+
+// Duplicate the ID field.
+agendaSchema.virtual('id').get(function(){
+    return this._id.toHexString();
+});
+
+// Ensure virtual fields are serialised.
+agendaSchema.set('toJSON', {
+    virtuals: true
+});
+
+agendaSchema.set('toObject', { virtuals: true })
 
 module.exports = mongoose.model('Agenda', agendaSchema);

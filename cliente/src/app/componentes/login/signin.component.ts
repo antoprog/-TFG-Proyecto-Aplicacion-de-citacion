@@ -23,19 +23,28 @@ export class SigninComponent implements OnInit {
     }
 
     signIn() {
-        this.servicio.singin(this.user).subscribe({
-            next: value => {
-                this.toastr.success('', "Login bien")
-                console.log('Login:', value.token);
-                localStorage.setItem('token', value.token);
-                this.router.navigate(['/auth/agenda']).then();
-            },
-            error: err => {
-                this.toastr.error('', "Los datos son incorrectos.")
-                console.log(err.status, err.error.message)
-            },
-            complete:() => {
-            }
-        })
+        if (this.user.username !== '' && this.user.password !== '')
+            this.servicio.singin(this.user).subscribe({
+                next: value => {
+                    console.log(value);
+                    this.toastr.success('', "Login bien")
+                    localStorage.setItem('token', value.token);
+                    localStorage.setItem('username', value.username);
+                    this.router.navigate(['/auth/agenda']).then();
+                },
+                error: err => {
+                    if (err.status === 0) {
+                        this.toastr.error('', "ERROR EN EL SERVIDOR")
+                        return;
+                    }
+
+                    if (err.error.message === 'Error login') {
+                        this.toastr.error('', "Los datos son incorrectos.")
+                        return;
+                    }
+                }
+            })
+        else
+            this.toastr.warning('Rellena todos los campos')
     }
 }

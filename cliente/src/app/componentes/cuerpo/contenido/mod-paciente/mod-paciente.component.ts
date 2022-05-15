@@ -4,7 +4,6 @@ import {ToastrService} from "ngx-toastr";
 import {Paciente} from 'src/app/modelo/paciente';
 import {BbddService} from 'src/app/servicios/bbdd.service';
 import {DataShareService} from 'src/app/servicios/data-share.service';
-import {DatePipe} from '@angular/common'
 
 @Component({
     selector: 'app-mod-paciente',
@@ -25,9 +24,12 @@ export class ModPacienteComponent implements OnInit {
     firma: string = ""
     _paciente: Paciente | undefined;
     sus2: any
-    datoP: any
 
-    constructor(private fb: FormBuilder, private serv: BbddService, private toastr: ToastrService, private dataShare: DataShareService, private datepipe: DatePipe) {
+    constructor(private fb: FormBuilder,
+                private serv: BbddService,
+                private toastr: ToastrService,
+                private dataShare: DataShareService,
+    ) {
     }
 
     ngOnInit(): void {
@@ -91,14 +93,10 @@ export class ModPacienteComponent implements OnInit {
             return
         }
 
-        
         this.modificarPaciente();
-
-        
         this.insClienteForm.reset()
         this.insClienteForm.controls['tipo_doc'].setValue('DNI')
         this.obtenerDatosPaciente();
-
     }
 
 //funcion de control de errores
@@ -161,13 +159,18 @@ export class ModPacienteComponent implements OnInit {
             numero_historia: this.insClienteForm.controls['numero_historia'].value
         }
 
-        
+
         this.serv.modificarPacienteById(datos, this._paciente!._id).subscribe({
             next: value => {
-                this.toastr.success('','Modificación realizada correctamente')
+                this.toastr.success('', 'Modificación realizada correctamente')
             },
             error: err => {
-                this.toastr.error('Modificación no realizada', '[ERROR SERVIDOR]: ' + err.status)
+                if (err.status === 0) {
+                    this.toastr.error('', "ERROR EN EL SERVIDOR")
+                    return;
+                }
+
+                this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
             }
         });
     }
@@ -177,8 +180,6 @@ export class ModPacienteComponent implements OnInit {
         this.sus2 = this.dataShare.paciente$.subscribe({
             next: datoP => {
                 this._paciente = datoP;
-                console.log('DATO P',datoP);
-                console.log("paciente", this._paciente);
                 this.insClienteForm.controls['nombre'].setValue(this._paciente!.nombre)
                 this.insClienteForm.controls['apellido1'].setValue(this._paciente!.apellido1)
                 this.insClienteForm.controls['apellido2'].setValue(this._paciente!.apellido2)
@@ -199,8 +200,6 @@ export class ModPacienteComponent implements OnInit {
                 this.insClienteForm.controls['firmaProteccionDatos'].setValue(this._paciente!.firma_proteccion_datos)
                 this.insClienteForm.controls['numero_historia'].setValue(this._paciente!.numero_historia)
                 this.recuperardoc()
-
-
             }
         })
     }

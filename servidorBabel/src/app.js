@@ -8,6 +8,7 @@ import pacientesRoutes from "./routes/pacientes.routes";
 import cors from 'cors'
 import agendaRoutes from "./routes/agenda.routes";
 
+const moment = require('moment')
 const app = express()
 createRoles();
 createAgenda();
@@ -17,10 +18,13 @@ app.use(morgan('dev'));
 app.use(cors());
 
 app.get('/', (req, res) => {
+    const fecha = new Date()
+    fecha.setHours(fecha.getHours()+2)
     res.json({
         author: pkg.author,
         description: pkg.description,
-        version: pkg.version
+        version: pkg.version,
+        date: moment()
     });
 })
 

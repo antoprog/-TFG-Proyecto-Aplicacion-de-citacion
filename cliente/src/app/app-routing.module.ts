@@ -20,6 +20,7 @@ import {
 } from "./componentes/cuerpo/contenido/informes_tipo/informe-completo/informe-completo.component";
 import {CabeceraComponent} from "./componentes/cabeceras/cabecera.component";
 import {ModPacienteComponent} from './componentes/cuerpo/contenido/mod-paciente/mod-paciente.component';
+import {PsicologoGuard} from "./guards/psicologo.guard";
 
 const routes: Routes = [
     {
@@ -33,11 +34,12 @@ const routes: Routes = [
     {
         path: 'auth',
         component: CabeceraComponent,
+        canActivate: [PsicologoGuard],
         children: [
             {
                 path: '',
                 redirectTo: '/auth/agenda',
-                pathMatch: 'full'
+                pathMatch: 'full',
             },
             {
                 path: "misDatos",
@@ -50,15 +52,16 @@ const routes: Routes = [
             {
                 path: "altaPsicologo",
                 component: AltaPsicologoComponent,
-                canActivate: [AdminGuard]
+                canActivate: [AdminGuard],
             },
             {
                 path: 'agenda',
-                component: AgendaComponent,
+                component: AgendaComponent
             },
             {
                 path: 'psicologo',
                 component: MenuConsultaComponent,
+                canActivate: [PsicologoGuard],
                 children: [
                     {
                         path: 'antecedentes',

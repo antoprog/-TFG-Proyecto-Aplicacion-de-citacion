@@ -58,20 +58,23 @@ export class PruebasComponent implements OnInit, OnDestroy {
                         ruta?.test_diagnosticos?.pruebasPsicodiagnostico.observaciones
                     );
 
-                    console.log(
-                        'a en cargar pantalla',
-                        ruta?.diagnostico_psicologico?.diagnostico
-                    );
                     this.dehabilitarBtn=localStorage.getItem('valorCheckAlta')==='true'
                 }
             },
-            
+            error: err => {
+                if (err.status === 0) {
+                    this.toastr.error('', "ERROR EN EL SERVIDOR")
+                    return;
+                }
+
+                this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+            }
         });
     }
 
     modificar() {
         console.log("d", this.pruebasForm.value);
-        
+
         this.bbdd
             .modificarPruebas(
                 this.pruebasForm.value,

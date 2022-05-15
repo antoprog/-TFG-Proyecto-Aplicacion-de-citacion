@@ -17,7 +17,8 @@ export interface listaPsicologos {
 })
 export class ConsultaComponent implements OnInit, OnDestroy {
     constructor(private fb: FormBuilder,
-                private bbdd: BbddService,private toastr: ToastrService,
+                private bbdd: BbddService,
+                private toastr: ToastrService,
                 private dataShare: DataShareService) {
     }
 
@@ -87,11 +88,10 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
     guardar() {
         this.consultaForm.value.fecha_inicio = moment(new Date()).format('YYYY-MM-DD[T00:00:00.000Z]');
-        console.log('asdadsa');
         this.bbdd.altaConsultaPaciente(this.consultaForm.value).subscribe({
             next: value => {
                 console.log('bien')
-                this.toastr.success('','Se ha guardado correctamente')
+                this.toastr.success('', 'Se ha guardado correctamente')
             },
             error: err => {
                 console.log(err);
@@ -105,12 +105,28 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     }
 
     modificar() {
-        this.bbdd.modificarConsultaPaciente(this.consultaForm.value, localStorage.getItem('valoracionId')).subscribe({
+        let sus = this.bbdd.modificarConsultaPaciente(this.consultaForm.value, localStorage.getItem('valoracionId')).subscribe({
             next: value => {
-                this.toastr.success('','Modificación realizada correctamente')
+                console.log(value);
+                this.toastr.success('', 'Modificación realizada correctamente')
             },
             error: err => {
-                this.toastr.error('Modificación no realizada', '[ERROR SERVIDOR]: ' + err.status)
+                if (err.status === 0) {
+                    this.toastr.error('', "ERROR EN EL SERVIDOR")
+                    return;
+                }
+
+                switch (err.status) {
+                    case 420:
+                        this.toastr.warning('', err.error.message)
+                        break;
+                    default:
+                        this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+                        break;
+                }
+            },
+            complete: () => {
+                sus.unsubscribe()
             }
         })
     }

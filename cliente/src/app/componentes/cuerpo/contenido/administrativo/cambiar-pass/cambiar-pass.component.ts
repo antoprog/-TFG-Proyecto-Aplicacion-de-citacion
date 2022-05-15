@@ -30,8 +30,12 @@ export class CambiarPassComponent implements OnInit {
                     console.log(value);
                 },
                 error: err => {
-                    this.toastr.error('Error', "Contraseña no modificada . Código: "+err.status )
-                    console.log(err.error.message);
+                    if (err.status === 0) {
+                        this.toastr.error('', "ERROR EN EL SERVIDOR")
+                        return;
+                    }
+
+                    this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
                 }
             })
         }else{

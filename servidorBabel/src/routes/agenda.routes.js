@@ -1,8 +1,13 @@
 import {Router} from "express";
-const router = Router();
 import * as authJwt from "../middlewares/authJwt";
 import * as agendaCtrl from "../controllers/agenda.controller";
+import {modificarCita} from "../controllers/agenda.controller";
+
+const router = Router();
 
 router.get('/getByPsicologo/:idPsicologo', [authJwt.verifyToken], agendaCtrl.getByPsicologo)
+router.put('/', [authJwt.verifyToken], agendaCtrl.addCita)
+router.put('/modificarCita', [authJwt.verifyToken], agendaCtrl.modificarCita)
+router.delete('/eliminarCita/:id', [authJwt.verifyToken], agendaCtrl.eliminarCita)
 
 export default router;

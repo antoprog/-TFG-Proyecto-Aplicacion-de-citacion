@@ -14,18 +14,13 @@ export class AltaPacienteComponent implements OnInit {
         {nombre: "DNI"},
         {nombre: "NIE"}
     ];
+
     t_aseguradora = [
         {tipo: "PRIVADO"},
         {tipo: "COMPAÑIA"},
         {tipo: "JUDICIAL"},
     ];
 
-    // t_psicologo = [
-    //     {nombre: "Juan Perez"},
-    //     {nombre: "Monica Quinteiro"}
-    // ];
-
-    //constructor
     constructor(private fb: FormBuilder, private serv: BbddService, private toastr: ToastrService) {
     }
 
@@ -113,14 +108,19 @@ export class AltaPacienteComponent implements OnInit {
             firma_proteccion_datos: this.insClienteForm.controls['firmaProteccionDatos'].value,
             numero_historia: this.insClienteForm.controls['numero_historia'].value
           }
-        
+
 
         this.serv.altaPaciente(datos).subscribe({
             next: value => {
                 this.toastr.success('','Alta realizada correctamente')
             },
             error: err => {
-                this.toastr.error('Alta no realizada', '[ERROR SERVIDOR]: ' + err.status)
+                if (err.status === 0) {
+                    this.toastr.error('', "ERROR EN EL SERVIDOR")
+                    return;
+                }
+
+                this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
             }
         })
 

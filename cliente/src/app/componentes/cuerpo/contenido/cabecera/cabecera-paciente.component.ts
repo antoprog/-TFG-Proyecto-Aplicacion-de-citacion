@@ -3,8 +3,6 @@ import {BbddService} from "../../../../servicios/bbdd.service";
 import {Paciente} from "../../../../modelo/paciente";
 import {DataShareService} from "../../../../servicios/data-share.service";
 import {DatePipe} from '@angular/common'
-import * as moment from 'moment';
-import { ToastrService } from 'ngx-toastr';
 
 export interface Valoracion {
     ordenI: number,
@@ -20,40 +18,34 @@ export interface Valoracion {
 export class CabeceraPacienteComponent implements OnInit, OnDestroy {
 
     constructor(private servicio: BbddService,
-                private dataShare: DataShareService, private toastr: ToastrService,
-                private datepipe: DatePipe) {
+                private dataShare: DataShareService,
+                private datepipe: DatePipe,
+                private toastr:ToastrService) {
     }
 
     primeravez: any;
     suscripcion: any
-    suscripcionCambiaValoracion: any
-    sus1: any
+    susGetPaciente: any
     valorCheckAlta:boolean=false
-    fechaAlta:any; 
+    fechaAlta:any;
 
     ngOnInit(): void {
         this.tablaDiagnosticos = []
-
         this.suscripcion = this.dataShare._idPaciente$.subscribe(value => {
             if (value !== '') {
                 this.obtenerDiagnosticos(value)
             } else if (localStorage.getItem('idPaciente')) {
                 this.obtenerDiagnosticos(localStorage.getItem('idPaciente'))
             }
-             
         });
-        
-    }    
+    }
 
     ngOnDestroy(): void {
         this.suscripcion.unsubscribe()
-        if (this.suscripcionCambiaValoracion) {
-            this.suscripcionCambiaValoracion.unsubscribe()
-        }
     }
 
     tablaDiagnosticos: Valoracion[] = []
-    data!: Paciente 
+    data!: Paciente
     edad = 0
 
     calcularEdad(fxNacimiento: any): number {
@@ -62,17 +54,16 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
     }
 
     obtenerDiagnosticos(id: any) {
-        this.servicio.getPaciente(id).subscribe(
+        this.susGetPaciente = this.servicio.getPaciente(id).subscribe(
             {
                 next: value => {
                     this.tablaDiagnosticos = []
+                    this.data = undefined
                     this.edad = 0
 
                     // Datos para la cabecera del paciente
                     this.data = value
-                    localStorage.setItem('valoracionId', String(this.data.datosMedicos.valoracion.length - 1))
-                    this.edad = this.calcularEdad(this.data.fecha_nacimiento)
-                    this.edad = this.edad || 0
+                    this.edad = this.calcularEdad(this.data.fecha_nacimiento) || 0
                     // Datos para la cabecera del paciente
 
                     console.log('PACIENTE CABECERA', value.nombre);
@@ -92,12 +83,24 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
                             diagnosticoI: data?.diagnostico_psicologico?.diagnostico || 'En valoración',
                             fechaInicioI: fechaFormateada || ''
                         }
-                        
+
                         this.tablaDiagnosticos.push(registro)
                     }
-                    
+
+                    localStorage.setItem('valoracionId', String(this.data.datosMedicos.valoracion.length - 1))
                     this.dataShare.paciente$.next(this.data)
                     // Recuperar las valoraciones del paciente
+                },
+                error: err => {
+                    if (err.status === 0) {
+                        this.toastr.error('', "ERROR EN EL SERVIDOR")
+                        return;
+                    }
+
+                    this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+                },
+                complete: () => {
+                    this.susGetPaciente.unsubscribe()
                 }
             }
         )
@@ -117,14 +120,14 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
         localStorage.setItem('valorCheckAlta',String(this.valorCheckAlta))
         console.log("valorCheckAlta",this.valorCheckAlta)
         this.dataShare.paciente$.next(this.data)
-        
+
     }
-    
+
     cerrarValidacion(evento:any) {
         if(evento.checked){
             if(confirm('La valoración se cerrara y no podra volver a modificarse. ¿quiere continuar?')){
                 this.valorCheckAlta=true;
-                
+
                 this.modificar();
                 this.data.datosMedicos.valoracion[parseInt(localStorage.getItem('valoracionId')!)].fecha_alta=new Date()
                 localStorage.setItem('valorCheckAlta',String(this.valorCheckAlta))
@@ -135,7 +138,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
                 evento.checked=false;
                 return
             }
-            
+
         }else{
             this.valorCheckAlta=true;
                 evento.checked=true;

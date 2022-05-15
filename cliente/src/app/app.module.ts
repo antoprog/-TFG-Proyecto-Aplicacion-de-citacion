@@ -36,6 +36,8 @@ import {
     InformeCompletoComponent
 } from "./componentes/cuerpo/contenido/informes_tipo/informe-completo/informe-completo.component";
 import { ModPacienteComponent } from './componentes/cuerpo/contenido/mod-paciente/mod-paciente.component';
+import {PsicologoGuard} from "./guards/psicologo.guard";
+import { AltaCitaComponent } from './componentes/agenda/alta-cita/alta-cita.component';
 
 @NgModule({
     declarations: [
@@ -55,7 +57,8 @@ import { ModPacienteComponent } from './componentes/cuerpo/contenido/mod-pacient
         AgendaComponent,
         DetalleComponent,
         InformeCompletoComponent,
-        ModPacienteComponent
+        ModPacienteComponent,
+        AltaCitaComponent
     ],
     imports: [
         BrowserModule,
@@ -82,6 +85,7 @@ import { ModPacienteComponent } from './componentes/cuerpo/contenido/mod-pacient
     ],
     providers: [
         AdminGuard,
+        PsicologoGuard,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptorService,
