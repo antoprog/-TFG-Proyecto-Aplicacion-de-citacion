@@ -17,7 +17,8 @@ export interface listaPsicologos {
 })
 export class ConsultaComponent implements OnInit, OnDestroy {
     constructor(private fb: FormBuilder,
-                private bbdd: BbddService, private toastr: ToastrService,
+                private bbdd: BbddService,
+                private toastr: ToastrService,
                 private dataShare: DataShareService) {
     }
 
@@ -82,7 +83,6 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
     guardar() {
         this.consultaForm.value.fecha_inicio = moment(new Date()).format('YYYY-MM-DD[T00:00:00.000Z]');
-        console.log('asdadsa');
         this.bbdd.altaConsultaPaciente(this.consultaForm.value).subscribe({
             next: value => {
                 console.log('bien')
@@ -100,8 +100,9 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     }
 
     modificar() {
-        this.bbdd.modificarConsultaPaciente(this.consultaForm.value, localStorage.getItem('valoracionId')).subscribe({
+        let sus = this.bbdd.modificarConsultaPaciente(this.consultaForm.value, localStorage.getItem('valoracionId')).subscribe({
             next: value => {
+                console.log(value);
                 this.toastr.success('', 'Modificación realizada correctamente')
             },
             error: err => {
@@ -110,7 +111,17 @@ export class ConsultaComponent implements OnInit, OnDestroy {
                     return;
                 }
 
-                this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+                switch (err.status) {
+                    case 420:
+                        this.toastr.warning('', err.error.message)
+                        break;
+                    default:
+                        this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+                        break;
+                }
+            },
+            complete: () => {
+                sus.unsubscribe()
             }
         })
     }

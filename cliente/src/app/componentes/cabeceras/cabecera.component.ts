@@ -4,6 +4,9 @@ import {AuthService} from "../../servicios/auth.service";
 import {Router} from "@angular/router";
 import {DataShareService} from "../../servicios/data-share.service";
 import {ToastrService} from "ngx-toastr";
+import {DetalleComponent} from "../agenda/detalle/detalle.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {AltaCitaComponent} from "../agenda/alta-cita/alta-cita.component";
 
 export interface Dat {
     _id: string,
@@ -24,7 +27,8 @@ export class CabeceraComponent implements OnInit {
                 private authService: AuthService,
                 private dataShare: DataShareService,
                 private router: Router,
-                private toastr:ToastrService) {
+                private toastr:ToastrService,
+                private modal: NgbModal) {
     }
 
     buscarCliente(val: any) {
@@ -94,6 +98,10 @@ export class CabeceraComponent implements OnInit {
 
     logout() {
         this.authService.logout();
+    }
+
+    addCita() {
+        const ref = this.modal.open(AltaCitaComponent, {size: 'sm'});
     }
 
     admin: any

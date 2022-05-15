@@ -19,19 +19,12 @@ export class SeguimientoComponent implements OnInit {
                 private pipedate: DatePipe) {
     }
 
-    sus2: any
-
     ngOnInit(): void {
         this.cargarPantalla();
     }
 
-    ngOnDestroy(): void {
-        this.sus2.unsubscribe();
-    }
-
     tablaSeguimientos: String[] = []
     datosPaciente: any
-    fechaCita: any
 
     seguimientoForm = this.fb.group({
         observaciones: [''],
@@ -40,9 +33,8 @@ export class SeguimientoComponent implements OnInit {
         fecha_cita: [''],
     })
 
-
     cargarPantalla() {
-        this.sus2 = this.dataShare.paciente$.subscribe(
+        let suscripcion = this.dataShare.paciente$.subscribe(
             {
                 next: value => {
                     if (value) {
@@ -50,7 +42,6 @@ export class SeguimientoComponent implements OnInit {
                         this.seguimientoForm.controls['observaciones'].setValue(ruta?.seguimiento.observaciones)
                         this.seguimientoForm.controls['anotaciones'].setValue(ruta?.seguimiento.anotaciones)
                         this.seguimientoForm.controls['conducta_a_seguir'].setValue(ruta?.seguimiento.conducta_a_seguir)
-                        this.fechaCita = this.pipedate.transform(ruta?.seguimiento.fecha_cita, 'dd-MM-yyyy');
 
                         this.datosPaciente = ruta
                         let fechaFormateada: string | null;
@@ -65,6 +56,9 @@ export class SeguimientoComponent implements OnInit {
 
                         this.cargarDatos(ruta.seguimiento[ruta.seguimiento.length - 1])
                     }
+                },
+                complete: () => {
+                    suscripcion.unsubscribe()
                 }
             }
         )
@@ -112,7 +106,6 @@ export class SeguimientoComponent implements OnInit {
 
     cargarDatos(seguimiento: any) {
         if (seguimiento) {
-            console.log(seguimiento);
             this.seguimientoForm.controls['observaciones'].setValue(seguimiento?.observaciones)
             this.seguimientoForm.controls['anotaciones'].setValue(seguimiento?.anotaciones)
             this.seguimientoForm.controls['conducta_a_seguir'].setValue(seguimiento?.conducta_a_seguir)

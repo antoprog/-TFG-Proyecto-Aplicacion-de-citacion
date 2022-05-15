@@ -2,6 +2,7 @@ import User from "../models/User";
 import jwt from 'jsonwebtoken'
 import config from '../config'
 import Role from "../models/Role";
+import user from "../models/User";
 
 export const signUp = async (req, res) => {
     try {
@@ -35,8 +36,10 @@ export const signIn = async (req, res) => {
         const matchPassword = await User.comparePassword(req.body.password, userFound.password)
         if (!matchPassword) return res.status(401).json({token: null, message: 'Error login'});
 
+        const username = userFound.username
+
         const token = jwt.sign({id: userFound._id}, config.SECRET, {expiresIn: 10000}, null);
-        res.json({token: token})
+        res.json({token: token, username: username})
     } catch (e) {
         console.log(e);
     }

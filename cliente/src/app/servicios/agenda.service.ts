@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Agenda} from "../modelo/agenda";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {CalendarEvent} from "calendar-utils";
 
 @Injectable({
@@ -14,7 +14,20 @@ export class AgendaService {
 
     private URL = 'http://localhost:4001/agenda'
 
-    public getAgendaByPsicologo(psicologo:any): Observable<CalendarEvent[]> {
+    getAgendaByPsicologo(psicologo:any): Observable<CalendarEvent[]> {
         return this.http.get<CalendarEvent[]>(this.URL + '/getByPsicologo/'+psicologo)
     }
+
+    addCita(cita: any) {
+        return this.http.put(`${this.URL}/`, cita)
+    }
+
+    modificarCita(datos: any) {
+        return this.http.put(`${this.URL}/modificarCita`, datos)
+    }
+
+    eliminarCita(id:any) {
+        return this.http.delete(`${this.URL}/eliminarCita/${id}`)
+    }
+
 }

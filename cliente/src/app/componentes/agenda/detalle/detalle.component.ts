@@ -1,4 +1,6 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {DataShareService} from "../../../servicios/data-share.service";
+import {AgendaService} from "../../../servicios/agenda.service";
 
 @Component({
     selector: 'app-detalle',
@@ -8,20 +10,19 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 export class DetalleComponent implements OnInit {
     @Input() public evento: any;
 
-    constructor(private elementRef:ElementRef) {
-    }
-
-    ngAfterViewInit() {
-        let d1 = this.elementRef.nativeElement.querySelector('.one');
-        d1.insertAdjacentHTML('beforeend',
-            `
-            ${this.evento.actions[0].a11yLabel}
-            ${this.evento.actions[0].label}
-            <button (click)="${this.evento.actions[0].label}
-            `);
+    constructor(private dataShare: DataShareService,
+                private servicioAgenda: AgendaService) {
     }
 
     ngOnInit(): void {
     }
 
+    eliminarCita() {
+        let susRemove = this.servicioAgenda.eliminarCita(this.evento.id).subscribe({
+            complete: () => {
+                susRemove.unsubscribe()
+            }
+        })
+        this.dataShare.refreshCalendar.next(`Eliminar:${this.evento.id}`)
+    }
 }

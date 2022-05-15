@@ -132,7 +132,6 @@ export const altaConsultaPaciente = async (req, res) => {
                         }
                 })
         } else {
-            console.log('entra 2');
             await Paciente.updateOne(
                 {_id: idPaciente,},
                 {
@@ -161,20 +160,37 @@ export const modificacionConsulta = async (req, res) => {
         const datos = req.body;
         const indiceValoracion = req.params.valoracion
 
-        await Paciente.findByIdAndUpdate(
-            {
-                _id: idPaciente
-            },
-            {
-                $set:
-                    {
-                        [`datosMedicos.valoracion.${indiceValoracion}.motivo_consulta`]: datos.con_motivo,
-                        [`datosMedicos.valoracion.${indiceValoracion}.sintomas`]: datos.con_sintomas,
-                        [`datosMedicos.valoracion.${indiceValoracion}.diagnostico_medico.fecha_diagnostico`]: datos.fecha_diagnostico,
-                        [`datosMedicos.valoracion.${indiceValoracion}.diagnostico_medico.patologia_medica`]: datos.patologia_medica,
-                        [`datosMedicos.valoracion.${indiceValoracion}.diagnostico_medico.posologia`]: datos.posologia
-                    }
-            })
+        if (indiceValoracion < 0) {
+            return res.status(420).json({message: 'Crea una consulta primero.'})
+        }
+
+        if (datos.fecha_diagnostico)
+            await Paciente.findByIdAndUpdate(
+                {
+                    _id: idPaciente
+                },
+                {
+                    $set:
+                        {
+                            [`datosMedicos.valoracion.${indiceValoracion}.motivo_consulta`]: datos.con_motivo,
+                            [`datosMedicos.valoracion.${indiceValoracion}.sintomas`]: datos.con_sintomas
+                        }
+                })
+        else
+            await Paciente.findByIdAndUpdate(
+                {
+                    _id: idPaciente
+                },
+                {
+                    $set:
+                        {
+                            [`datosMedicos.valoracion.${indiceValoracion}.motivo_consulta`]: datos.con_motivo,
+                            [`datosMedicos.valoracion.${indiceValoracion}.sintomas`]: datos.con_sintomas,
+                            [`datosMedicos.valoracion.${indiceValoracion}.diagnostico_medico.fecha_diagnostico`]: datos.fecha_diagnostico,
+                            [`datosMedicos.valoracion.${indiceValoracion}.diagnostico_medico.patologia_medica`]: datos.patologia_medica,
+                            [`datosMedicos.valoracion.${indiceValoracion}.diagnostico_medico.posologia`]: datos.posologia
+                        }
+                })
 
         return res.status(200).json({message: 'Alta consulta realizada.'})
 
@@ -272,7 +288,6 @@ export const altaSeguimiento = async (req, res) => {
         const idPaciente = req.params.pacienteId;
         const datos = req.body;
         const valoracion = req.params.valoracion;
-        console.log('altaseguimiento111111111', datos, idPaciente, valoracion)
         await Paciente.updateOne(
             {
                 _id: idPaciente,

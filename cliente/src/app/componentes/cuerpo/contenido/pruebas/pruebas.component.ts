@@ -57,11 +57,6 @@ export class PruebasComponent implements OnInit, OnDestroy {
                         ].setValue(
                         ruta?.test_diagnosticos?.pruebasPsicodiagnostico.observaciones
                     );
-
-                    console.log(
-                        'a en cargar pantalla',
-                        ruta?.diagnostico_psicologico?.diagnostico
-                    );
                 }
             },
             error: err => {
