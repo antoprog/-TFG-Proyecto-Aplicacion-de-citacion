@@ -8,5 +8,5 @@ import {Paciente} from "../modelo/paciente";
 export class DataShareService {
     public _idPaciente$: BehaviorSubject<string> = new BehaviorSubject<string>('');
     public paciente$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-    public refreshCalendar = new Subject<any>();
+    public refreshCalendar$ = new Subject<any>();
 }

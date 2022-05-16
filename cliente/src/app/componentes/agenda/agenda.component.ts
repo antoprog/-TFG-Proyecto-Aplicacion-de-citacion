@@ -38,12 +38,11 @@ export class AgendaComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadDB()
-        let sus = this.dataShare.refreshCalendar.subscribe({
+        let sus = this.dataShare.refreshCalendar$.subscribe({
             next: value => {
                 let opcion = String(value)
                 if (opcion.split(':')[0]==='Eliminar'){
                     const id = opcion.split(':')[1]
-                    console.log('entra por eliminar', id);
                     this.deleteEvent(id)
                     this.refresh.next()
                 }else {
@@ -95,26 +94,7 @@ export class AgendaComponent implements OnInit {
     }
 
     refresh = new Subject<void>();
-    actions: CalendarEventAction[] = [
-        {
-            label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-            a11yLabel: 'Edit',
-            onClick: ({event}: { event: CalendarEvent }): void => {
-                this.handleEvent('Edited', event, null, null);
-            },
-        },
-        {
-            label: '<i class="fas fa-fw fa-trash-alt"></i>',
-            a11yLabel: 'Delete',
-            onClick: ({event}: { event: CalendarEvent }): void => {
-                this.events = this.events.filter((iEvent) => iEvent !== event);
-                this.handleEvent('Deleted', event, null, null);
-            },
-        },
-    ];
-
     events: CalendarEvent[] = [];
-
     activeDayIsOpen: boolean = true;
 
     dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
@@ -126,7 +106,6 @@ export class AgendaComponent implements OnInit {
     }
 
     eventTimesChanged({event, newStart, newEnd}: CalendarEventTimesChangedEvent): void {
-        // console.log('NEW START', newStart);
         this.events = this.events.map((iEvent) => {
             if (iEvent === event) {
                 return {
@@ -143,15 +122,13 @@ export class AgendaComponent implements OnInit {
     }
 
     handleEvent(action: string, event: CalendarEvent, newStart: any, newEnd: any): void{
-        console.log('PRINCIPAL', event);
-        console.log('ACTION', action);
         switch (action) {
             case 'Changed date':
                 event.start = newStart
                 event.end = newEnd
                 let sus = this.servicioAgenda.modificarCita(event).subscribe({
                     next: value => {
-                        this.dataShare.refreshCalendar.next(value)
+                        this.dataShare.refreshCalendar$.next(value)
                         this.toastr.success('Cita modificada.')
                         this.refresh.next()
                     },
@@ -165,11 +142,7 @@ export class AgendaComponent implements OnInit {
                 break;
             case 'Clicked':
                 const ref = this.modal.open(DetalleComponent, {size: 'lg'});
-                console.log('EVENTO DE AGENDA',event);
                 ref.componentInstance.evento = event
-                break;
-            case 'Edited':
-                console.log('editar')
                 break;
         }
     }

@@ -2,17 +2,17 @@
     <div class="col-md-4 mx-auto">
         <div class="card">
             <div class="card-header">
-                SignIn
+                Iniciar sesión
             </div>
             <div class="card-body">
                 <form (submit)="signIn()">
                     <div class="form-group">
                         <input type="text" [(ngModel)]="user.username" name="username" class="form-control"
-                               placeholder="Username" required>
+                               placeholder="Usuario" required>
                     </div>
                     <div class="form-group">
                         <input type="text" [(ngModel)]="user.password" name="password" class="form-control"
-                               placeholder="Password" required>
+                               placeholder="Contraseña" required>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Login</button>
                 </form>
@@ -20,6 +20,3 @@
         </div>
     </div>
 </div>
-
-
-<app-alta-cita></app-alta-cita>

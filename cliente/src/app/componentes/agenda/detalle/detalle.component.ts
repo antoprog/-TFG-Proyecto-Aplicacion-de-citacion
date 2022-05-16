@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {DataShareService} from "../../../servicios/data-share.service";
 import {AgendaService} from "../../../servicios/agenda.service";
 
@@ -23,6 +23,6 @@ export class DetalleComponent implements OnInit {
                 susRemove.unsubscribe()
             }
         })
-        this.dataShare.refreshCalendar.next(`Eliminar:${this.evento.id}`)
+        this.dataShare.refreshCalendar$.next(`Eliminar:${this.evento.id}`)
     }
 }

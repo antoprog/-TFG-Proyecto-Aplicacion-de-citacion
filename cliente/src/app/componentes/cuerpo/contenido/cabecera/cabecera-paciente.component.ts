@@ -3,6 +3,7 @@ import {BbddService} from "../../../../servicios/bbdd.service";
 import {Paciente} from "../../../../modelo/paciente";
 import {DataShareService} from "../../../../servicios/data-share.service";
 import {DatePipe} from '@angular/common'
+import {ToastrService} from "ngx-toastr";
 
 export interface Valoracion {
     ordenI: number,
@@ -23,7 +24,6 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
                 private toastr:ToastrService) {
     }
 
-    primeravez: any;
     suscripcion: any
     susGetPaciente: any
     valorCheckAlta:boolean=false
@@ -58,7 +58,6 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
             {
                 next: value => {
                     this.tablaDiagnosticos = []
-                    this.data = undefined
                     this.edad = 0
 
                     // Datos para la cabecera del paciente
