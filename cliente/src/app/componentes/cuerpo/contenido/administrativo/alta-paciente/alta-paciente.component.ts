@@ -65,7 +65,20 @@ export class AltaPacienteComponent implements OnInit {
 
     //funcion de envio
     onSubmit() {
+        let mensaje:any
         if (this.insClienteForm.invalid) {
+            Object.keys(this.insClienteForm.controls).forEach(key=>{
+                mensaje += " " + key +": "+ this.insClienteForm.getError(key) + " ";
+                
+            })
+            console.log("mensaje", this.insClienteForm.getError("nombre"))
+            this.toastr.error("",mensaje);
+            return;
+        }
+
+        console.log(this.insClienteForm.controls['fecha_nacimiento'])
+        /* if (this.insClienteForm.invalid) {
+            
             if (this.insClienteForm.controls['aseguradora'].value == "") {
                 this.aseguradora_err = "requerido"
             }else{
@@ -76,8 +89,9 @@ export class AltaPacienteComponent implements OnInit {
             }else{
                 this.firma = ''
             }
+
             return
-        }
+        } */
 
 
         const datos = {
@@ -130,7 +144,7 @@ export class AltaPacienteComponent implements OnInit {
 
     //funcion de control de errores
     getError(field: string): string {
-
+        
         if (!this.insClienteForm.controls[field].dirty || !this.insClienteForm.controls[field].errors) {
             return ''
         }
