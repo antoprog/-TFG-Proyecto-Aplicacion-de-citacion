@@ -41,17 +41,22 @@
                         <option *ngFor="let d of t_doc" [value]="d.nombre">{{d.nombre}}</option>
                     </select>
                 </div>
-
-                <!--si tipo_doc =DNI -->
+                <!--Documento-->
+                <div class="col-md-auto form-group">
+                    <input type="text" formControlName="documento" class="mx-2 py-1 px-2 borde shadow-sm texto2">
+                </div>
+                <!--si tipo_doc =DNI
                 <div *ngIf="insClienteForm.get('tipo_doc')?.value === 'DNI'" class="col-md-auto form-group">
                     <input type="text" formControlName="documentoDni" class="mx-2 py-1 px-2 borde shadow-sm texto2">
-                    <span *ngIf="getError('documentoDni') as message" class="text-danger texto"><strong>{{message}}</strong></span>
-                </div>
-                <!--si tipo_doc =NIE-->
-                <div *ngIf="insClienteForm.get('tipo_doc')?.value === 'NIE'" class="col-md-auto form-group">
-                    <input type="text" formControlName="documentoNie"  class="mx-2 py-1 px-2 borde shadow-sm texto2">
+                    <span *ngIf="documentoDni_err as message" class="text-danger texto"><strong>{{message}}</strong></span>
                     <span *ngIf="getError('documentoNie') as message" class="text-danger texto"><strong>{{message}}</strong></span>
-                </div>
+                </div> -->
+                <!--si tipo_doc =NIE-->
+                <!--<div *ngIf="insClienteForm.get('tipo_doc')?.value === 'NIE'" class="col-md-auto form-group">
+                    <input type="text" formControlName="documentoNie"  class="mx-2 py-1 px-2 borde shadow-sm texto2">
+                    <span *ngIf="documentoNie_err as message" class="text-danger texto"><strong>{{message}}</strong></span>
+                    <span *ngIf="getError('documentoNie') as message" class="text-danger texto"><strong>{{message}}</strong></span>
+                </div>>-->
                 <!--Teléfono-->
                 <div class="col-md-auto form-group">
                     <label for="telefono" class="text-primary texto">Teléfono:</label>
@@ -59,8 +64,12 @@
                 </div>
             </div>
             <div class="row justify-content mb-2">
-                <div class="col-3"></div>
-                <div class="col-3"></div>
+                <div class="col-3">
+                </div>
+                <!--Documento Error-->
+                <div class="col-3">
+                    <span *ngIf="getError('documento') as message" class="text-danger texto"><strong>{{message}}</strong></span>
+                </div>
                 <!--Teléfono Error-->
                 <div class="col-2 form-group">
                     <span *ngIf="getError('telefono') as message" class="text-danger texto"><strong>{{message}}</strong></span>

@@ -24,6 +24,7 @@ export class ModPacienteComponent implements OnInit {
     firma: string = ""
     _paciente: Paciente | undefined;
     sus2: any
+    formClick:any
 
     constructor(private fb: FormBuilder,
                 private serv: BbddService,
@@ -41,8 +42,9 @@ export class ModPacienteComponent implements OnInit {
         apellido1: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
         apellido2: ['', [Validators.minLength(2), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
         tipo_doc: ['DNI', [Validators.required]],
-        documentoDni: ['', [Validators.pattern(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
-        documentoNie: ['', [Validators.pattern(/^[XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
+        documento:['',[Validators.required,Validators.minLength(9),Validators.maxLength(9)]],
+        //documentoDni: ['', [Validators.pattern(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
+        //documentoNie: ['', [Validators.pattern(/^[XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
         fecha_nacimiento: ['', [Validators.required]],
         telefono: ['', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{9}$')]],
         email: ['', [Validators.required, Validators.email]],
@@ -60,7 +62,7 @@ export class ModPacienteComponent implements OnInit {
         numero_historia: ''
     })
 
-    devolverDoc() {
+    /* devolverDoc() {
         if (this.insClienteForm.controls['documentoDni'].value === '') {
             return this.insClienteForm.controls['documentoNie'].value;
         } else {
@@ -74,10 +76,11 @@ export class ModPacienteComponent implements OnInit {
         } else {
             this.insClienteForm.controls['documentoNie'].setValue(this._paciente!.documento);
         }
-    }
-
+    } */
+    
     //funcion de envio
     onSubmit() {
+        this.formClick=true 
         console.log("uno f")
         if (this.insClienteForm.invalid) {
             if (this.insClienteForm.controls['aseguradora'].value == "") {
@@ -85,23 +88,24 @@ export class ModPacienteComponent implements OnInit {
             } else {
                 this.aseguradora_err = ""
             }
-            if (this.insClienteForm.controls['firmaProteccionDatos'].value == false) {
+           /*  if (this.insClienteForm.controls['firmaProteccionDatos'].value == false) {
                 this.firma = "Es necesario que se haya entregado el documento"
             } else {
                 this.firma = ''
-            }
+            } */
             return
         }
 
         this.modificarPaciente();
-        this.insClienteForm.reset()
-        this.insClienteForm.controls['tipo_doc'].setValue('DNI')
-        this.obtenerDatosPaciente();
+        
+       
     }
 
 //funcion de control de errores
     getError(field: string): string {
-
+        if (this.formClick && this.insClienteForm.controls[field].hasError('required')){
+            return 'requerido'
+        }
         if (!this.insClienteForm.controls[field].dirty || !this.insClienteForm.controls[field].errors) {
             return ''
         }
@@ -137,7 +141,8 @@ export class ModPacienteComponent implements OnInit {
             apellido1: this.insClienteForm.controls['apellido1'].value,
             apellido2: this.insClienteForm.controls['apellido2'].value,
             tipo_doc: this.insClienteForm.controls['tipo_doc'].value,
-            documento: this.devolverDoc(),
+            documento:this.insClienteForm.controls['documento'].value,
+            //documento: this.devolverDoc(),
             fecha_nacimiento: this.insClienteForm.controls['fecha_nacimiento'].value,
             telefono: this.insClienteForm.controls['telefono'].value,
             email: this.insClienteForm.controls['email'].value,
@@ -163,6 +168,10 @@ export class ModPacienteComponent implements OnInit {
         this.serv.modificarPacienteById(datos, this._paciente!._id).subscribe({
             next: value => {
                 this.toastr.success('', 'Modificación realizada correctamente')
+                //this.insClienteForm.reset()
+                this.insClienteForm.controls['tipo_doc'].setValue('DNI')
+                this.formClick=false
+                //this.obtenerDatosPaciente();
             },
             error: err => {
                 if (err.status === 0) {
@@ -184,6 +193,7 @@ export class ModPacienteComponent implements OnInit {
                 this.insClienteForm.controls['apellido1'].setValue(this._paciente!.apellido1)
                 this.insClienteForm.controls['apellido2'].setValue(this._paciente!.apellido2)
                 this.insClienteForm.controls['tipo_doc'].setValue(this._paciente!.tipo_doc)
+                this.insClienteForm.controls['documento'].setValue(this._paciente!.documento)
                 this.insClienteForm.controls['fecha_nacimiento'].setValue(String(this._paciente!.fecha_nacimiento).split('T')[0])
                 this.insClienteForm.controls['telefono'].setValue(this._paciente!.telefono)
                 this.insClienteForm.controls['email'].setValue(this._paciente!.email)
@@ -199,7 +209,7 @@ export class ModPacienteComponent implements OnInit {
                 this.insClienteForm.controls['permisoGrabacion'].setValue(this._paciente!.permiso_grabacion)
                 this.insClienteForm.controls['firmaProteccionDatos'].setValue(this._paciente!.firma_proteccion_datos)
                 this.insClienteForm.controls['numero_historia'].setValue(this._paciente!.numero_historia)
-                this.recuperardoc()
+                //this.recuperardoc()
             }
         })
     }

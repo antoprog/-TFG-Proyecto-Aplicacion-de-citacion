@@ -12,10 +12,6 @@ export class BbddService {
     constructor(private http: HttpClient) {
     }
 
-    altaPsicologo(datos: any) {
-        return this.http.post('http://localhost:4001/psicologo/', datos);
-    }
-
     altaPaciente(datos: any) {
         return this.http.post('http://localhost:4001/paciente/', datos);
     }
@@ -34,6 +30,15 @@ export class BbddService {
         return this.http.get<Paciente>('http://localhost:4001/paciente/' + paciente)
     }
 
+    modificarPacienteById(datos:any, pacienteId:String){
+        let url = 'http://localhost:4001/paciente/actualizarPaciente/' + pacienteId
+        return this.http.put(url, datos)
+    }
+
+    altaPsicologo(datos: any) {
+        return this.http.post('http://localhost:4001/psicologo/', datos);
+    }
+
     getDatosPsicologo(): Observable<Psicologo> {
         return this.http.get<Psicologo>('http://localhost:4001/psicologo/uno/')
     }
@@ -44,6 +49,11 @@ export class BbddService {
 
     getPsicologoByUser(username:string): Observable<Psicologo> {
         return this.http.get<Psicologo>('http://localhost:4001/psicologo/byUser/' + username)
+    }
+
+    modificarPsicologoById(datos:any, psicologoId:String){
+        let url = 'http://localhost:4001/psicologo/' + psicologoId
+        return this.http.put(url, datos)
     }
 
     modificarAntecedentes(consultaDatos:any) {
@@ -66,14 +76,8 @@ export class BbddService {
         return this.http.put(url, consultaDatos)
     }
 
-    modificarPsicologoById(datos:any, psicologoId:String){
-        let url = 'http://localhost:4001/psicologo/' + psicologoId
-        return this.http.put(url, datos)
-    }
-    modificarPacienteById(datos:any, pacienteId:String){
-        let url = 'http://localhost:4001/paciente/actualizarPaciente/' + pacienteId
-        return this.http.put(url, datos)
-    }
+   
+    
 
     modificarFechaAltaPaciente(){
         let url = 'http://localhost:4001/paciente/modificarFechaAlta/' + localStorage.getItem('idPaciente') + 
