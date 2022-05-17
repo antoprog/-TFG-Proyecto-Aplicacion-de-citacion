@@ -112,7 +112,9 @@ export const altaConsultaPaciente = async (req, res) => {
         const idPaciente = req.params.pacienteId;
         const datos = req.body;
 
-        if (!datos.fecha_diagnostico) {
+        const validarFormato = new Date(datos.fecha_diagnostico)
+        if (validarFormato > 0) {
+            console.log('entra 1');
             await Paciente.updateOne(
                 {_id: idPaciente,},
                 {
@@ -132,6 +134,7 @@ export const altaConsultaPaciente = async (req, res) => {
                         }
                 })
         } else {
+            console.log('entra 2');
             await Paciente.updateOne(
                 {_id: idPaciente,},
                 {
@@ -146,6 +149,7 @@ export const altaConsultaPaciente = async (req, res) => {
                         }
                 })
         }
+
         return res.status(200).json({message: 'Alta consulta realizada.'})
 
     } catch (e) {
@@ -164,19 +168,8 @@ export const modificacionConsulta = async (req, res) => {
             return res.status(420).json({message: 'Crea una consulta primero.'})
         }
 
-        if (datos.fecha_diagnostico)
-            await Paciente.findByIdAndUpdate(
-                {
-                    _id: idPaciente
-                },
-                {
-                    $set:
-                        {
-                            [`datosMedicos.valoracion.${indiceValoracion}.motivo_consulta`]: datos.con_motivo,
-                            [`datosMedicos.valoracion.${indiceValoracion}.sintomas`]: datos.con_sintomas
-                        }
-                })
-        else
+        const validarFormato = new Date(datos.fecha_diagnostico)
+        if (validarFormato > 0) {
             await Paciente.findByIdAndUpdate(
                 {
                     _id: idPaciente
@@ -191,6 +184,19 @@ export const modificacionConsulta = async (req, res) => {
                             [`datosMedicos.valoracion.${indiceValoracion}.diagnostico_medico.posologia`]: datos.posologia
                         }
                 })
+        } else {
+            await Paciente.findByIdAndUpdate(
+                {
+                    _id: idPaciente
+                },
+                {
+                    $set:
+                        {
+                            [`datosMedicos.valoracion.${indiceValoracion}.motivo_consulta`]: datos.con_motivo,
+                            [`datosMedicos.valoracion.${indiceValoracion}.sintomas`]: datos.con_sintomas
+                        }
+                })
+        }
 
         return res.status(200).json({message: 'Alta consulta realizada.'})
 
@@ -317,16 +323,16 @@ export const altaSeguimiento = async (req, res) => {
 }
 /**
  * Modifica la fecha de alta de una valoracion
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req
+ * @param {*} res
  */
-export const modificarFechaAlta= async (req, res) => {
+export const modificarFechaAlta = async (req, res) => {
     const idPaciente = req.params.pacienteId;
-    const valoracion= req.params.valoracion;
-    const fechaAlta=new Date();
-    
-    await Paciente.findByIdAndUpdate( idPaciente,
-    
+    const valoracion = req.params.valoracion;
+    const fechaAlta = new Date();
+
+    await Paciente.findByIdAndUpdate(idPaciente,
+
         {
             $set:
                 {
