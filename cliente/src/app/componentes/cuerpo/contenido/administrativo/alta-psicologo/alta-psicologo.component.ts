@@ -3,7 +3,7 @@ import {FormBuilder, Validators} from "@angular/forms"
 import {BbddService} from "../../../../../servicios/bbdd.service";
 import {AuthService} from "../../../../../servicios/auth.service";
 import {ToastrService} from "ngx-toastr";
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {Psicologo} from 'src/app/modelo/psicologo';
 
 export interface listaPsicologos {
@@ -21,7 +21,7 @@ export class AltaPsicologoComponent implements OnInit {
         {nombre: "DNI"},
         {nombre: "NIE"}
     ];
-    
+
     constructor(private fb: FormBuilder,
                 private serv: BbddService,
                 private service: AuthService,
@@ -36,13 +36,11 @@ export class AltaPsicologoComponent implements OnInit {
     ngOnInit(): void {
         this.route.queryParams
             .subscribe((params)=>{
-                console.log("parametro",params)
                 this.tipo=params["tipo"];
                 this.resertearFormulario();
-                console.log(params["tipo"])
                 this.psicologoForm.controls['tipo_doc'].setValue('DNI')
                 this.psicologoForm.controls['pais'].setValue('España')
-                
+
             })
 
     }
@@ -86,7 +84,7 @@ export class AltaPsicologoComponent implements OnInit {
 
     //funcion de envio
     onSubmit() {
-        this.formClick=true 
+        this.formClick=true
         if(this.tipo=="alta"){
             this.altaPsicologo();
         }else{
@@ -159,8 +157,6 @@ export class AltaPsicologoComponent implements OnInit {
             roles: ['psicologo']
         };
 
-        console.log(datos);
-
         if (this.psicologoForm.valid) {
             this.service.signup(login).subscribe({
                 next: value => {
@@ -172,7 +168,6 @@ export class AltaPsicologoComponent implements OnInit {
                     this.formClick=false
                 },
                 error: err => {
-                    console.log(err);
                     this.toastr.error('Error', "Error en servidor. Código: "+err.status)
                 }
             });
@@ -186,7 +181,6 @@ export class AltaPsicologoComponent implements OnInit {
             apellido2: this.psicologoForm.controls['apellido2'].value,
             tipo_doc: this.psicologoForm.controls['tipo_doc'].value,
             documento:this.psicologoForm.controls['documento'].value,
-            //documento: this.devolverDoc(),
             titulacion: this.psicologoForm.controls['titulacion'].value,
             especialidad: this.psicologoForm.controls['especialidad'].value,
             credenciales_adic: this.psicologoForm.controls['credenciales_adic'].value,
@@ -247,7 +241,6 @@ export class AltaPsicologoComponent implements OnInit {
         this.serv.getPsicologoByUser(username.value).subscribe({
             next: dato => {
                 this._psicologo = dato;
-                console.log("psicologo",this._psicologo);
                 this.psicologoForm.controls['nombre'].setValue(this._psicologo.nombre)
                 this.psicologoForm.controls['apellido1'].setValue(this._psicologo.apellido1)
                 this.psicologoForm.controls['apellido2'].setValue(this._psicologo.apellido2)
@@ -270,10 +263,7 @@ export class AltaPsicologoComponent implements OnInit {
     }
     resertearFormulario(){
         this.psicologoForm.reset()
-        console.log("resetear")
-        console.log("modificar")
         if(this.tipo==="modificar"){
-            console.log("cargarPsicologos")
             this.cargarPsicologos();
         }
     }

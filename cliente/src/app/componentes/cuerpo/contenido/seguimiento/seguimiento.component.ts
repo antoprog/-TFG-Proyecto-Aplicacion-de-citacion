@@ -3,7 +3,7 @@ import {FormBuilder} from '@angular/forms';
 import {BbddService} from 'src/app/servicios/bbdd.service';
 import {DataShareService} from 'src/app/servicios/data-share.service';
 import {DatePipe} from "@angular/common";
-import { ToastrService } from 'ngx-toastr';
+import {ToastrService} from 'ngx-toastr';
 import * as moment from 'moment';
 
 
@@ -21,15 +21,13 @@ export class SeguimientoComponent implements OnInit {
 
     }
 
-    sus2: any
-    dehabilitarBtn:any;
+    dehabilitarBtn: any;
 
     ngOnInit(): void {
         this.cargarPantalla();
     }
 
     ngOnDestroy(): void {
-        this.sus2.unsubscribe();
     }
 
     tablaSeguimientos: String[] = []
@@ -45,6 +43,7 @@ export class SeguimientoComponent implements OnInit {
 
 
     cargarPantalla() {
+        localStorage.removeItem('seguimientoId')
         let suscripcion = this.dataShare.paciente$.subscribe(
             {
 
@@ -54,24 +53,32 @@ export class SeguimientoComponent implements OnInit {
                         this.seguimientoForm.controls['observaciones'].setValue(ruta?.seguimiento.observaciones)
                         this.seguimientoForm.controls['anotaciones'].setValue(ruta?.seguimiento.anotaciones)
                         this.seguimientoForm.controls['conducta_a_seguir'].setValue(ruta?.seguimiento.conducta_a_seguir)
-                        this.fechaCita=this.pipedate.transform(ruta?.seguimiento.fecha_cita, 'dd-MM-yyyy');
-                        this.dehabilitarBtn=localStorage.getItem('valorCheckAlta')==='true'
+                        this.fechaCita = this.pipedate.transform(ruta?.seguimiento.fecha_cita, 'dd-MM-yyyy');
+                        this.dehabilitarBtn = localStorage.getItem('valorCheckAlta') === 'true'
 
                         this.datosPaciente = ruta
-
                         let fechaFormateada: string | null;
-
                         this.tablaSeguimientos = []
-                        for (const rutaElement of ruta.seguimiento) {
-                            if (rutaElement.fecha_cita !== undefined) {
-                                fechaFormateada = this.pipedate.transform(rutaElement.fecha_cita, 'dd-MM-yyyy');
+
+                        const ind = ruta?.seguimiento.length
+
+                        if (ind > 0) {
+                            for (const rutaElement of ruta.seguimiento) {
+                                if (rutaElement.fecha_cita !== undefined) {
+                                    fechaFormateada = this.pipedate.transform(rutaElement.fecha_cita, 'dd-MM-yyyy');
+                                }
+                                this.tablaSeguimientos.push(fechaFormateada!)
                             }
-                            this.tablaSeguimientos.push(fechaFormateada!)
+
+                            this.cargarDatos(ruta.seguimiento[ruta.seguimiento.length - 1])
+                            localStorage.setItem('seguimientoId', String(ruta.seguimiento.length - 1))
                         }
-
-                        this.cargarDatos(ruta.seguimiento[ruta.seguimiento.length - 1])
-
+                    }else{
+                        localStorage.setItem('seguimientoId', String(-1))
                     }
+                },
+                error: err => {
+                    localStorage.setItem('seguimientoId', String(-1))
                 },
                 complete: () => {
                     suscripcion.unsubscribe()
@@ -81,19 +88,22 @@ export class SeguimientoComponent implements OnInit {
     }
 
     guardar() {
-        console.log("guardar", this.seguimientoForm.value);
         this.seguimientoForm.value.fecha_cita = moment(new Date()).format('YYYY-MM-DD[T00:00:00.000Z]');
         this.bbdd.altaSeguimiento(this.seguimientoForm.value, localStorage.getItem('valoracionId')).subscribe({
             next: () => {
                 this.toastr.success('', 'Se ha guardado correctamente')
             },
             error: err => {
-                if (err.status === 0) {
-                    this.toastr.error('', "ERROR EN EL SERVIDOR")
-                    return;
+                switch (err.status) {
+                    case 0:
+                        this.toastr.error('', "ERROR EN EL SERVIDOR")
+                        break;
+                    case 420:
+                        this.toastr.warning('', err.error.message)
+                        break;
+                    default:
+                        this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
                 }
-
-                this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
             }
         })
         setTimeout(() => {
@@ -102,19 +112,29 @@ export class SeguimientoComponent implements OnInit {
     }
 
     modificar() {
-        this.bbdd.modificarSeguimiento(this.seguimientoForm.value, localStorage.getItem('valoracionId')).subscribe({
+        this.bbdd.modificarSeguimiento(this.seguimientoForm.value, localStorage.getItem('valoracionId'), localStorage.getItem('seguimientoId')).subscribe({
             next: () => {
                 this.toastr.success('', 'Modificación realizada correctamente')
             },
             error: err => {
-                this.toastr.error('Modificación no realizada', '[ERROR SERVIDOR]: ' + err.status)
+                switch (err.status) {
+                    case 0:
+                        this.toastr.error('', "ERROR EN EL SERVIDOR")
+                        break;
+                    case 420:
+                        this.toastr.warning('', err.error.message)
+                        break;
+                    default:
+                        this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+                }
             }
         })
     }
 
     cambiarValoracion(evento: any) {
-        for (const seguimiento of this.datosPaciente.seguimiento) {
+        for (const [ind, seguimiento] of this.datosPaciente.seguimiento.entries()) {
             if (evento.value === this.pipedate.transform(seguimiento.fecha_cita, 'dd-MM-yyyy')) {
+                localStorage.setItem('seguimientoId', ind)
                 this.cargarDatos(seguimiento)
                 break;
             }

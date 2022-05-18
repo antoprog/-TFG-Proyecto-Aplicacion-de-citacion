@@ -1,15 +1,12 @@
 import AgendaSchema from '../models/Agenda'
-import Paciente from "../models/Paciente";
 
 export const getByPsicologo = async (req, res) => {
     try {
         //const idPsicologo = req.params.idPsicologo;
         const agenda = await AgendaSchema.find()
-        console.log(agenda);
 
         return res.status(200).json(agenda)
     }catch (e) {
-        console.log('ERROR AGENDA - getByPsicologo', e);
     }
 }
 
@@ -22,7 +19,6 @@ export const addCita = async (req, res) => {
         await cita.save()
         return res.status(200).json(cita)
     }catch (e) {
-        console.log('ERROR AGENDA - altaCita', e);
     }
 }
 
@@ -30,18 +26,17 @@ export const modificarCita = async (req, res) => {
     try {
         const datos = req.body
         const id = datos.id
-        await AgendaSchema.findByIdAndUpdate(id, {
+        const cita = await AgendaSchema.findByIdAndUpdate(id, {
             title: datos.title,
             start: datos.start,
             end: datos.end,
             "color.primary": datos.color.primary
-        })
+        }, {new: true})  // OLGA
 
-        const cita = await AgendaSchema.findById(datos.id)
+        //const cita = await AgendaSchema.findById(datos.id)
 
         return res.status(200).json(cita)
     }catch (e) {
-        console.log('ERROR AGENDA - modificarCita', e);
     }
 }
 
@@ -52,6 +47,5 @@ export const eliminarCita = async (req, res) => {
 
         return res.status(200).json({message: 'Correcto'})
     }catch (e) {
-        console.log('ERROR AGENDA - eliminarCita', e);
     }
 }

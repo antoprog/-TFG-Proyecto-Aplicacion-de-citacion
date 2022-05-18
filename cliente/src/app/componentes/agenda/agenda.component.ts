@@ -1,15 +1,8 @@
-import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation,} from '@angular/core';
-import {endOfDay, isSameDay, isSameMonth, parseISO, startOfDay, subDays,} from 'date-fns';
+import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation,} from '@angular/core';
+import {isSameDay, isSameMonth, parseISO, subDays,} from 'date-fns';
 import {Subject} from 'rxjs';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {
-    CalendarDayViewBeforeRenderEvent,
-    CalendarEvent,
-    CalendarEventAction,
-    CalendarEventTimesChangedEvent,
-    CalendarMonthViewBeforeRenderEvent,
-    CalendarView, CalendarWeekViewBeforeRenderEvent,
-} from 'angular-calendar';
+import {CalendarEvent, CalendarEventTimesChangedEvent, CalendarView} from 'angular-calendar';
 import {DetalleComponent} from "./detalle/detalle.component";
 import {registerLocaleData} from '@angular/common';
 import localeEs from '@angular/common/locales/es';
@@ -28,8 +21,6 @@ registerLocaleData(localeEs, 'es')
 
 })
 export class AgendaComponent implements OnInit {
-    @ViewChild('modalContent', {static: true}) modalContent!: TemplateRef<any>;
-
     constructor(private modal: NgbModal,
                 private servicioAgenda: AgendaService,
                 private toastr: ToastrService,
@@ -71,7 +62,7 @@ export class AgendaComponent implements OnInit {
     viewDate: Date = new Date();
 
     loadDB() {
-        this.servicioAgenda.getAgendaByPsicologo('aa').subscribe({
+        let sus = this.servicioAgenda.getAgendaByPsicologo('aa').subscribe({
             next: value => {
                 this.events = []
                 for (const valor of value) {
@@ -89,6 +80,9 @@ export class AgendaComponent implements OnInit {
                 }
 
                 this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+            },
+            complete: () => {
+                sus.unsubscribe()
             }
         })
     }
@@ -133,7 +127,6 @@ export class AgendaComponent implements OnInit {
                         this.refresh.next()
                     },
                     error: err => {
-                        console.log(err);
                     },
                     complete: () => {
                         sus.unsubscribe()

@@ -63,8 +63,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
     cargarPantalla() {
         this.cargarPsicologos();
-        
-        console.log(this.dehabilitarBtn)
+
         this.sus1 = this.dataShare.paciente$.subscribe(
             {
                 next: value => {
@@ -78,8 +77,6 @@ export class ConsultaComponent implements OnInit, OnDestroy {
                         this.consultaForm.controls['posologia'].setValue(ruta?.diagnostico_medico?.posologia)
                         this.consultaForm.controls['patologia_medica'].setValue(ruta?.diagnostico_medico?.patologia_medica)
                         this.dehabilitarBtn=localStorage.getItem('valorCheckAlta')==='true'
-                        console.log("dehabilitarBtn", localStorage.getItem('valorCheckAlta'))
-                        console.log("dehabilitarBtn2", this.dehabilitarBtn)
                     }
                 }
             }
@@ -90,11 +87,9 @@ export class ConsultaComponent implements OnInit, OnDestroy {
         this.consultaForm.value.fecha_inicio = moment(new Date()).format('YYYY-MM-DD[T00:00:00.000Z]');
         this.bbdd.altaConsultaPaciente(this.consultaForm.value).subscribe({
             next: value => {
-                console.log('bien')
                 this.toastr.success('', 'Se ha guardado correctamente')
             },
             error: err => {
-                console.log(err);
                 this.toastr.error('Error no se ha guardado', '[ERROR SERVIDOR]: ' + err.status)
             }
         })
@@ -107,7 +102,6 @@ export class ConsultaComponent implements OnInit, OnDestroy {
     modificar() {
         let sus = this.bbdd.modificarConsultaPaciente(this.consultaForm.value, localStorage.getItem('valoracionId')).subscribe({
             next: value => {
-                console.log(value);
                 this.toastr.success('', 'Modificación realizada correctamente')
             },
             error: err => {

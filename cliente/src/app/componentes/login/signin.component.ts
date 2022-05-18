@@ -26,7 +26,6 @@ export class SigninComponent implements OnInit {
         if (this.user.username !== '' && this.user.password !== '')
             this.servicio.singin(this.user).subscribe({
                 next: value => {
-                    console.log(value);
                     this.toastr.success('', "Login bien")
                     localStorage.setItem('token', value.token);
                     localStorage.setItem('username', value.username);

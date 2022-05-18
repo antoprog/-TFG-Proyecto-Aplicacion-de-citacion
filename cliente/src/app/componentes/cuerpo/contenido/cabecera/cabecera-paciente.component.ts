@@ -65,7 +65,6 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
                     this.edad = this.calcularEdad(this.data.fecha_nacimiento) || 0
                     // Datos para la cabecera del paciente
 
-                    console.log('PACIENTE CABECERA', value.nombre);
                     // Recuperar las valoraciones del paciente
                     for (const [index, data] of value.datosMedicos.valoracion.entries()) {
                         let fechaFormateada;
@@ -111,13 +110,10 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
         if (this.data?.datosMedicos.valoracion[indice].fecha_alta!=undefined) {
             this.valorCheckAlta = true;
             this.fechaAlta = this.datepipe.transform(this.data?.datosMedicos.valoracion[indice].fecha_alta, 'dd/MM/yyyy');
-            console.log("v",this.valorCheckAlta)
         }else{
             this.valorCheckAlta = false;
-            console.log("F",this.valorCheckAlta)
         }
         localStorage.setItem('valorCheckAlta',String(this.valorCheckAlta))
-        console.log("valorCheckAlta",this.valorCheckAlta)
         this.dataShare.paciente$.next(this.data)
 
     }
@@ -142,8 +138,6 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
             this.valorCheckAlta=true;
                 evento.checked=true;
         }
-       console.log("valorCheckAlta",this.valorCheckAlta)
-       console.log("evento",evento.checked)
     }
     modificar() {
         this.servicio.modificarFechaAltaPaciente().subscribe({

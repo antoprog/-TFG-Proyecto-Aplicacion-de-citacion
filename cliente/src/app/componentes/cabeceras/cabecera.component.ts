@@ -4,7 +4,6 @@ import {AuthService} from "../../servicios/auth.service";
 import {Router} from "@angular/router";
 import {DataShareService} from "../../servicios/data-share.service";
 import {ToastrService} from "ngx-toastr";
-import {DetalleComponent} from "../agenda/detalle/detalle.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AltaCitaComponent} from "../agenda/alta-cita/alta-cita.component";
 
@@ -48,7 +47,6 @@ export class CabeceraComponent implements OnInit {
     }
 
     selectEvent(item: any) {
-        console.log(item);
         for (let i = 0; i < this.datos.length; i++) {
             if (this.datos[i].nomApe1Ape2 === item) {
                 this.dataShare._idPaciente$.next(this.datos[i]._id);
@@ -70,7 +68,6 @@ export class CabeceraComponent implements OnInit {
     ngOnInit(): void {
         this.authService.getRoles().subscribe({
             next: value => {
-                console.log('ROL USUARIO:', value);
                 for (const rol of value) {
                     switch (rol) {
                         case 'admin':
@@ -78,9 +75,6 @@ export class CabeceraComponent implements OnInit {
                             break;
                         case 'psicologo':
                             this.psicologo = true;
-                            break;
-                        case 'user':
-                            this.user = true;
                             break;
                     }
                 }

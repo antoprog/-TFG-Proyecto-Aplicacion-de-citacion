@@ -27,7 +27,6 @@ export class CambiarPassComponent implements OnInit {
             this.authService.changePassword(this.user).subscribe({
                 next: value => {
                     this.toastr.success('',"Contraseña modificada correctamente")
-                    console.log(value);
                 },
                 error: err => {
                     if (err.status === 0) {

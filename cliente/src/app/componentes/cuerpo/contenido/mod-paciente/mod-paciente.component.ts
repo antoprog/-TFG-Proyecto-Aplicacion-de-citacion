@@ -77,11 +77,10 @@ export class ModPacienteComponent implements OnInit {
             this.insClienteForm.controls['documentoNie'].setValue(this._paciente!.documento);
         }
     } */
-    
+
     //funcion de envio
     onSubmit() {
-        this.formClick=true 
-        console.log("uno f")
+        this.formClick=true
         if (this.insClienteForm.invalid) {
             if (this.insClienteForm.controls['aseguradora'].value == "") {
                 this.aseguradora_err = "requerido"
@@ -97,8 +96,8 @@ export class ModPacienteComponent implements OnInit {
         }
 
         this.modificarPaciente();
-        
-       
+
+
     }
 
 //funcion de control de errores

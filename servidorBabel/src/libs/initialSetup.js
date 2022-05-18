@@ -13,7 +13,6 @@ export const createRoles = async () => {
             new Role({name: 'psicologo'}).save()
         ])
     } catch (error) {
-        console.log(error);
     }
 }
 
@@ -52,6 +51,5 @@ export const createAgenda = async () => {
             ).save()
         ])
     } catch (error) {
-        console.log(error);
     }
 }

@@ -14,7 +14,7 @@ router.put('/altaConsulta/:pacienteId', [authJwt.verifyToken], pacienteCtrl.alta
 router.put('/modificacionConsulta/:pacienteId/:valoracion', [authJwt.verifyToken], pacienteCtrl.modificacionConsulta)
 router.put('/modificarAntecedentes/:pacienteId', [authJwt.verifyToken], pacienteCtrl.modificarAntecedentes)
 router.put('/modificarPruebas/:pacienteId/:valoracion', [authJwt.verifyToken], pacienteCtrl.modificarPruebas)
-router.put('/modificarSeguimiento/:pacienteId/:valoracion', [authJwt.verifyToken], pacienteCtrl.modificarSeguimiento)
+router.put('/modificarSeguimiento/:pacienteId/:valoracion/:seguimiento', [authJwt.verifyToken], pacienteCtrl.modificarSeguimiento)
 router.put('/altaSeguimiento/:pacienteId/:valoracion', [authJwt.verifyToken], pacienteCtrl.altaSeguimiento)
 router.put('/modificarFechaAlta/:pacienteId/:valoracion',[authJwt.verifyToken],pacienteCtrl.modificarFechaAlta)
 export default router;

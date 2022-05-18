@@ -4,6 +4,7 @@ import * as moment from "moment";
 import {DataShareService} from "../../../servicios/data-share.service";
 import {ToastrService} from "ngx-toastr";
 import {DatePipe} from "@angular/common";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: 'app-alta-cita',
@@ -17,11 +18,11 @@ export class AltaCitaComponent implements OnInit {
     constructor(private agendaService: AgendaService,
                 private dataShare: DataShareService,
                 private toastr: ToastrService,
-                private datepipe: DatePipe) {
+                private datepipe: DatePipe,
+                private modal: NgbModal) {
     }
 
     ngOnInit(): void {
-        console.log(this.parametroInput);
         if (this.parametroInput?._id) {
             this.datos.start = this.datepipe.transform(new Date(this.parametroInput.start), 'YYYY-MM-dd HH:mm')!
             this.datos.end = this.datepipe.transform(new Date(this.parametroInput.end), 'YYYY-MM-dd HH:mm')!
@@ -53,10 +54,10 @@ export class AltaCitaComponent implements OnInit {
                     this.toastr.success('Cita modificada.')
                 },
                 error: err => {
-                    console.log('ERROR',err);
                 },
                 complete: () => {
                     sus.unsubscribe()
+                    this.modal.dismissAll()
                 }
             })
         } else {
@@ -68,10 +69,10 @@ export class AltaCitaComponent implements OnInit {
                     this.toastr.success('Cita creada.')
                 },
                 error: err => {
-                    console.log(err);
                 },
                 complete: () => {
                     sus.unsubscribe()
+                    this.modal.dismissAll()
                 }
             })
         }

@@ -183,7 +183,7 @@
                 <!--Aseguradora-->
                 <div class="col-md-auto form-group">
                     <label for="aseguradora" class="text-primary texto">Aseguradora:</label>
-                    <select id="aseguradora" class="mx-2 py-1 px-2 borde shadow-sm texto2" formControlName="aseguradora" required>
+                    <select id="aseguradora" class="mx-2 py-1 px-2 borde shadow-sm texto2" formControlName="aseguradora" name="aseguradora" required>
                         <option *ngFor="let i of  t_aseguradora" [value]="i.tipo">{{i.tipo}}</option>
                     </select>
                 </div>

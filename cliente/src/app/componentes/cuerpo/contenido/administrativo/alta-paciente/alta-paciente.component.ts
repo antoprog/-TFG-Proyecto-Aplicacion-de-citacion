@@ -33,8 +33,6 @@ export class AltaPacienteComponent implements OnInit {
         apellido2: ['', [Validators.minLength(2), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
         tipo_doc: ['DNI', [Validators.required]],
         documento:['',[Validators.required, Validators.minLength(9),Validators.maxLength(9)]],
-       /*  documentoDni: ['', [Validators.pattern(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
-        documentoNie: ['', [Validators.pattern(/^[XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]] ,*/
         fecha_nacimiento: ['', [Validators.required]],
         telefono: ['', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{9}$')]],
         email: ['', [Validators.required, Validators.email]],
@@ -50,39 +48,25 @@ export class AltaPacienteComponent implements OnInit {
         permisoGrabacion: [false],
         firmaProteccionDatos: [false, [Validators.requiredTrue]],
         numero_historia: ''
+        // psicologo: ['', [Validators.required]]
     })
 
-    /* devolverDoc() {
+    devolverDoc() {
         if (this.insClienteForm.controls['documentoDni'].value === '') {
             return this.insClienteForm.controls['documentoNie'].value;
         } else {
             return this.insClienteForm.controls['documentoDni'].value
         }
-    } */
+    }
 
     aseguradora_err: string = ""
-   // documentoDni_err:string=""
-    //documentoNie_err:string=""
     firma: string = ""
     formClick:any
     //funcion de envio
     onSubmit() {
-        this.formClick=true    
+        this.formClick=true
 
         if (this.insClienteForm.invalid) {
-            /* if (this.insClienteForm.controls['tipo_doc'].value=="DNI"){
-                if (this.insClienteForm.controls['documentoDni'].value === '') {
-                    this.documentoDni_err="requerido"
-                }else{
-                    this.documentoDni_err=""
-                }
-            }else{
-                if (this.insClienteForm.controls['documentoNie'].value === '') {
-                    this.documentoNie_err="requerido"
-                }else{
-                    this.documentoNie_err=""
-                }
-            } */
             if (this.insClienteForm.controls['aseguradora'].value == "") {
                 this.aseguradora_err = "requerido"
             }else{
@@ -90,9 +74,7 @@ export class AltaPacienteComponent implements OnInit {
             }
 
             return
-        } 
-
-
+        }
 
         const datos = {
             nomApe1Ape2: this.insClienteForm.value.nombre + ' ' +
@@ -102,7 +84,6 @@ export class AltaPacienteComponent implements OnInit {
             apellido2: this.insClienteForm.controls['apellido2'].value,
             tipo_doc: this.insClienteForm.controls['tipo_doc'].value,
             documento:this.insClienteForm.controls['documento'].value,
-            //documento: this.devolverDoc(),
             fecha_nacimiento: this.insClienteForm.controls['fecha_nacimiento'].value,
             telefono: this.insClienteForm.controls['telefono'].value,
             email: this.insClienteForm.controls['email'].value,
@@ -142,8 +123,8 @@ export class AltaPacienteComponent implements OnInit {
             }
         })
 
-        
-
+        this.insClienteForm.reset()
+        this.insClienteForm.controls['tipo_doc'].setValue('DNI')
     }
 
     //funcion de control de errores
@@ -154,7 +135,7 @@ export class AltaPacienteComponent implements OnInit {
         if (!this.insClienteForm.controls[field].dirty || !this.insClienteForm.controls[field].errors) {
             return ''
         }
-       // this.insClienteForm.controls[field].setErrors(Validators.required)
+
         if (this.insClienteForm.controls[field].hasError('required')) {
             return 'requerido '
         }

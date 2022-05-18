@@ -66,8 +66,8 @@ export class BbddService {
         return this.http.put(url, consultaDatos)
     }
 
-    modificarSeguimiento(consultaDatos:any, valoracion: any) {
-        let url = 'http://localhost:4001/paciente/modificarSeguimiento/' + localStorage.getItem('idPaciente') + '/'+ valoracion
+    modificarSeguimiento(consultaDatos:any, valoracion: any, seguimiento: any) {
+        let url = `http://localhost:4001/paciente/modificarSeguimiento/${localStorage.getItem('idPaciente')}/${valoracion}/${seguimiento}`
         return this.http.put(url, consultaDatos)
     }
 
@@ -76,12 +76,9 @@ export class BbddService {
         return this.http.put(url, consultaDatos)
     }
 
-   
-    
-
     modificarFechaAltaPaciente(){
-        let url = 'http://localhost:4001/paciente/modificarFechaAlta/' + localStorage.getItem('idPaciente') + 
-        '/' + localStorage.getItem('valoracionId') 
+        let url = 'http://localhost:4001/paciente/modificarFechaAlta/' + localStorage.getItem('idPaciente') +
+        '/' + localStorage.getItem('valoracionId')
         return this.http.put(url,null)
     }
 }

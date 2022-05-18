@@ -2,7 +2,6 @@ import User from "../models/User";
 import jwt from 'jsonwebtoken'
 import config from '../config'
 import Role from "../models/Role";
-import user from "../models/User";
 
 export const signUp = async (req, res) => {
     try {
@@ -23,7 +22,6 @@ export const signUp = async (req, res) => {
 
         res.status(201).json({token: token});
     } catch (e) {
-        console.log(e);
     }
 }
 
@@ -41,7 +39,6 @@ export const signIn = async (req, res) => {
         const token = jwt.sign({id: userFound._id}, config.SECRET, {expiresIn: 10000}, null);
         res.json({token: token, username: username})
     } catch (e) {
-        console.log(e);
     }
 }
 
@@ -63,6 +60,5 @@ export const changePassword = async (req, res) => {
         const newToken = jwt.sign({id: user._id}, config.SECRET, {expiresIn: 30}, null);
         res.json({token: newToken})
     } catch (e) {
-        console.log(e);
     }
 }

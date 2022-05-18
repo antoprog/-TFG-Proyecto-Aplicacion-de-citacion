@@ -4,7 +4,6 @@ import User from "../models/User";
 import Role from "../models/Role";
 
 export const verifyToken = async (req, res, next) => {
-    console.log('entra verifyToken');
     try {
         const token = req.headers["authorization"]
         const tokenString = token.split(' ')[1];
@@ -23,7 +22,6 @@ export const verifyToken = async (req, res, next) => {
 
         next()
     } catch (e) {
-        console.log('error VERIFY TOKEN', e);
         return res.status(200).json({message: 'No token'})
     }
 }
@@ -37,7 +35,6 @@ export const isAdmin = async (req, res, next) => {
 
         next()
     } catch (e) {
-        console.log(e);
         return res.status(200).json('error');
     }
 }

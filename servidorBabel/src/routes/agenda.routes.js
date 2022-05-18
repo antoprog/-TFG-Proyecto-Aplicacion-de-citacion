@@ -1,7 +1,6 @@
 import {Router} from "express";
 import * as authJwt from "../middlewares/authJwt";
 import * as agendaCtrl from "../controllers/agenda.controller";
-import {modificarCita} from "../controllers/agenda.controller";
 
 const router = Router();
 

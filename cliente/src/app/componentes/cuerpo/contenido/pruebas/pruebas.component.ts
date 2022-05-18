@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { BbddService } from 'src/app/servicios/bbdd.service';
-import { DataShareService } from '../../../../servicios/data-share.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder} from '@angular/forms';
+import {BbddService} from 'src/app/servicios/bbdd.service';
+import {DataShareService} from '../../../../servicios/data-share.service';
 import {ToastrService} from "ngx-toastr";
 
 @Component({
@@ -15,7 +15,8 @@ export class PruebasComponent implements OnInit, OnDestroy {
         private bbdd: BbddService,
         private toastr: ToastrService,
         private dataShare: DataShareService
-    ) {}
+    ) {
+    }
 
     pruebasForm = this.fb.group({
         dco_psicologico: [''],
@@ -25,7 +26,7 @@ export class PruebasComponent implements OnInit, OnDestroy {
     });
 
     sus2: any;
-    dehabilitarBtn:any;
+    dehabilitarBtn: any;
 
     ngOnInit(): void {
         this.cargarPantalla();
@@ -42,7 +43,7 @@ export class PruebasComponent implements OnInit, OnDestroy {
                     const ruta =
                         value.datosMedicos?.valoracion[
                             parseInt(localStorage.getItem('valoracionId')!)
-                        ];
+                            ];
                     this.pruebasForm.controls['dco_psicologico'].setValue(
                         ruta?.diagnostico_psicologico?.diagnostico
                     );
@@ -54,11 +55,11 @@ export class PruebasComponent implements OnInit, OnDestroy {
                     );
                     this.pruebasForm.controls[
                         'pruebasPsicodiagnostico'
-                    ].setValue(
+                        ].setValue(
                         ruta?.test_diagnosticos?.pruebasPsicodiagnostico.observaciones
                     );
 
-                    this.dehabilitarBtn=localStorage.getItem('valorCheckAlta')==='true'
+                    this.dehabilitarBtn = localStorage.getItem('valorCheckAlta') === 'true'
                 }
             },
             error: err => {
@@ -73,19 +74,22 @@ export class PruebasComponent implements OnInit, OnDestroy {
     }
 
     modificar() {
-        console.log("d", this.pruebasForm.value);
-
-        this.bbdd
-            .modificarPruebas(
-                this.pruebasForm.value,
-                localStorage.getItem('valoracionId')
-            )
-            .subscribe({
+        this.bbdd.modificarPruebas(this.pruebasForm.value, localStorage.getItem('valoracionId')).subscribe(
+            {
                 next: value => {
-                    this.toastr.success('','Modificación realizada correctamente')
+                    this.toastr.success('', 'Modificación realizada correctamente')
                 },
                 error: err => {
-                    this.toastr.error('Modificación no realizada', '[ERROR SERVIDOR]: ' + err.status)
+                    switch (err.status) {
+                        case 0:
+                            this.toastr.error('', "ERROR EN EL SERVIDOR")
+                            break;
+                        case 420:
+                            this.toastr.warning('', err.error.message)
+                            break;
+                        default:
+                            this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+                    }
                 }
             });
     }

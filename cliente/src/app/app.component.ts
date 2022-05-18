@@ -1,5 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
 
 @Component({
     selector: 'app-root',
@@ -13,7 +12,6 @@ export class AppComponent implements OnInit {
 
     acceso: any
     ngOnInit(): void {
-        console.log('app-component');
         this.acceso = !!localStorage.getItem('token');
     }
 }

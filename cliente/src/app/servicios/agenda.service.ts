@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Agenda} from "../modelo/agenda";
-import {Observable, Subscription} from "rxjs";
+import {Observable} from "rxjs";
 import {CalendarEvent} from "calendar-utils";
 
 @Injectable({

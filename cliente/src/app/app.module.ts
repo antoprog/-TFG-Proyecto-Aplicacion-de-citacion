@@ -9,8 +9,12 @@ import {CabeceraComponent} from "./componentes/cabeceras/cabecera.component";
 import {MenuConsultaComponent} from "./componentes/cuerpo/menu/menu-consulta.component";
 import {AntecedentesComponent} from "./componentes/cuerpo/contenido/antecedentes/antecedentes.component";
 import {PruebasComponent} from "./componentes/cuerpo/contenido/pruebas/pruebas.component";
-import {AltaPacienteComponent} from "./componentes/cuerpo/contenido/administrativo/alta-paciente/alta-paciente.component";
-import {AltaPsicologoComponent} from './componentes/cuerpo/contenido/administrativo/alta-psicologo/alta-psicologo.component';
+import {
+    AltaPacienteComponent
+} from "./componentes/cuerpo/contenido/administrativo/alta-paciente/alta-paciente.component";
+import {
+    AltaPsicologoComponent
+} from './componentes/cuerpo/contenido/administrativo/alta-psicologo/alta-psicologo.component';
 import {ConsultaComponent} from "./componentes/cuerpo/contenido/consulta/consulta.component";
 import {SeguimientoComponent} from "./componentes/cuerpo/contenido/seguimiento/seguimiento.component";
 import {AdminGuard} from "./guards/admin.guard";
@@ -20,24 +24,24 @@ import {MisDatosComponent} from './componentes/cuerpo/contenido/mis-datos/mis-da
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CambiarPassComponent} from './componentes/cuerpo/contenido/administrativo/cambiar-pass/cambiar-pass.component';
 import {ToastrModule} from "ngx-toastr";
-import { AgendaComponent } from './componentes/agenda/agenda.component';
+import {AgendaComponent} from './componentes/agenda/agenda.component';
 import {CabeceraPacienteComponent} from "./componentes/cuerpo/contenido/cabecera/cabecera-paciente.component";
-import { DatePipe } from '@angular/common';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import {DatePipe} from '@angular/common';
+import {CalendarModule, DateAdapter} from 'angular-calendar';
+import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
 import {FlatpickrModule} from "angularx-flatpickr";
 import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
-import { DetalleComponent } from './componentes/agenda/detalle/detalle.component';
+import {DetalleComponent} from './componentes/agenda/detalle/detalle.component';
 import {
     InformeCompletoComponent
 } from "./componentes/cuerpo/contenido/informes_tipo/informe-completo/informe-completo.component";
-import { ModPacienteComponent } from './componentes/cuerpo/contenido/mod-paciente/mod-paciente.component';
+import {ModPacienteComponent} from './componentes/cuerpo/contenido/mod-paciente/mod-paciente.component';
 import {PsicologoGuard} from "./guards/psicologo.guard";
-import { AltaCitaComponent } from './componentes/agenda/alta-cita/alta-cita.component';
+import {AltaCitaComponent} from './componentes/agenda/alta-cita/alta-cita.component';
 
 @NgModule({
     declarations: [

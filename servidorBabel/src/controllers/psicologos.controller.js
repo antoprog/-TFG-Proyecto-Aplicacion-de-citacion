@@ -9,7 +9,6 @@ import User from "../models/User";
  * @param {*} res
  */
 export const createPsicologo = async (req, res) => {
-    console.log('ENTRA A CREAR PSICOLOGO');
     try {
         const newPsicologo = new Psicologo(req.body);
         const psicologoSaved = await newPsicologo.save();
@@ -24,7 +23,6 @@ export const getPsicologo = async (req, res) => {
         const psicologo = await Psicologo.find();
         res.json(psicologo);
     } catch (e) {
-        console.log(e);
     }
 }
 /**
@@ -43,10 +41,8 @@ export const getPsicologoByToken = async (req, res) => { // GET
 
         const id = await User.findById(decoded.id)
         const psicologo = await Psicologo.findOne({username: id.username})
-        console.log(psicologo);
         res.status(200).json(psicologo)
     } catch (e) {
-        console.log(e);
     }
 }
 
@@ -56,10 +52,9 @@ export const getPsicologoByToken = async (req, res) => { // GET
  * @param {*} res
  */
 export const getPsicologoByUserName = async (req, res) => { // GET
-    console.log(req.params.username);
     try {
         const psicologo = await Psicologo.findOne({username: req.params.username})
-        console.log(psicologo);
+
         res.status(200).json(psicologo)
     } catch (e) {
     }
@@ -73,7 +68,6 @@ export const updatePsicologoById = async (req, res) => { // PUT
         });
         res.status(200).json(psicologo);
     } catch (e) {
-        console.log(e);
     }
 }
 

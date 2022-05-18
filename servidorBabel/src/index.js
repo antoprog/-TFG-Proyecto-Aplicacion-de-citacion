@@ -1,5 +1,7 @@
 import app from './app'
 import './database'
 
-app.listen(4001);
-console.log('Server listen on port', 4001);
+const PORT = 4001
+
+app.listen(PORT);
+console.log('Servidor funcionando. Puerto:', PORT);
