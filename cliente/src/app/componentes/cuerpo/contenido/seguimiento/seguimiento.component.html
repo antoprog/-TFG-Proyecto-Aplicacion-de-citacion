@@ -1,7 +1,10 @@
 <form [formGroup]="seguimientoForm">
     <div class="container">
         <div>
-            <h3 class="titulos my-2 bordet shadow-sm h3">SEGUIMIENTO</h3>
+            <div class="row">
+                <h3 class="titulos my-2 bordet shadow-sm h3">SEGUIMIENTO</h3>
+                <button class="btn btn-primary" (click)="seguimientoForm.reset()">Nuevo seguimiento</button>
+            </div>
 
             <div class="row mb-2 mx-auto my-4">
 

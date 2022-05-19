@@ -34,7 +34,7 @@ export class CambiarPassComponent implements OnInit {
                         return;
                     }
 
-                    this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+                    this.toastr.error(`${err.error.message}`)
                 }
             })
         }else{
