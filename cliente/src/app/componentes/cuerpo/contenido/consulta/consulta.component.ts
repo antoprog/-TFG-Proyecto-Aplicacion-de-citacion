@@ -43,7 +43,7 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
     sus1: any
     datos: any
-    dehabilitarBtn:any
+    dehabilitarBtn:Boolean=false;
     t_psicologo: listaPsicologos[] = [];
 
     cargarPsicologos() {

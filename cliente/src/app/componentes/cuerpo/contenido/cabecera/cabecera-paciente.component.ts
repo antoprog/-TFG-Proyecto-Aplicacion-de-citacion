@@ -84,7 +84,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
 
                         this.tablaDiagnosticos.push(registro)
                     }
-
+                    localStorage.setItem('valorCheckAlta',String(this.valorCheckAlta))
                     localStorage.setItem('valoracionId', String(this.data.datosMedicos.valoracion.length - 1))
                     this.dataShare.paciente$.next(this.data)
                     // Recuperar las valoraciones del paciente
