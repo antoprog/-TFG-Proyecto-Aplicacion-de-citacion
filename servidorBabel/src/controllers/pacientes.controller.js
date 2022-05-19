@@ -262,10 +262,15 @@ export const modificarSeguimiento = async (req, res) => {
 }
 
 export const altaSeguimiento = async (req, res) => {
+    console.log('asdsadasd');
     try {
         const idPaciente = req.params.pacienteId;
         const datos = req.body;
         const valoracion = req.params.valoracion;
+
+        const datosPaciente = await Paciente.findById(idPaciente)
+        const validFecha = new Date(datosPaciente.datosMedicos.valoracion[valoracion].fecha_alta)
+        if (validFecha > 0) return res.status(421).json({message: 'No se puede modificar un paciente que está dado de alta.'})
 
         if (valoracion < 0) return res.status(420).json({message: 'Crea una consulta primero.'})
 
@@ -293,6 +298,7 @@ export const altaSeguimiento = async (req, res) => {
         return res.status(200).json({message: 'alta segumiento realizada.'})
 
     } catch (e) {
+        console.log(e);
     }
 }
 /**

@@ -101,6 +101,9 @@ export class SeguimientoComponent implements OnInit {
                     case 420:
                         this.toastr.warning('', err.error.message)
                         break;
+                    case 421:
+                        this.toastr.warning('', err.error.message)
+                        break;
                     default:
                         this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
                 }

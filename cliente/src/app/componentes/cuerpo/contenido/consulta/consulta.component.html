@@ -1,7 +1,7 @@
 <form [formGroup]="consultaForm">
     <div class="container">
         <div class="row">
-            <h3 class="titulos my-2 bordet shadow-sm h3"> 1ª CONSULTA </h3>
+            <h3 class="titulos my-2 bordet shadow-sm h3"> 1ª CONSULTA  </h3>
             <button class="btn btn-primary" (click)="consultaForm.reset()">Nueva consulta</button>
         </div>
 
@@ -31,10 +31,8 @@
             </div>
             <h3 class="titulos my-2 bordet shadow-sm h3">DATOS MÉDICOS</h3>
             <div class="row justify-content-start  w-50 my-5" id="dco_medico">
-                <label for="fecha_diagnostico" class="col-4 align-self-start text-primary texto">Fecha
-                    diagnóstico:</label>
-                <input class="col-4 align-self-start mx-2 py-1 px-2 borde shadow-sm texto2" id="fecha_diagnostico"
-                       formControlName="fecha_diagnostico" type="date" min="2012-01-01">
+                <label for="fecha_diagnostico" class="col-4 align-self-start text-primary texto">Fecha diagnóstico:</label>
+                <input class="col-4 align-self-start mx-2 py-1 px-2 borde shadow-sm texto2" id="fecha_diagnostico" formControlName="fecha_diagnostico" type="date" min="2012-01-01">
             </div>
             <div class="row justify-content-around my-5 w-100" id="dco_medico">
                 <div class="col-md-5 form-group" id="dco_medico1">

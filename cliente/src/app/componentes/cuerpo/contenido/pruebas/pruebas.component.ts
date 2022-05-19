@@ -36,10 +36,12 @@ export class PruebasComponent implements OnInit, OnDestroy {
         this.sus2.unsubscribe();
     }
 
+    datosGlobal : any
     cargarPantalla() {
         this.sus2 = this.dataShare.paciente$.subscribe({
             next: (value) => {
                 if (value) {
+                    this.datosGlobal = value
                     const ruta =
                         value.datosMedicos?.valoracion[
                             parseInt(localStorage.getItem('valoracionId')!)
