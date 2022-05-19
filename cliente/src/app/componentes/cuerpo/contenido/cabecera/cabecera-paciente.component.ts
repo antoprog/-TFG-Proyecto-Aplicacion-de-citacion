@@ -75,6 +75,8 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
                             this.fechaAlta = this.datepipe.transform(data.fecha_alta, 'dd/MM/yyyy');
 
                             this.valorCheckAlta = true;
+                        }else{
+                            this.valorCheckAlta = false;
                         }
                         let registro: Valoracion = {
                             ordenI: index,
