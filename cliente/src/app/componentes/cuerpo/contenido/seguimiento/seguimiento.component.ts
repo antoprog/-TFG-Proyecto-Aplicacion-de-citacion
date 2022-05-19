@@ -21,7 +21,7 @@ export class SeguimientoComponent implements OnInit {
 
     }
 
-    dehabilitarBtn: any;
+    dehabilitarBtn:Boolean=false;
 
     ngOnInit(): void {
         this.cargarPantalla();

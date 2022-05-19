@@ -26,7 +26,7 @@ export class PruebasComponent implements OnInit, OnDestroy {
     });
 
     sus2: any;
-    dehabilitarBtn: any;
+    dehabilitarBtn:Boolean=false;
 
     ngOnInit(): void {
         this.cargarPantalla();
