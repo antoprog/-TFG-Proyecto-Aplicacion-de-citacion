@@ -45,18 +45,6 @@
                 <div class="col-md-auto form-group">
                     <input type="text" formControlName="documento" class="mx-2 py-1 px-2 borde shadow-sm texto2">
                 </div>
-                <!--si tipo_doc =DNI
-                <div *ngIf="insClienteForm.get('tipo_doc')?.value === 'DNI'" class="col-md-auto form-group">
-                    <input type="text" formControlName="documentoDni" class="mx-2 py-1 px-2 borde shadow-sm texto2">
-                    <span *ngIf="documentoDni_err as message" class="text-danger texto"><strong>{{message}}</strong></span>
-                    <span *ngIf="getError('documentoNie') as message" class="text-danger texto"><strong>{{message}}</strong></span>
-                </div> -->
-                <!--si tipo_doc =NIE-->
-                <!--<div *ngIf="insClienteForm.get('tipo_doc')?.value === 'NIE'" class="col-md-auto form-group">
-                    <input type="text" formControlName="documentoNie"  class="mx-2 py-1 px-2 borde shadow-sm texto2">
-                    <span *ngIf="documentoNie_err as message" class="text-danger texto"><strong>{{message}}</strong></span>
-                    <span *ngIf="getError('documentoNie') as message" class="text-danger texto"><strong>{{message}}</strong></span>
-                </div>>-->
                 <!--Teléfono-->
                 <div class="col-md-auto form-group">
                     <label for="telefono" class="text-primary texto">Teléfono:</label>
@@ -162,11 +150,6 @@
                 <div class="col-4 form-group">
                     <span *ngIf="getError('telefonoContacto') as message" class="text-danger texto"><strong>{{message}}</strong></span>
                 </div>
-                <!--Asignar Psicólogo Error-->
-                <!-- <div class="col-md-4 form-group">
-                     <span *ngIf="!this.insClienteForm.controls['psicologo'] as message" class="text-danger texto"><strong>{{message}}</strong></span>
-                     <span *ngIf="psicologo_err as message" class="text-danger texto"><strong>{{message}}</strong></span>
-                 </div>-->
             </div>
             <input type="hidden" formControlName="pais" value="España">
             <div class="row justify-content mb-2">
@@ -208,11 +191,4 @@
             <button class="btn btn-primary float-end" type="submit">Guardar</button>
         </div>
     </form>
-    <!-- <div class="wrapper">
-        <div><b>Es valido el fomulario?: </b>
-            <span *ngIf="insClienteForm.valid">✔</span>
-            <span *ngIf="!insClienteForm.valid">🔴</span>
-        </div>
-        <pre>{{insClienteForm.value|json}}</pre>
-    </div> -->
 </section>

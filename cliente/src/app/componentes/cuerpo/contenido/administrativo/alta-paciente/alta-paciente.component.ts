@@ -48,7 +48,6 @@ export class AltaPacienteComponent implements OnInit {
         permisoGrabacion: [false],
         firmaProteccionDatos: [false, [Validators.requiredTrue]],
         numero_historia: ''
-        // psicologo: ['', [Validators.required]]
     })
 
     devolverDoc() {

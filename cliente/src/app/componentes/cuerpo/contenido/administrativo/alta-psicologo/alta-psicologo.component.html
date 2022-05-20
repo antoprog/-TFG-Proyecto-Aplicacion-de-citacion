@@ -90,18 +90,6 @@
                 <div class="col-md-auto form-group">
                     <input type="text" formControlName="documento" class="mx-2 py-1 px-2 borde shadow-sm texto2">
                 </div>
-                <!--si tipo_doc =DNI -->
-                <!-- <div *ngIf="psicologoForm.get('tipo_doc')?.value === 'DNI'" class="col-md-auto form-group">
-                    <input type="text" class="mx-2 py-1 px-2 borde shadow-sm texto2" formControlName="documentoDni">
-                    <span *ngIf="getError('documentoDni') as message"
-                        class="text-danger texto"><strong>{{message}}</strong></span>
-                </div>-->
-                <!--si tipo_doc =NIE
-                <div *ngIf="psicologoForm.get('tipo_doc')?.value === 'NIE'" class="col-md-auto form-group">
-                    <input type="text" class="mx-2 py-1 px-2 borde shadow-sm texto2" formControlName="documentoNie">
-                    <span *ngIf="getError('documentoNie') as message"
-                        class="text-danger texto"><strong>{{message}}</strong></span>
-                </div> -->
                 <!--Teléfono-->
                 <div class="col-md-auto form-group">
                     <label for="telefono" class="text-primary texto">Teléfono:</label>
@@ -235,13 +223,4 @@
             <button class="btn btn-primary my-2 float-end" type="submit">Guardar</button>
         </form>
     </div>
-
-    <!--  <div class="wrapper">
-        <div>
-            <strong>Es valido el fomulario?: </strong>
-            <span *ngIf="psicologoForm.valid">✔</span>
-            <span *ngIf="!psicologoForm.valid">🔴</span>
-        </div>
-        <pre>{{psicologoForm.value|json}}</pre>
-    </div> -->
 </section>

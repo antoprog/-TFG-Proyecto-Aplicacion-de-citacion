@@ -63,7 +63,6 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
                     // Datos para la cabecera del paciente
                     this.data = value
                     this.edad = this.calcularEdad(this.data.fecha_nacimiento) || 0
-                    // Datos para la cabecera del paciente
 
                     // Recuperar las valoraciones del paciente
                     for (const [index, data] of value.datosMedicos.valoracion.entries()) {

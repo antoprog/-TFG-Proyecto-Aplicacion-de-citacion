@@ -33,8 +33,6 @@
             <label class="switchBtn"> Paciente dado de alta
                 <input type="checkbox" name="ncerrarValidacion" (change)="cerrarValidacion($event.target)"
                 [disabled]="valorCheckAlta" [checked]="valorCheckAlta" [value]="valorCheckAlta" >
-                <!-- <div class="slide round">
-                </div> -->
             </label>
         </div>
         <div *ngIf="valorCheckAlta" class="col align-self-end offset"><input type="text" class="w-100 borde shadow-sm" disabled [value]="fechaAlta"></div>
