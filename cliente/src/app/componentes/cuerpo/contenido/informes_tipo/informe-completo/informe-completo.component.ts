@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BbddService} from 'src/app/servicios/bbdd.service';
 import {Paciente} from 'src/app/modelo/paciente';
 import {DataShareService} from 'src/app/servicios/data-share.service';
@@ -13,7 +13,7 @@ import {ToastrService} from "ngx-toastr";
     templateUrl: './informe-completo.component.html',
     styleUrls: ['./informe-completo.component.css'],
 })
-export class InformeCompletoComponent implements OnInit, OnDestroy {
+export class InformeCompletoComponent implements OnInit {
     suscripcion: any;
     edad = 0;
     _datos: Paciente | undefined;
@@ -22,7 +22,6 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
     hoy!: String;
     motivoForm: String = '';
     conclusiones: String = '';
-    imagen: String = './assets/img/logoEjemplo.jpg';
     m_doc = [
         {nombre: 'Revisión medica'},
         {nombre: 'Solicitud del juzgado'},
@@ -33,8 +32,7 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
 
     constructor(private servicio: BbddService,
                 private dataShare: DataShareService,
-                private toastr: ToastrService)
-    {
+                private toastr: ToastrService) {
         (window as any).pdfMake.vfs = pdfFonts.pdfMake.vfs;
     }
 
@@ -42,13 +40,8 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
 
     }
 
-    ngOnDestroy(): void {
-        // if (this.suscripcion)
-        //     this.suscripcion.unsubscribe();
-    }
-
     obtenerDatosPaciente(id: any) {
-        this.servicio.getPaciente(id).subscribe({
+        let sus = this.servicio.getPaciente(id).subscribe({
             next: (value) => {
                 this._datos = value;
                 this.edad = this.calcularEdad(this._datos?.fecha_nacimiento);
@@ -63,6 +56,9 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
                 }
 
                 this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+            },
+            complete: () => {
+                sus.unsubscribe()
             }
         });
     }
@@ -89,15 +85,21 @@ export class InformeCompletoComponent implements OnInit, OnDestroy {
     }
 
     createPDF() {
-        this.suscripcion = this.dataShare._idPaciente$.subscribe((value) => {
-            if (value !== '') {
-                this.obtenerDatosPaciente(value);
-                this.hoy = moment(new Date()).format('DD/MM/yyy');
-            } else if (localStorage.getItem('idPaciente')) {
-                this.obtenerDatosPaciente(localStorage.getItem('idPaciente'));
-                this.hoy = moment(new Date()).format('DD/MM/yyy');
-            }
-        });
+        let sus = this.suscripcion = this.dataShare._idPaciente$.subscribe(
+            {
+                next: value => {
+                    if (value !== '') {
+                        this.obtenerDatosPaciente(value);
+                        this.hoy = moment(new Date()).format('DD/MM/yyy');
+                    } else if (localStorage.getItem('idPaciente')) {
+                        this.obtenerDatosPaciente(localStorage.getItem('idPaciente'));
+                        this.hoy = moment(new Date()).format('DD/MM/yyy');
+                    }
+                },
+                complete: () => {
+                    sus.unsubscribe()
+                }
+            });
     }
 
     pdfOpen() {

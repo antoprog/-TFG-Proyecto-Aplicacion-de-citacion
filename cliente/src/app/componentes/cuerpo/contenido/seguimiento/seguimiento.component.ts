@@ -18,16 +18,12 @@ export class SeguimientoComponent implements OnInit {
                 private toastr: ToastrService,
                 private dataShare: DataShareService,
                 private pipedate: DatePipe) {
-
     }
 
     dehabilitarBtn:Boolean=false;
 
     ngOnInit(): void {
         this.cargarPantalla();
-    }
-
-    ngOnDestroy(): void {
     }
 
     tablaSeguimientos: String[] = []
@@ -46,7 +42,6 @@ export class SeguimientoComponent implements OnInit {
         localStorage.removeItem('seguimientoId')
         let suscripcion = this.dataShare.paciente$.subscribe(
             {
-
                 next: value => {
                     if (value) {
                         const ruta = value.datosMedicos?.valoracion[parseInt(localStorage.getItem('valoracionId')!)]
@@ -89,7 +84,7 @@ export class SeguimientoComponent implements OnInit {
 
     guardar() {
         this.seguimientoForm.value.fecha_cita = moment(new Date()).format('YYYY-MM-DD[T00:00:00.000Z]');
-        this.bbdd.altaSeguimiento(this.seguimientoForm.value, localStorage.getItem('valoracionId')).subscribe({
+        let sus = this.bbdd.altaSeguimiento(this.seguimientoForm.value, localStorage.getItem('valoracionId')).subscribe({
             next: () => {
                 this.toastr.success('', 'Se ha guardado correctamente')
             },
@@ -107,6 +102,9 @@ export class SeguimientoComponent implements OnInit {
                     default:
                         this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
                 }
+            },
+            complete: () => {
+                sus.unsubscribe()
             }
         })
         setTimeout(() => {
@@ -115,7 +113,7 @@ export class SeguimientoComponent implements OnInit {
     }
 
     modificar() {
-        this.bbdd.modificarSeguimiento(this.seguimientoForm.value, localStorage.getItem('valoracionId'), localStorage.getItem('seguimientoId')).subscribe({
+        let sus = this.bbdd.modificarSeguimiento(this.seguimientoForm.value, localStorage.getItem('valoracionId'), localStorage.getItem('seguimientoId')).subscribe({
             next: () => {
                 this.toastr.success('', 'Modificación realizada correctamente')
             },
@@ -130,6 +128,9 @@ export class SeguimientoComponent implements OnInit {
                     default:
                         this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
                 }
+            },
+            complete: () => {
+                sus.unsubscribe()
             }
         })
     }

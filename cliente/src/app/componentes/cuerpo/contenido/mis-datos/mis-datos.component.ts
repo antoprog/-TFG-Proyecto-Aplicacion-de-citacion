@@ -21,7 +21,7 @@ export class MisDatosComponent implements OnInit {
     psico: any
 
     ngOnInit(): void {
-        this.servicio.getDatosPsicologo().subscribe(
+        let sus = this.servicio.getDatosPsicologo().subscribe(
             {
                 next: value => {
                     this.psico = value
@@ -33,6 +33,9 @@ export class MisDatosComponent implements OnInit {
                     }
 
                     this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+                },
+                complete: () => {
+                    sus.unsubscribe()
                 }
             }
         )

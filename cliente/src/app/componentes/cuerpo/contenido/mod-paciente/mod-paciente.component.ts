@@ -23,14 +23,12 @@ export class ModPacienteComponent implements OnInit {
     aseguradora_err: string = ""
     firma: string = ""
     _paciente: Paciente | undefined;
-    sus2: any
     formClick:any
 
     constructor(private fb: FormBuilder,
                 private serv: BbddService,
                 private toastr: ToastrService,
-                private dataShare: DataShareService,
-    ) {
+                private dataShare: DataShareService) {
     }
 
     ngOnInit(): void {
@@ -73,8 +71,6 @@ export class ModPacienteComponent implements OnInit {
         }
 
         this.modificarPaciente();
-
-
     }
 
 //funcion de control de errores
@@ -85,6 +81,7 @@ export class ModPacienteComponent implements OnInit {
         if (!this.insClienteForm.controls[field].dirty || !this.insClienteForm.controls[field].errors) {
             return ''
         }
+
         this.insClienteForm.controls[field].setErrors(Validators.required)
         if (this.insClienteForm.controls[field].hasError('required')) {
             return 'requerido'
@@ -140,7 +137,7 @@ export class ModPacienteComponent implements OnInit {
         }
 
 
-        this.serv.modificarPacienteById(datos, this._paciente!._id).subscribe({
+        let sus = this.serv.modificarPacienteById(datos, this._paciente!._id).subscribe({
             next: value => {
                 this.toastr.success('', 'Modificación realizada correctamente')
                 this.insClienteForm.controls['tipo_doc'].setValue('DNI')
@@ -153,13 +150,16 @@ export class ModPacienteComponent implements OnInit {
                 }
 
                 this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+            },
+            complete: () => {
+                sus.unsubscribe()
             }
         });
     }
 
     obtenerDatosPaciente() {
         this.resertearFormulario();
-        this.sus2 = this.dataShare.paciente$.subscribe({
+        let sus = this.dataShare.paciente$.subscribe({
             next: datoP => {
                 this._paciente = datoP;
                 this.insClienteForm.controls['nombre'].setValue(this._paciente!.nombre)
@@ -182,15 +182,14 @@ export class ModPacienteComponent implements OnInit {
                 this.insClienteForm.controls['permisoGrabacion'].setValue(this._paciente!.permiso_grabacion)
                 this.insClienteForm.controls['firmaProteccionDatos'].setValue(this._paciente!.firma_proteccion_datos)
                 this.insClienteForm.controls['numero_historia'].setValue(this._paciente!.numero_historia)
+            },
+            complete: () => {
+                sus.unsubscribe()
             }
         })
     }
 
     resertearFormulario() {
         this.insClienteForm.reset();
-    }
-
-    ngOnDestroy(): void {
-        this.sus2.unsubscribe();
     }
 }

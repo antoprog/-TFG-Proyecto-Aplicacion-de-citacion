@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {BbddService} from 'src/app/servicios/bbdd.service';
 import {DataShareService} from '../../../../servicios/data-share.service';
@@ -9,7 +9,7 @@ import {ToastrService} from "ngx-toastr";
     templateUrl: './pruebas.component.html',
     styleUrls: ['./pruebas.component.css'],
 })
-export class PruebasComponent implements OnInit, OnDestroy {
+export class PruebasComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private bbdd: BbddService,
@@ -25,20 +25,16 @@ export class PruebasComponent implements OnInit, OnDestroy {
         pruebasPsicodiagnostico: [''],
     });
 
-    sus2: any;
-    dehabilitarBtn:Boolean=false;
+    dehabilitarBtn: Boolean = false;
 
     ngOnInit(): void {
         this.cargarPantalla();
     }
 
-    ngOnDestroy(): void {
-        this.sus2.unsubscribe();
-    }
+    datosGlobal: any
 
-    datosGlobal : any
     cargarPantalla() {
-        this.sus2 = this.dataShare.paciente$.subscribe({
+        let sus = this.dataShare.paciente$.subscribe({
             next: (value) => {
                 if (value) {
                     this.datosGlobal = value
@@ -71,13 +67,15 @@ export class PruebasComponent implements OnInit, OnDestroy {
                 }
 
                 this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+            },
+            complete: () => {
+                sus.unsubscribe()
             }
         });
     }
 
     modificar() {
-        this.bbdd.modificarPruebas(this.pruebasForm.value, localStorage.getItem('valoracionId')).subscribe(
-            {
+        let sus = this.bbdd.modificarPruebas(this.pruebasForm.value, localStorage.getItem('valoracionId')).subscribe({
                 next: value => {
                     this.toastr.success('', 'Modificación realizada correctamente')
                 },
@@ -92,7 +90,11 @@ export class PruebasComponent implements OnInit, OnDestroy {
                         default:
                             this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
                     }
+                },
+                complete: () => {
+                    sus.unsubscribe()
                 }
-            });
+            }
+        );
     }
 }

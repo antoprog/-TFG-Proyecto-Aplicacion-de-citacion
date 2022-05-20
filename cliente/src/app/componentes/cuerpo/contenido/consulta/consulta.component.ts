@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {BbddService} from 'src/app/servicios/bbdd.service';
 import * as moment from 'moment';
@@ -15,15 +15,11 @@ export interface listaPsicologos {
     templateUrl: './consulta.component.html',
     styleUrls: ['./consulta.component.css']
 })
-export class ConsultaComponent implements OnInit, OnDestroy {
+export class ConsultaComponent implements OnInit {
     constructor(private fb: FormBuilder,
                 private bbdd: BbddService,
                 private toastr: ToastrService,
                 private dataShare: DataShareService) {
-    }
-
-    ngOnDestroy(): void {
-        this.sus1.unsubscribe();
     }
 
     ngOnInit(): void {
@@ -41,14 +37,13 @@ export class ConsultaComponent implements OnInit, OnDestroy {
         fecha_inicio: ''
     })
 
-    sus1: any
     datos: any
-    dehabilitarBtn:Boolean=false;
+    dehabilitarBtn: Boolean = false;
     t_psicologo: listaPsicologos[] = [];
 
     cargarPsicologos() {
         this.t_psicologo = [];
-        this.bbdd.getPsicologos().subscribe({
+        let sus = this.bbdd.getPsicologos().subscribe({
             next: valor => {
                 for (const iterator of valor) {
                     let registro: listaPsicologos = {
@@ -57,14 +52,16 @@ export class ConsultaComponent implements OnInit, OnDestroy {
                     }
                     this.t_psicologo.push(registro)
                 }
+            },
+            complete: () => {
+                sus.unsubscribe()
             }
         })
     }
 
     cargarPantalla() {
         this.cargarPsicologos();
-
-        this.sus1 = this.dataShare.paciente$.subscribe(
+        let sus = this.dataShare.paciente$.subscribe(
             {
                 next: value => {
                     if (value) {
@@ -76,8 +73,11 @@ export class ConsultaComponent implements OnInit, OnDestroy {
                         this.consultaForm.controls['con_sintomas'].setValue(ruta?.sintomas)
                         this.consultaForm.controls['posologia'].setValue(ruta?.diagnostico_medico?.posologia)
                         this.consultaForm.controls['patologia_medica'].setValue(ruta?.diagnostico_medico?.patologia_medica)
-                        this.dehabilitarBtn=localStorage.getItem('valorCheckAlta')==='true'
+                        this.dehabilitarBtn = localStorage.getItem('valorCheckAlta') === 'true'
                     }
+                },
+                complete: () => {
+                    sus.unsubscribe()
                 }
             }
         )
@@ -85,12 +85,15 @@ export class ConsultaComponent implements OnInit, OnDestroy {
 
     guardar() {
         this.consultaForm.value.fecha_inicio = moment(new Date()).format('YYYY-MM-DD[T00:00:00.000Z]');
-        this.bbdd.altaConsultaPaciente(this.consultaForm.value).subscribe({
+        let sus = this.bbdd.altaConsultaPaciente(this.consultaForm.value).subscribe({
             next: value => {
                 this.toastr.success('', 'Se ha guardado correctamente')
             },
             error: err => {
                 this.toastr.error('Error no se ha guardado', '[ERROR SERVIDOR]: ' + err.status)
+            },
+            complete: () => {
+                sus.unsubscribe()
             }
         })
 

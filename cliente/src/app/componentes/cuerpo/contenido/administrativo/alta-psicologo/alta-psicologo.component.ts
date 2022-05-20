@@ -28,21 +28,25 @@ export class AltaPsicologoComponent implements OnInit {
                 private toastr: ToastrService,
                 private route: ActivatedRoute) {
     }
+
     t_psicologo: listaPsicologos[] = [];
-    tipo:any;
+    tipo: any;
     _psicologo: Psicologo | undefined;
-    formClick:any
+    formClick: any
 
     ngOnInit(): void {
-        this.route.queryParams
-            .subscribe((params)=>{
-                this.tipo=params["tipo"];
-                this.resertearFormulario();
-                this.psicologoForm.controls['tipo_doc'].setValue('DNI')
-                this.psicologoForm.controls['pais'].setValue('España')
-
-            })
-
+        let sus = this.route.queryParams.subscribe({
+                next: params => {
+                    this.tipo = params["tipo"];
+                    this.resertearFormulario();
+                    this.psicologoForm.controls['tipo_doc'].setValue('DNI')
+                    this.psicologoForm.controls['pais'].setValue('España')
+                },
+                complete: () => {
+                    sus.unsubscribe()
+                }
+            }
+        )
     }
 
     psicologoForm = this.fb.group({
@@ -50,7 +54,7 @@ export class AltaPsicologoComponent implements OnInit {
         apellido1: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
         apellido2: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
         tipo_doc: ['DNI', [Validators.required]],
-        documento:['',[Validators.required, Validators.minLength(9),Validators.maxLength(9)]],
+        documento: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
         titulacion: ['', [Validators.required]],
         especialidad: [''],
         credenciales_adic: [''],
@@ -67,10 +71,10 @@ export class AltaPsicologoComponent implements OnInit {
 
     //funcion de envio
     onSubmit() {
-        this.formClick=true
-        if(this.tipo=="alta"){
+        this.formClick = true
+        if (this.tipo == "alta") {
             this.altaPsicologo();
-        }else{
+        } else {
             this.modificarPsicologo();
         }
 
@@ -78,7 +82,7 @@ export class AltaPsicologoComponent implements OnInit {
 
     //funcion de control de errores
     getError(field: string): string {
-        if (this.formClick && this.psicologoForm.controls[field].hasError('required')){
+        if (this.formClick && this.psicologoForm.controls[field].hasError('required')) {
             return 'requerido'
         }
         if (!this.psicologoForm.controls[field].dirty || !this.psicologoForm.controls[field].errors) {
@@ -107,17 +111,18 @@ export class AltaPsicologoComponent implements OnInit {
         }
         return 'invalid'
     }
+
     /**
      * Da de alta un psicologo en BBDD
      */
-    altaPsicologo(){
+    altaPsicologo() {
         const datos = {
             username: this.psicologoForm.controls['username'].value,
             nombre: this.psicologoForm.controls['nombre'].value,
             apellido1: this.psicologoForm.controls['apellido1'].value,
             apellido2: this.psicologoForm.controls['apellido2'].value,
             tipo_doc: this.psicologoForm.controls['tipo_doc'].value,
-            documento:this.psicologoForm.controls['documento'].value,
+            documento: this.psicologoForm.controls['documento'].value,
             titulacion: this.psicologoForm.controls['titulacion'].value,
             especialidad: this.psicologoForm.controls['especialidad'].value,
             credenciales_adic: this.psicologoForm.controls['credenciales_adic'].value,
@@ -140,29 +145,32 @@ export class AltaPsicologoComponent implements OnInit {
         };
 
         if (this.psicologoForm.valid) {
-            this.service.signup(login).subscribe({
+            let sus = this.service.signup(login).subscribe({
                 next: value => {
                     this.serv.altaPsicologo(datos).subscribe();
-                    this.toastr.success('',"Psicólogo creado correctamente.")
+                    this.toastr.success('', "Psicólogo creado correctamente.")
                     this.resertearFormulario()
                     this.psicologoForm.controls['tipo_doc'].setValue('DNI')
                     this.psicologoForm.controls['pais'].setValue('España')
-                    this.formClick=false
+                    this.formClick = false
                 },
                 error: err => {
-                    this.toastr.error('Error', "Error en servidor. Código: "+err.status)
+                    this.toastr.error('Error', "Error en servidor. Código: " + err.status)
+                },
+                complete: () => {
+                    sus.unsubscribe()
                 }
             });
         }
     }
 
-    modificarPsicologo(){
+    modificarPsicologo() {
         const datos = {
             nombre: this.psicologoForm.controls['nombre'].value,
             apellido1: this.psicologoForm.controls['apellido1'].value,
             apellido2: this.psicologoForm.controls['apellido2'].value,
             tipo_doc: this.psicologoForm.controls['tipo_doc'].value,
-            documento:this.psicologoForm.controls['documento'].value,
+            documento: this.psicologoForm.controls['documento'].value,
             titulacion: this.psicologoForm.controls['titulacion'].value,
             especialidad: this.psicologoForm.controls['especialidad'].value,
             credenciales_adic: this.psicologoForm.controls['credenciales_adic'].value,
@@ -177,10 +185,11 @@ export class AltaPsicologoComponent implements OnInit {
                 pais: this.psicologoForm.controls['pais'].value,
             },
         };
-        this.serv.modificarPsicologoById(datos, this._psicologo!._id,).subscribe({
+
+        let sus = this.serv.modificarPsicologoById(datos, this._psicologo!._id,).subscribe({
             next: value => {
-                this.toastr.success('','Modificación realizada correctamente')
-                this.formClick=false
+                this.toastr.success('', 'Modificación realizada correctamente')
+                this.formClick = false
             },
             error: err => {
                 if (err.status === 0) {
@@ -189,6 +198,9 @@ export class AltaPsicologoComponent implements OnInit {
                 }
 
                 this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+            },
+            complete: () => {
+                sus.unsubscribe()
             }
         })
     }
@@ -198,11 +210,11 @@ export class AltaPsicologoComponent implements OnInit {
      */
     cargarPsicologos() {
         this.t_psicologo = [];
-        this.t_psicologo[0]={
-            _nombre:'',
-            _valor:''
+        this.t_psicologo[0] = {
+            _nombre: '',
+            _valor: ''
         }
-        this.serv.getPsicologos().subscribe({
+        let sus = this.serv.getPsicologos().subscribe({
             next: valor => {
                 for (const iterator of valor) {
                     let registro: listaPsicologos = {
@@ -211,16 +223,20 @@ export class AltaPsicologoComponent implements OnInit {
                     }
                     this.t_psicologo.push(registro)
                 }
+            },
+            complete: () => {
+                sus.unsubscribe()
             }
         })
     }
+
     /**
      * Recupera los datos del psicologo seleccionado y los muestra por pantalla
      * @param username
      */
     obtenerDatosPsicologo(username: any) {
         this.resertearFormulario();
-        this.serv.getPsicologoByUser(username.value).subscribe({
+        let sus = this.serv.getPsicologoByUser(username.value).subscribe({
             next: dato => {
                 this._psicologo = dato;
                 this.psicologoForm.controls['nombre'].setValue(this._psicologo.nombre)
@@ -239,12 +255,16 @@ export class AltaPsicologoComponent implements OnInit {
                 this.psicologoForm.controls['ciudad'].setValue(this._psicologo.direccion.ciudad)
                 this.psicologoForm.controls['provincia'].setValue(this._psicologo.direccion.provincia)
                 this.psicologoForm.controls['pais'].setValue(this._psicologo.direccion.pais)
+            },
+            complete: () => {
+                sus.unsubscribe()
             }
         })
     }
-    resertearFormulario(){
+
+    resertearFormulario() {
         this.psicologoForm.reset()
-        if(this.tipo==="modificar"){
+        if (this.tipo === "modificar") {
             this.cargarPsicologos();
         }
     }

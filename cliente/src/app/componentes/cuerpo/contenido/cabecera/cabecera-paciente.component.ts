@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BbddService} from "../../../../servicios/bbdd.service";
 import {Paciente} from "../../../../modelo/paciente";
 import {DataShareService} from "../../../../servicios/data-share.service";
@@ -16,32 +16,33 @@ export interface Valoracion {
     templateUrl: './cabecera-paciente.component.html',
     styleUrls: ['./cabecera-paciente.component.css']
 })
-export class CabeceraPacienteComponent implements OnInit, OnDestroy {
+export class CabeceraPacienteComponent implements OnInit {
 
     constructor(private servicio: BbddService,
                 private dataShare: DataShareService,
                 private datepipe: DatePipe,
-                private toastr:ToastrService) {
+                private toastr: ToastrService) {
     }
 
-    suscripcion: any
-    susGetPaciente: any
-    valorCheckAlta:boolean=false
-    fechaAlta:any;
+    valorCheckAlta: boolean = false
+    fechaAlta: any;
 
     ngOnInit(): void {
         this.tablaDiagnosticos = []
-        this.suscripcion = this.dataShare._idPaciente$.subscribe(value => {
-            if (value !== '') {
-                this.obtenerDiagnosticos(value)
-            } else if (localStorage.getItem('idPaciente')) {
-                this.obtenerDiagnosticos(localStorage.getItem('idPaciente'))
+        let sus = this.dataShare._idPaciente$.subscribe(
+            {
+                next: value => {
+                    if (value !== '') {
+                        this.obtenerDiagnosticos(value)
+                    } else if (localStorage.getItem('idPaciente')) {
+                        this.obtenerDiagnosticos(localStorage.getItem('idPaciente'))
+                    }
+                },
+                complete: () => {
+                    sus.unsubscribe()
+                }
             }
-        });
-    }
-
-    ngOnDestroy(): void {
-        this.suscripcion.unsubscribe()
+        );
     }
 
     tablaDiagnosticos: Valoracion[] = []
@@ -54,7 +55,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
     }
 
     obtenerDiagnosticos(id: any) {
-        this.susGetPaciente = this.servicio.getPaciente(id).subscribe(
+        let sus = this.servicio.getPaciente(id).subscribe(
             {
                 next: value => {
                     this.tablaDiagnosticos = []
@@ -74,7 +75,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
                             this.fechaAlta = this.datepipe.transform(data.fecha_alta, 'dd/MM/yyyy');
 
                             this.valorCheckAlta = true;
-                        }else{
+                        } else {
                             this.valorCheckAlta = false;
                         }
                         let registro: Valoracion = {
@@ -85,7 +86,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
 
                         this.tablaDiagnosticos.push(registro)
                     }
-                    localStorage.setItem('valorCheckAlta',String(this.valorCheckAlta))
+                    localStorage.setItem('valorCheckAlta', String(this.valorCheckAlta))
                     localStorage.setItem('valoracionId', String(this.data.datosMedicos.valoracion.length - 1))
                     this.dataShare.paciente$.next(this.data)
                     // Recuperar las valoraciones del paciente
@@ -99,7 +100,7 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
                     this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
                 },
                 complete: () => {
-                    this.susGetPaciente.unsubscribe()
+                    sus.unsubscribe()
                 }
             }
         )
@@ -108,45 +109,47 @@ export class CabeceraPacienteComponent implements OnInit, OnDestroy {
     cambiarValoracion(evento: any) {
         const indice = (evento.length - 1) - evento.selectedIndex
         localStorage.setItem('valoracionId', String(indice))
-        if (this.data?.datosMedicos.valoracion[indice].fecha_alta!=undefined) {
+        if (this.data?.datosMedicos.valoracion[indice].fecha_alta != undefined) {
             this.valorCheckAlta = true;
             this.fechaAlta = this.datepipe.transform(this.data?.datosMedicos.valoracion[indice].fecha_alta, 'dd/MM/yyyy');
-        }else{
+        } else {
             this.valorCheckAlta = false;
         }
-        localStorage.setItem('valorCheckAlta',String(this.valorCheckAlta))
+        localStorage.setItem('valorCheckAlta', String(this.valorCheckAlta))
         this.dataShare.paciente$.next(this.data)
 
     }
 
-    cerrarValidacion(evento:any) {
-        if(evento.checked){
-            if(confirm('La valoración se cerrara y no podra volver a modificarse. ¿quiere continuar?')){
-                this.valorCheckAlta=true;
-
+    cerrarValidacion(evento: any) {
+        if (evento.checked) {
+            if (confirm('La valoración se cerrara y no podra volver a modificarse. ¿quiere continuar?')) {
+                this.valorCheckAlta = true;
                 this.modificar();
-                this.data.datosMedicos.valoracion[parseInt(localStorage.getItem('valoracionId')!)].fecha_alta=new Date()
-                localStorage.setItem('valorCheckAlta',String(this.valorCheckAlta))
+                this.data.datosMedicos.valoracion[parseInt(localStorage.getItem('valoracionId')!)].fecha_alta = new Date()
+                localStorage.setItem('valorCheckAlta', String(this.valorCheckAlta))
                 this.fechaAlta = this.datepipe.transform(new Date(), 'dd/MM/yyyy');
                 this.dataShare.paciente$.next(this.data)
-            }else{
-                this.valorCheckAlta=false;
-                evento.checked=false;
+            } else {
+                this.valorCheckAlta = false;
+                evento.checked = false;
                 return
             }
-
-        }else{
-            this.valorCheckAlta=true;
-                evento.checked=true;
+        } else {
+            this.valorCheckAlta = true;
+            evento.checked = true;
         }
     }
+
     modificar() {
-        this.servicio.modificarFechaAltaPaciente().subscribe({
+        let sus = this.servicio.modificarFechaAltaPaciente().subscribe({
             next: value => {
-                this.toastr.success('','Modificación realizada correctamente')
+                this.toastr.success('', 'Modificación realizada correctamente')
             },
             error: err => {
                 this.toastr.error('Modificación no realizada', '[ERROR SERVIDOR]: ' + err.status)
+            },
+            complete: () => {
+                sus.unsubscribe()
             }
         })
     }

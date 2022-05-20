@@ -32,7 +32,7 @@ export class AltaPacienteComponent implements OnInit {
         apellido1: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
         apellido2: ['', [Validators.minLength(2), Validators.maxLength(40), Validators.pattern('[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*')]],
         tipo_doc: ['DNI', [Validators.required]],
-        documento:['',[Validators.required, Validators.minLength(9),Validators.maxLength(9)]],
+        documento: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
         fecha_nacimiento: ['', [Validators.required]],
         telefono: ['', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{9}$')]],
         email: ['', [Validators.required, Validators.email]],
@@ -50,25 +50,18 @@ export class AltaPacienteComponent implements OnInit {
         numero_historia: ''
     })
 
-    devolverDoc() {
-        if (this.insClienteForm.controls['documentoDni'].value === '') {
-            return this.insClienteForm.controls['documentoNie'].value;
-        } else {
-            return this.insClienteForm.controls['documentoDni'].value
-        }
-    }
-
     aseguradora_err: string = ""
     firma: string = ""
-    formClick:any
+    formClick: any
+
     //funcion de envio
     onSubmit() {
-        this.formClick=true
+        this.formClick = true
 
         if (this.insClienteForm.invalid) {
             if (this.insClienteForm.controls['aseguradora'].value == "") {
                 this.aseguradora_err = "requerido"
-            }else{
+            } else {
                 this.aseguradora_err = ""
             }
 
@@ -77,40 +70,39 @@ export class AltaPacienteComponent implements OnInit {
 
         const datos = {
             nomApe1Ape2: this.insClienteForm.value.nombre + ' ' +
-            this.insClienteForm.value.apellido1 + ' ' + this.insClienteForm.value.apellido2,
+                this.insClienteForm.value.apellido1 + ' ' + this.insClienteForm.value.apellido2,
             nombre: this.insClienteForm.controls['nombre'].value,
             apellido1: this.insClienteForm.controls['apellido1'].value,
             apellido2: this.insClienteForm.controls['apellido2'].value,
             tipo_doc: this.insClienteForm.controls['tipo_doc'].value,
-            documento:this.insClienteForm.controls['documento'].value,
+            documento: this.insClienteForm.controls['documento'].value,
             fecha_nacimiento: this.insClienteForm.controls['fecha_nacimiento'].value,
             telefono: this.insClienteForm.controls['telefono'].value,
             email: this.insClienteForm.controls['email'].value,
             direccion: {
-              calle: this.insClienteForm.controls['calle'].value,
-              cod_postal: this.insClienteForm.controls['cod_postal'].value,
-              ciudad: this.insClienteForm.controls['ciudad'].value,
-              provincia: this.insClienteForm.controls['provincia'].value,
-              pais: this.insClienteForm.controls['pais'].value,
+                calle: this.insClienteForm.controls['calle'].value,
+                cod_postal: this.insClienteForm.controls['cod_postal'].value,
+                ciudad: this.insClienteForm.controls['ciudad'].value,
+                provincia: this.insClienteForm.controls['provincia'].value,
+                pais: this.insClienteForm.controls['pais'].value,
             },
             aseguradora: this.insClienteForm.controls['aseguradora'].value,
             company: this.insClienteForm.controls['company'].value,
             contacto: {
-              nombre: this.insClienteForm.controls['nombreContacto'].value,
-              telefono: this.insClienteForm.controls['telefonoContacto'].value,
+                nombre: this.insClienteForm.controls['nombreContacto'].value,
+                telefono: this.insClienteForm.controls['telefonoContacto'].value,
             },
             permiso_grabacion: this.insClienteForm.controls['permisoGrabacion'].value,
             firma_proteccion_datos: this.insClienteForm.controls['firmaProteccionDatos'].value,
             numero_historia: this.insClienteForm.controls['numero_historia'].value
-          }
+        }
 
-
-        this.serv.altaPaciente(datos).subscribe({
+        let sus = this.serv.altaPaciente(datos).subscribe({
             next: value => {
-                this.toastr.success('','Alta realizada correctamente')
+                this.toastr.success('', 'Alta realizada correctamente')
                 this.insClienteForm.reset()
                 this.insClienteForm.controls['tipo_doc'].setValue('DNI')
-                this.formClick=false
+                this.formClick = false
             },
             error: err => {
                 if (err.status === 0) {
@@ -119,6 +111,9 @@ export class AltaPacienteComponent implements OnInit {
                 }
 
                 this.toastr.error(`[SERVIDOR] ${err.error.message}`, `[SERVIDOR] ${err.error.status}`)
+            },
+            complete: () => {
+                sus.unsubscribe()
             }
         })
 
@@ -128,7 +123,7 @@ export class AltaPacienteComponent implements OnInit {
 
     //funcion de control de errores
     getError(field: string): string {
-        if (this.formClick && this.insClienteForm.controls[field].hasError('required')){
+        if (this.formClick && this.insClienteForm.controls[field].hasError('required')) {
             return 'requerido'
         }
         if (!this.insClienteForm.controls[field].dirty || !this.insClienteForm.controls[field].errors) {

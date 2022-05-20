@@ -24,7 +24,7 @@ export class CambiarPassComponent implements OnInit {
 
     cambiarPass() {
         if (this.user.passNew === this.user.passNew2) {
-            this.authService.changePassword(this.user).subscribe({
+           let sus = this.authService.changePassword(this.user).subscribe({
                 next: value => {
                     this.toastr.success('',"Contraseña modificada correctamente")
                 },
@@ -35,6 +35,9 @@ export class CambiarPassComponent implements OnInit {
                     }
 
                     this.toastr.error(`${err.error.message}`)
+                },
+                complete: () => {
+                    sus.unsubscribe()
                 }
             })
         }else{
